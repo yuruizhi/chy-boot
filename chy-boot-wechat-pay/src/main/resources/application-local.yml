@@ -1,0 +1,70 @@
+spring:
+  datasource:
+     #账号配置
+     url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+     username: root
+     password: ZeueGhtMder83tBO
+     driver-class-name: com.mysql.cj.jdbc.Driver
+
+     druid:
+        #初始化时建立物理连接的个数
+        initial-size: 6
+        #最小连接池数量
+        min-idle: 5
+        #最大连接池数量
+        max-active: 10
+        #获取连接时最大等待时间
+        max-wait: 60000
+        #配置监控页面访问登录名称
+        stat-view-servlet:
+          enabled: false
+          login-username: admin
+        #配置监控页面访问密码
+          login-password: acyddseieiw24
+        #是否开启慢sql查询监控
+        web-stat-filter:
+          enabled: false
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
+
+swagger:
+  enabled: true
+
+sms:
+  message:
+    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTEzODAsImV4cCI6NDcxNjE1MTM4MCwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNDcwYWNkMjE2YWE0MDA1MTAyZTVmNyIsInN1YiI6ImFwcDo1ZDIyYTQ1NGUzZDMyYTAyYTUyZjY1YjUiLCJ1bmlxIjoiMjEwMzQ1MDc0NDVkMjJhNDU0ZGRhNDU4LjA2MDM2NjE2In0.iXS0a70DvNoPX05RmCzh29SkxN5AMhm0Y9A6iE0b-d0
+
+qm:
+  brands:
+    - name: Aptamil
+      accountId: 5b470acd216aa4005102e5f7
+      channelId: 5c7f69c2441958001f093258
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTEzODAsImV4cCI6NDcxNjE1MTM4MCwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNDcwYWNkMjE2YWE0MDA1MTAyZTVmNyIsInN1YiI6ImFwcDo1ZDIyYTQ1NGUzZDMyYTAyYTUyZjY1YjUiLCJ1bmlxIjoiMjEwMzQ1MDc0NDVkMjJhNDU0ZGRhNDU4LjA2MDM2NjE2In0.iXS0a70DvNoPX05RmCzh29SkxN5AMhm0Y9A6iE0b-d0
+  # 用户相关接口
+  member:
+    get: https://staging-business-api.quncrm.com/v2/members
+    updateUrl: https://staging-business-api.quncrm.com/v2/members/upsert
+    registerUrl: https://staging-business-api.quncrm.com/v2/members/upsert
+  # 短信发送配置
+  sms:
+    send: https://staging-business-api.quncrm.com/v2/sendSms
+  # 事件上报配置
+  event:
+    report: https://staging-business-api.quncrm.com/v2/memberEventLogs
+  # 群脉TensorFlow服务url配置
+  tensorFlow:
+    v1:
+      color: https://chyri-staging-stooltracker-tensorflow-colordetection.app.maiscrm.com/run
+    v2:
+      diaper: https://chyri-staging-stooltracker-tensorflow-diaper.app.maiscrm.com/v1/models/diaper:predict
+      color: https://chyri-staging-stooltracker-tensorflow-color.app.maiscrm.com/v1/models/color_model:predict
+      stool: https://chyri-staging-stooltracker-tensorflow-stool.app.maiscrm.com/v1/models/stool:predict
+    v3:
+      diaper: https://chyri-staging-stooltracker-tensorflow-diaperv2.app.maiscrm.com/v1/models/diaper:predict
+      color: https://chyri-staging-stooltracker-tensorflow-colorv2.app.maiscrm.com/v1/models/color:predict
+      stool: https://chyri-staging-stooltracker-tensorflow-stoolv2.app.maiscrm.com/v1/models/stool:predict
+

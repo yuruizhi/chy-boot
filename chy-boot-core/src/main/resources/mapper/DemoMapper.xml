@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changyi.chy.demo.mapper.DemoMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.changyi.chy.demo.entity.Demo">
+                    <id column="id" property="id" />
+                    <result column="qm_memberid" property="qmMemberid" />
+                    <result column="register_source" property="registerSource" />
+                    <result column="channel_source" property="channelSource" />
+                    <result column="access_source" property="accessSource" />
+                    <result column="source_type" property="sourceType" />
+                    <result column="data_source" property="dataSource" />
+                    <result column="brand" property="brand" />
+                    <result column="mobile" property="mobile" />
+                    <result column="mother_status" property="motherStatus" />
+                    <result column="status" property="status" />
+                    <result column="create_time" property="createTime" />
+                    <result column="update_time" property="updateTime" />
+        </resultMap>
+
+
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+        id, qm_memberid, register_source, channel_source, access_source, source_type, data_source, brand, mobile, mother_status, status, create_time, update_time
+    </sql>
+
+        <sql id="MemberChannel_Column_List">
+            dm.id as id, qm_memberid, register_source, channel_source, access_source, source_type, data_source, brand, mobile, mother_status, dm.status as status, dm.create_time as create_time , dm.update_time as update_time,
+            dmc.id as dmc_id, mem_id, is_visitors, source, channel_id, channel, channel_name, origin, origin_scene, open_id,
+            union_id, authorized, authorized_time, subscribed, subscribed_time, unsubscribed_time, first_authorize_time,
+            first_subscribe_time, nickname, gender, city, province, country, avatar, appid, dmc.status as dmc_status,
+            dmc.create_time as dmc_create_time, dmc.update_time as dmc_update_time
+        </sql>
+
+    <select id="selectByParams" resultMap="MemberResultMap">
+        select
+        <include refid = "MemberChannel_Column_List"/>
+        from chy_member dm left join chy_member_channel dmc on  dm.id = dmc.mem_id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="params.mobile != null">
+                and dm.mobile = #{params.mobile,jdbcType=CHAR}
+            </if>
+            <if test="params.brand != null">
+                and dm.brand = #{params.brand,jdbcType=CHAR}
+            </if>
+            <if test="params.openId != null">
+                and dmc.open_id = #{params.openId,jdbcType=CHAR}
+            </if>
+            <if test="params.unionId != null">
+                and dmc.union_id = #{params.unionId,jdbcType=CHAR}
+            </if>
+            <if test="params.unionId != null">
+                and dmc.union_id = #{params.unionId,jdbcType=CHAR}
+            </if>
+            <if test="params.channel != null">
+                and dmc.channel = #{params.channel,jdbcType=CHAR}
+            </if>
+            <if test="params.channelId != null">
+                and dmc.channel_id = #{params.channelId,jdbcType=CHAR}
+            </if>
+            <if test="params.status != null">
+                and dm.status = #{params.status,jdbcType=INTEGER}
+                and dmc.status = #{params.status,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

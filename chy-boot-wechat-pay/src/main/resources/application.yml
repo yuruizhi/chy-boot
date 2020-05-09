@@ -1,0 +1,41 @@
+app:
+  name: chy-boot-rest-api
+
+spring:
+  application:
+    name: chy-boot-rest-api
+  profiles:
+    active: local
+
+server:
+  compression:
+    enabled: true
+  port: 8084
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+    io-threads: 8
+    worker-threads: 400
+
+# 启动上下文过滤器
+web:
+  execute:
+    context:
+      enabled: true
+
+management:
+  health:
+    redis:
+      enabled: false
+  endpoint:
+    health:
+      # always、when-authorized、never，默认值是never
+      show-details: never
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+sms:
+  message:
+    code: 您的验证码是{0}。如非本人操作，请忽略本短信

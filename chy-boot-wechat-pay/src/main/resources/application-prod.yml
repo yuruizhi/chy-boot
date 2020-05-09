@@ -1,0 +1,73 @@
+spring:
+  datasource:
+    # 账号配置
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    druid :
+      # 初始化时建立物理连接的个数
+      initial-size: 3
+      # 最小连接池数量
+      min-idle: 3
+      # 最大连接池数量
+      max-active: 10
+      # 获取连接时最大等待时间
+      max-wait: 60000
+      # 配置监控页面访问登录名称
+      stat-view-servlet:
+        enabled: false
+        login-username: admin
+        # 配置监控页面访问密码
+        login-password: acyddseieiw24
+      # 是否开启慢sql查询监控
+      web-stat-filter:
+        enabled: false
+
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+    database: ${REDIS_DB}
+    timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
+
+swagger:
+  enabled: false
+
+logging:
+  file: /data/logs
+
+sms:
+  message:
+    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTE2OTEsImV4cCI6NDcxNjE1MTY5MSwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNjNjNGU1NGQzZjNiN2M2Nzc0NjA3OSIsInN1YiI6ImFwcDo1ZDIyYTU4YjdhNGZmMjRmMTQwYjc1Y2MiLCJ1bmlxIjoiMTMzMDcyNjY4MzVkMjJhNThiNTU3MDA3Ljg0MjgwMDYzIn0.Vzog0DoYDkzE7Kc2ru-Qm9urEBO63qst0WB_L6EPtHQ
+
+qm:
+  brands:
+    - name: Aptamil
+      accountId: 5b63c4e54d3f3b7c67746079
+      channelId: 5da16f5464aaec68c5182b05
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTE2OTEsImV4cCI6NDcxNjE1MTY5MSwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNjNjNGU1NGQzZjNiN2M2Nzc0NjA3OSIsInN1YiI6ImFwcDo1ZDIyYTU4YjdhNGZmMjRmMTQwYjc1Y2MiLCJ1bmlxIjoiMTMzMDcyNjY4MzVkMjJhNThiNTU3MDA3Ljg0MjgwMDYzIn0.Vzog0DoYDkzE7Kc2ru-Qm9urEBO63qst0WB_L6EPtHQ
+  # 用户相关接口
+  member:
+    get: https://business-api.quncrm.com/v2/members
+    updateUrl: https://business-api.quncrm.com/v2/members/upsert
+    registerUrl: https://business-api.quncrm.com/v2/members/upsert
+  # 短信发送配置
+  sms:
+    send: https://business-api.quncrm.com/v2/sendSms
+  # 事件上报配置
+  event:
+    report: https://business-api.quncrm.com/v2/memberEventLogs
+  # 群脉TensorFlow服务url配置
+  tensorFlow:
+    v1:
+      color: https://chyri-production-stooltracker-tensorflow-colordetection.app.maiscrm.com/run
+    v2:
+      diaper: https://chyri-production-stooltracker-tensorflow-diaper.app.maiscrm.com/v1/models/diaper:predict
+      color: https://chyri-production-stooltracker-tensorflow-color.app.maiscrm.com/v1/models/color_model:predict
+      stool: https://chyri-production-stooltracker-tensorflow-stool.app.maiscrm.com/v1/models/stool:predict
+    v3:
+      diaper: http://stooltracker-tensorflow-diaperv2/v1/models/diaper:predict
+      color: http://stooltracker-tensorflow-colorv2/v1/models/color:predict
+      stool: http://stooltracker-tensorflow-stoolv2/v1/models/stool:predict
