@@ -11,7 +11,7 @@
         <module>chy-boot-common</module>
         <module>chy-boot-core</module>
         <module>chy-boot-service</module>
-        <module>chy-boot-wechat-pay</module>
+        <module>chy-boot-rest-api</module>
     </modules>
 
     <packaging>pom</packaging>
