@@ -63,18 +63,6 @@ public class ExecuteContextFilter implements Filter {
         String urlPrefix = pathNodes[0];
 
         try {
-            if(ExecuteContext.MEMBER_BASE_API_PREFIX.equalsIgnoreCase(urlPrefix)){
-                String brand = pathNodes[1];
-                if(!CommonConstant.Brand.exist(brand)){
-                    throw new DnConsoleException(ResultCode.BRAND_NOT_EXIST.getMessage());
-                }
-                ExecuteContext.getContext(requestId)
-                        .setContextInfoGetter(SpringContextUtil.getBean(IContextInfoGetter.class))
-                        .setBrand(brand);
-            }else {
-                ExecuteContext.getContext(requestId)
-                        .setContextInfoGetter(SpringContextUtil.getBean(IContextInfoGetter.class));
-            }
 
             if (!isExcludedUri(definedPath)) {
                 logger.info(String.format("用户请求: %s. 初始化执行上下文...", definedPath));
