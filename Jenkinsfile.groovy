@@ -8,7 +8,7 @@ node {
             parameters([
                     string(
                             name: 'project',
-                            defaultValue: 'chy-boot',
+                            defaultValue: 'danone-boot',
                             description: """工程名
                             """),
                     string(
@@ -38,7 +38,7 @@ node {
                             """),
                     string(
                             name: 'k8s_namespace',
-                            defaultValue: 'chy',
+                            defaultValue: 'danone',
                             description: """Kubernetes命名空间
                             """),
                     string(
@@ -88,7 +88,7 @@ node {
                 doGenerateSubmoduleConfigurations: false,
                 extensions                       : [],
                 submoduleCfg                     : [],
-                userRemoteConfigs                : [[url: 'ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/uc/chy-boot.git']]
+                userRemoteConfigs                : [[url: 'ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/uc/danone-boot.git']]
         ])
     }
 
