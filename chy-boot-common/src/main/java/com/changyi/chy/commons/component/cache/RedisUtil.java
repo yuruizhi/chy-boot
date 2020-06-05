@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class RedisUtil {
-    
+
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -93,6 +93,7 @@ public class RedisUtil {
         }
         return result;
     }
+
     /**
      * 写入缓存
      *
@@ -131,9 +132,9 @@ public class RedisUtil {
     /**
      * 写入缓存
      *
-     * @param key 缓存key
+     * @param key     缓存key
      * @param hashKey hashKey
-     * @param value 值
+     * @param value   值
      * @return
      */
     public boolean put(final String key, String hashKey, Object value) {
@@ -162,9 +163,9 @@ public class RedisUtil {
         return hash.get(key, hashKey);
     }
 
-    public Long increment(final String key, String hashKey,long delta) {
+    public Long increment(final String key, String hashKey, long delta) {
         HashOperations<Serializable, Object, Object> hash = redisTemplate.opsForHash();
-        return hash.increment(key, hashKey,delta);
+        return hash.increment(key, hashKey, delta);
     }
 
 }

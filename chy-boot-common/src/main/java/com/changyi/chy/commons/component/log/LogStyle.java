@@ -3,7 +3,7 @@ package com.changyi.chy.commons.component.log;
 import java.lang.annotation.*;
 
 /**
-
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
@@ -13,6 +13,7 @@ public @interface LogStyle {
 
     /**
      * 版本
+     *
      * @return
      */
     String version() default "V1";
@@ -20,6 +21,7 @@ public @interface LogStyle {
 
     /**
      * 标记
+     *
      * @return
      */
     String tag() default "";
@@ -27,6 +29,7 @@ public @interface LogStyle {
     /**
      * 方法执行之前的描述
      * 日志基本格式
+     *
      * @return
      */
     String beforeDesc() default "";
@@ -35,6 +38,7 @@ public @interface LogStyle {
     /**
      * 方法执行之后的
      * 日志基本格式
+     *
      * @return
      */
     String afterDesc() default "";

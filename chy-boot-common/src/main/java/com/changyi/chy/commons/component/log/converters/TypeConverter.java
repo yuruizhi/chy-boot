@@ -9,7 +9,7 @@ public class TypeConverter extends ClassicConverter {
     public String convert(ILoggingEvent event) {
         String className = event.getLoggerName();
         String type = "unknown";
-        if(className.indexOf("com.changyi") != -1){
+        if (className.indexOf("com.changyi") != -1) {
             type = "service";
         }
         return type;

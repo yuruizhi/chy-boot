@@ -1,7 +1,7 @@
 package com.changyi.chy.commons.exception;
 
 
-import com.changyi.chy.commons.component.comstant.IMessageEnum;
+import com.changyi.chy.commons.component.constant.IMessageEnum;
 
 /**
  * UC自定义异常

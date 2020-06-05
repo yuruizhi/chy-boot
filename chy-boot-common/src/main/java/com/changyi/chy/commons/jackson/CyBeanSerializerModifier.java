@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
-
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.time.temporal.TemporalAccessor;
@@ -32,9 +31,9 @@ import java.util.List;
 
 /**
  * jackson 默认值为 null 时的处理
- *
+ * <p>
  * 主要是为了避免 app 端出现null导致闪退
- *
+ * <p>
  * 规则：
  * number -1
  * string ""
@@ -42,7 +41,6 @@ import java.util.List;
  * boolean false
  * array []
  * Object {}
- *
  */
 public class CyBeanSerializerModifier extends BeanSerializerModifier {
     @Override
@@ -51,19 +49,19 @@ public class CyBeanSerializerModifier extends BeanSerializerModifier {
             List<BeanPropertyWriter> beanProperties) {
         // 循环所有的beanPropertyWriter
         beanProperties.forEach(writer -> {
-			// 如果已经有 null 序列化处理如注解：@JsonSerialize(nullsUsing = xxx) 跳过
-			if (writer.hasNullSerializer()) {
-				return;
-			}
+            // 如果已经有 null 序列化处理如注解：@JsonSerialize(nullsUsing = xxx) 跳过
+            if (writer.hasNullSerializer()) {
+                return;
+            }
             JavaType type = writer.getType();
             Class<?> clazz = type.getRawClass();
             if (type.isTypeOrSubTypeOf(Number.class)) {
                 writer.assignNullSerializer(NullJsonSerializers.NUMBER_JSON_SERIALIZER);
-            }else if (type.isTypeOrSubTypeOf(Boolean.class)) {
+            } else if (type.isTypeOrSubTypeOf(Boolean.class)) {
                 writer.assignNullSerializer(NullJsonSerializers.BOOLEAN_JSON_SERIALIZER);
             } else if (type.isTypeOrSubTypeOf(Character.class)) {
-				writer.assignNullSerializer(NullJsonSerializers.STRING_JSON_SERIALIZER);
-			}  else if (type.isTypeOrSubTypeOf(String.class)) {
+                writer.assignNullSerializer(NullJsonSerializers.STRING_JSON_SERIALIZER);
+            } else if (type.isTypeOrSubTypeOf(String.class)) {
                 writer.assignNullSerializer(NullJsonSerializers.STRING_JSON_SERIALIZER);
             } else if (type.isArrayType() || clazz.isArray() || type.isTypeOrSubTypeOf(Collection.class)) {
                 writer.assignNullSerializer(NullJsonSerializers.ARRAY_JSON_SERIALIZER);

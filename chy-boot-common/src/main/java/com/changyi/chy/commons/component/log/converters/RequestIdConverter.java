@@ -6,8 +6,6 @@ import com.changyi.chy.commons.context.ExecuteContext;
 
 /**
  * 请求id输出
- *
-
  */
 public class RequestIdConverter extends ClassicConverter {
 

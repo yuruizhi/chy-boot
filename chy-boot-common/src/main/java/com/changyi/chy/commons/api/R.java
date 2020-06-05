@@ -16,7 +16,10 @@ import java.io.Serializable;
 import java.util.Optional;
 
 /**
- * 统一API响应结果封装
+ * 统一API响应结果封装.
+ *
+ * @author Henry.yu
+ * @date 2020.6.5
  */
 @Getter
 @Setter
@@ -211,9 +214,9 @@ public class R<T> implements Serializable {
     /**
      * 返回R
      *
-     * @param resultCode      业务代码
+     * @param resultCode 业务代码
      * @param data       结果
-     * @param <T>       T 泛型标记
+     * @param <T>        T 泛型标记
      * @return R
      */
     public static <T> R<T> fail(IResultCode resultCode, T data) {

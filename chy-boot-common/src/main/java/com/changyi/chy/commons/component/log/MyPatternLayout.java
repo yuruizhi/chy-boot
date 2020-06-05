@@ -7,7 +7,7 @@ import com.changyi.chy.commons.component.log.converters.TypeConverter;
 
 
 /**
-
+ *
  */
 public class MyPatternLayout extends PatternLayout {
     static {

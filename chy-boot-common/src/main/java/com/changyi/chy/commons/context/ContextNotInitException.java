@@ -1,7 +1,7 @@
 package com.changyi.chy.commons.context;
 
 
-import com.changyi.chy.commons.component.comstant.IMessageEnum;
+import com.changyi.chy.commons.component.constant.IMessageEnum;
 import com.changyi.chy.commons.exception.BaseException;
 
 /**

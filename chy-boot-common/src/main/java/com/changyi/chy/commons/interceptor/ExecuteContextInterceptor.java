@@ -37,7 +37,7 @@ public class ExecuteContextInterceptor extends HandlerInterceptorAdapter {
         String[] pathNodes = definedPath.split("/");
         String urlPrefix = pathNodes[0];
 
-        if(ExecuteContext.MEMBER_BASE_API_PREFIX.equalsIgnoreCase(urlPrefix)){
+        if (ExecuteContext.MEMBER_BASE_API_PREFIX.equalsIgnoreCase(urlPrefix)) {
             String brand = pathNodes[1];
 
             ExecuteContext.getContext()

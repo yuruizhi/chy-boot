@@ -3,12 +3,13 @@ package com.changyi.chy.commons.component.cache;
 /**
  * 全局配置信息获取接口
  *
- *@author wuwh
- *@date 2020/1/10
+ * @author wuwh
+ * @date 2020/1/10
  */
 public interface IGlobalSettingsGetter {
     /**
      * 缓存获取
+     *
      * @param key
      * @return
      * @throws Exception
@@ -17,6 +18,7 @@ public interface IGlobalSettingsGetter {
 
     /**
      * 缓存设置,需要实现自动同步数据库
+     *
      * @param key
      * @param value
      * @param comment
@@ -27,6 +29,7 @@ public interface IGlobalSettingsGetter {
 
     /**
      * 删除缓存
+     *
      * @param key
      */
     void delete(String key);

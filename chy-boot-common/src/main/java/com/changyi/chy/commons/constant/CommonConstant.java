@@ -1,6 +1,6 @@
 package com.changyi.chy.commons.constant;
 
-import com.changyi.chy.commons.component.comstant.IEnum;
+import com.changyi.chy.commons.component.constant.IEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CommonConstant {

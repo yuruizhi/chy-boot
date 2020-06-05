@@ -1,9 +1,10 @@
-package com.changyi.chy.commons.component.comstant;
+package com.changyi.chy.commons.component.constant;
 
 /**
- * 消息常量定义
- * @Date 16/5/18
- * @User three
+ * 消息常量定义.
+ *
+ * @author three
+ * @date 2016.5.18
  */
 public interface IMessageEnum extends IEnum<String, String> {
 }

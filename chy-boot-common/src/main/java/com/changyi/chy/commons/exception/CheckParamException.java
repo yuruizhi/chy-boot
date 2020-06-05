@@ -1,10 +1,9 @@
 package com.changyi.chy.commons.exception;
 
-import com.changyi.chy.commons.component.comstant.IMessageEnum;
+import com.changyi.chy.commons.component.constant.IMessageEnum;
 import com.changyi.chy.commons.component.validate.Valid;
-
-import java.io.Serializable;
 import java.util.List;
+
 
 public class CheckParamException extends BaseException {
 
@@ -21,6 +20,7 @@ public class CheckParamException extends BaseException {
     public CheckParamException(String code, String msg) {
         super(code, msg);
     }
+
     public CheckParamException(String code, String msg, List<Valid> data) {
         super(code, msg);
         this.data = data;
@@ -35,7 +35,7 @@ public class CheckParamException extends BaseException {
         super(msg);
     }
 
-    public List<Valid> getData(){
+    public List<Valid> getData() {
         return data;
     }
 
