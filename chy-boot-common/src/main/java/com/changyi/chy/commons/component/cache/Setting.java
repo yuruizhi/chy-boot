@@ -8,8 +8,8 @@ import java.io.Serializable;
 /**
  * 全局缓存数据结构
  *
- *@author wuwh
- *@date 2020/1/10
+ * @author wuwh
+ * @date 2020/1/10
  */
 @Data
 public class Setting implements Serializable {

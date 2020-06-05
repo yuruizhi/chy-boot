@@ -2,13 +2,7 @@ package com.changyi.chy.commons.filter;
 
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.changyi.chy.commons.api.ResultCode;
-import com.changyi.chy.commons.constant.ChyConstant;
-import com.changyi.chy.commons.constant.CommonConstant;
 import com.changyi.chy.commons.context.ExecuteContext;
-import com.changyi.chy.commons.context.SpringContextUtil;
-import com.changyi.chy.commons.exception.DnConsoleException;
-import com.changyi.chy.commons.getter.IContextInfoGetter;
 import com.changyi.chy.commons.util.UUIDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +37,10 @@ public class ExecuteContextFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         String requestId = request.getHeader("x-request-id");
-        if(StringUtils.isBlank(requestId)) {
+        if (StringUtils.isBlank(requestId)) {
             requestId = request.getParameter("request_id");
         }
-        if(StringUtils.isBlank(requestId)) {
+        if (StringUtils.isBlank(requestId)) {
             requestId = UUIDGenerator.generate();
         }
 

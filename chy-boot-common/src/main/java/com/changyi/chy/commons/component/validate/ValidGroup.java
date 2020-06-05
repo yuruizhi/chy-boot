@@ -11,50 +11,60 @@ public interface ValidGroup {
     /**
      * 新增
      */
-    interface Add { }
+    interface Add {
+    }
 
     /**
      * 删除
      */
-    interface Delete { }
+    interface Delete {
+    }
 
     /**
      * 批量删除
      */
-    interface BatDelete { }
+    interface BatDelete {
+    }
 
     /**
      * 批量查询
      */
-    interface BatSelect { }
+    interface BatSelect {
+    }
 
     /**
      * 查询单条记录
      */
-    interface Get { }
+    interface Get {
+    }
 
     /**
      * 列表查询
      */
-    interface List { }
+    interface List {
+    }
 
     /**
      * 更新
      */
-    interface Update { }
+    interface Update {
+    }
 
     /**
      * 签名
      */
-    interface Sign { }
+    interface Sign {
+    }
 
     /**
      * 检查用户是否存在
      */
-    interface CheckMemberExist { }
+    interface CheckMemberExist {
+    }
 
     /**
      * 禁用,启用
      */
-    interface SetStatus { }
+    interface SetStatus {
+    }
 }

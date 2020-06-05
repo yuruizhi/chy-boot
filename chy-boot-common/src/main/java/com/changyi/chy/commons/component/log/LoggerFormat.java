@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 
 /**
  * 日志格式输出格式化, 自己不输出任何日志信息.
- *
-
  */
 public abstract class LoggerFormat {
 

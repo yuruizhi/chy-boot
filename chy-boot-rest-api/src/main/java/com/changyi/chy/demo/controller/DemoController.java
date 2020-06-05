@@ -32,24 +32,24 @@ public class DemoController extends AbstractBaseController {
     @Autowired
     public IDemoService demoService;
 
-    @ApiOperation("xxx" )
-    @RequestMapping(value = "/member/chy-member", method = RequestMethod.GET)
-    @LogStyle(beforeDesc = "查询会员信息开始:{0}", afterDesc = "查询会员信息返回:{}")
+    @ApiOperation("Demo")
+    @RequestMapping(value = "/demo", method = RequestMethod.GET)
+    @LogStyle(beforeDesc = "Demo begin:{0}", afterDesc = "Demo end:{}")
     @ResponseBody
-    public R<RepDemo> get(@ModelAttribute ReqDemo params)throws Exception{
+    public R<RepDemo> get(@ModelAttribute ReqDemo params) throws Exception {
         List<Valid> checkList = checkParams(params);
-        if(StringUtil.checkList(checkList)){
-            throw new CheckParamException(ResultCode.PARAM_VALID_ERROR.getMessage() ,checkList);
+        if (StringUtil.checkList(checkList)) {
+            throw new CheckParamException(ResultCode.PARAM_VALID_ERROR.getMessage(), checkList);
         }
         RepDemo result = demoService.get(params);
         return R.data(result);
     }
 
-    private List<Valid> checkParams(ReqDemo params){
+    private List<Valid> checkParams(ReqDemo params) {
         List<Valid> checkList = new ArrayList<>();
-        if(StringUtil.isBlank(params.getMobile()) &&
+        if (StringUtil.isBlank(params.getMobile()) &&
                 StringUtil.isBlank(params.getOpenId()) &&
-                StringUtil.isBlank(params.getUnionId())){
+                StringUtil.isBlank(params.getUnionId())) {
             Valid valid = new Valid();
             valid.setField("check");
             valid.setMessage("手机号、openId、unionId不能同时为空");

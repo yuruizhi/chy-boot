@@ -163,13 +163,13 @@ public class ExecuteContext {
             throw new ContextNotInitException(ContextCodeDefined.CONTEXT_INIT_ERROR);
         }
 
-        if(this.channelType == null){
+        if (this.channelType == null) {
             try {
                 this.channelType = contextInfoGetter.getChannelType(ExecuteContext.getContext().getChannel());
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new ContextNotInitException(e);
             }
-            if(this.channelType == null){
+            if (this.channelType == null) {
                 throw new ContextNotInitException(ContextCodeDefined.NOT_FIND_EN);
             }
         }

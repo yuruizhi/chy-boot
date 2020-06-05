@@ -19,11 +19,11 @@ import java.lang.reflect.Method;
 @Configuration
 @ConditionalOnProperty(name = "spring.redis.host")
 public class CacheKeyGeneratorDefined implements BeanFactoryAware {
+
     /**
      * 全局配置信息
      */
     public static final String GLOBAL_SETTINGS_CACHE_KG = "GLOBAL_SETTINGS_CACHE_KG";
-
 
     public static final String CHANNEL_INFO_CACHE_KG = "CHANNEL_INFO_CACHE_KG";
 
@@ -66,7 +66,7 @@ public class CacheKeyGeneratorDefined implements BeanFactoryAware {
 
         RedisPrefixParamsCacheConfig(String keyGenerator) {
             this.keyGenerator = keyGenerator;
-            this.prefix = keyGenerator+"_";
+            this.prefix = keyGenerator + "_";
             this.key = keyGenerator;
             this.value = keyGenerator;
         }
@@ -74,12 +74,13 @@ public class CacheKeyGeneratorDefined implements BeanFactoryAware {
         void registerSingleton(ConfigurableBeanFactory configurableBeanFactory) {
             configurableBeanFactory.registerSingleton(keyGenerator, new KeyGenerator() {
                 private final Logger log = LoggerFactory.getLogger(getClass());
+
                 @Override
                 public Object generate(Object target, Method method, Object... params) {
                     StringBuilder sb = new StringBuilder();
 
                     sb.append(prefix);
-                    for (Object p: params) {
+                    for (Object p : params) {
                         sb.append(p).append('_');
                     }
                     //log.debug("execute redis key generator: "+sb.toString());

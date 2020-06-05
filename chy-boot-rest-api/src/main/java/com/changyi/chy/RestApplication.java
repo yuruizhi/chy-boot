@@ -30,7 +30,4 @@ public class RestApplication {
 		SpringApplication.run(RestApplication.class, args);
 		log.info("Rest工程启动成功！");
 	}
-
-
-
 }

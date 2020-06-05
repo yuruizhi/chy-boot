@@ -17,10 +17,9 @@ package com.changyi.chy.commons.exception;
 
 /**
  * 静态 String 池
- *
  */
 public interface ExceptionStringPool {
 
-	String password_error		= "渠道id或secret错误";
+    String password_error = "渠道id或secret错误";
 
 }

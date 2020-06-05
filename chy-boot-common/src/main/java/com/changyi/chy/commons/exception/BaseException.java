@@ -1,7 +1,7 @@
 package com.changyi.chy.commons.exception;
 
 
-import com.changyi.chy.commons.component.comstant.IMessageEnum;
+import com.changyi.chy.commons.component.constant.IMessageEnum;
 import com.changyi.chy.commons.context.ExecuteContext;
 import org.slf4j.Logger;
 
@@ -25,7 +25,7 @@ public class BaseException extends RuntimeException {
         logger.error("异常详情:channel:{}, code:{}, msg:{}", ExecuteContext.getContext().getChannel(), code, msg);
     }
 
-    public BaseException( String msg) {
+    public BaseException(String msg) {
         super(msg);
 
         logger.error("异常详情:channel:{}, msg:{}", ExecuteContext.getContext().getChannel(), msg);
@@ -34,7 +34,7 @@ public class BaseException extends RuntimeException {
     public BaseException(String code, String msg, Throwable ex) {
         super(msg, ex);
         this.code = code;
-       // logger.error(LogUtil.message("异常详情", code, msg));
+        // logger.error(LogUtil.message("异常详情", code, msg));
     }
 
     public BaseException(IMessageEnum msg) {

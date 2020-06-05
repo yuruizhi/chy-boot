@@ -22,9 +22,11 @@ public class GlobalSettings {
         public Setting set(String val, String comment) {
             return GlobalSettings.save(this.name(), val, comment);
         }
+
         public Setting set(String val) {
             return GlobalSettings.save(this.name(), val, null);
         }
+
         public void del() {
             GlobalSettings.del(this.name());
         }
@@ -56,10 +58,10 @@ public class GlobalSettings {
     }
 
     private static Setting save(String key, String val, String comment) {
-        if(val==null) {
+        if (val == null) {
             val = key;
         }
-        if(comment==null) {
+        if (comment == null) {
             comment = val;
         }
 

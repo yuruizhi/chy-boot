@@ -6,10 +6,10 @@ import lombok.Getter;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 业务代码枚举
+ * 业务代码枚举.
  *
  * @author zhaochurui
- * @date 2020/1/9
+ * @date 2020.1.9
  */
 @Getter
 @AllArgsConstructor

@@ -23,9 +23,9 @@ public class ContextInfoGetter implements IContextInfoGetter {
     protected final Logger logger = LoggerFactory.getLogger(ContextInfoGetter.class);
 
     @Override
-    public String getChannelType(String channelId) throws Exception{
+    public String getChannelType(String channelId) throws Exception {
         DanoneChannel chyChannel = chyChannelCache.get(channelId);
-        if(chyChannel != null && chyChannel.getStatus().equals(1)){
+        if (chyChannel != null && chyChannel.getStatus().equals(1)) {
             return chyChannel.getChannelType();
         }
         return null;

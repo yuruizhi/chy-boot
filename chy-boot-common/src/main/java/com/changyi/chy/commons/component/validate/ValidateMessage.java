@@ -61,7 +61,7 @@ public interface ValidateMessage {
 
     String AssertTrue = "{com.changyi.valid.AssertTrue.message}";
 
-    String DecimalMax ="{com.changyi.valid.DecimalMax.message}";
+    String DecimalMax = "{com.changyi.valid.DecimalMax.message}";
 
     String DecimalMin = "{com.changyi.valid.DecimalMin.message}";
 
