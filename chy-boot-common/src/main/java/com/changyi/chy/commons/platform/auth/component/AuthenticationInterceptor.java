@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import com.changyi.chy.commons.context.ExecuteContext;
 import com.changyi.chy.commons.exception.AuthException;
-import com.changyi.chy.commons.platform.auth.service.impl.JWTAuthService;
+import com.changyi.chy.commons.platform.auth.service.impl.JwtAuthService;
 import com.changyi.chy.commons.util.StringUtil;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +23,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("x-access-token");// 从 http 请求头中取出 token
 
-        if (StringUtil.isBlank(token)){
+        if (StringUtil.isBlank(token)) {
             token = httpServletRequest.getParameter("access_token");
         }
 
@@ -34,7 +34,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) object;
         Method method = handlerMethod.getMethod();
 
-        if(method.getName().equals("error")){
+        if (method.getName().equals("error")) {
             return true;
         }
 
@@ -48,7 +48,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         //检查有没有需要用户权限的注解
 
         if (token == null) {
-            throw new AuthException("401","无token");
+            throw new AuthException("401", "无token");
         }
         // 获取 token 中的 user id
         String channelId;
@@ -56,15 +56,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             channelId = JWT.decode(token).getAudience().get(0);
             ExecuteContext.getContext().setChannel(channelId);
         } catch (JWTDecodeException j) {
-            throw new AuthException("401","token解码错误");
+            throw new AuthException("401", "token解码错误");
         }
 
         // 验证 token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(JWTAuthService.key)).build();
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(JwtAuthService.key)).build();
         try {
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
-            throw new AuthException("401","token验证错误");
+            throw new AuthException("401", "token验证错误");
         }
         return true;
 

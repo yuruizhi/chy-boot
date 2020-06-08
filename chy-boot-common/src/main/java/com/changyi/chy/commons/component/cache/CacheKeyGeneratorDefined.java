@@ -25,12 +25,16 @@ public class CacheKeyGeneratorDefined implements BeanFactoryAware {
      */
     public static final String GLOBAL_SETTINGS_CACHE_KG = "GLOBAL_SETTINGS_CACHE_KG";
 
-    public static final String CHANNEL_INFO_CACHE_KG = "CHANNEL_INFO_CACHE_KG";
+    /**
+     * 用户配置信息
+     */
+    public static final String USER_INFO_CACHE_KG = "USER_INFO_CACHE_KG";
 
     /**
      * 短信验证码
      */
     public static final String SMS_CODE = "SMS_CODE:";
+
     /**
      * 图片验证码
      */
@@ -50,7 +54,7 @@ public class CacheKeyGeneratorDefined implements BeanFactoryAware {
 
         log.info("初始化 redis key Generator ...");
         new RedisPrefixParamsCacheConfig(GLOBAL_SETTINGS_CACHE_KG).registerSingleton(configurableBeanFactory);
-        new RedisPrefixParamsCacheConfig(CHANNEL_INFO_CACHE_KG).registerSingleton(configurableBeanFactory);
+        new RedisPrefixParamsCacheConfig(USER_INFO_CACHE_KG).registerSingleton(configurableBeanFactory);
 
     }
 

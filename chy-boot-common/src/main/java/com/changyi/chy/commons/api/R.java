@@ -30,12 +30,15 @@ public class R<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "状态码", required = true)
+    @ApiModelProperty(value = "状态码")
     private int code;
-    @ApiModelProperty(value = "返回消息", required = true)
+
+    @ApiModelProperty(value = "返回消息")
     private String msg;
-    @ApiModelProperty(value = "请求id", required = true)
+
+    @ApiModelProperty(value = "请求ID")
     private String requestId;
+
     @ApiModelProperty(value = "承载数据")
     private T data;
 

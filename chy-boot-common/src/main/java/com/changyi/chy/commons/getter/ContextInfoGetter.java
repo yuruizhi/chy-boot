@@ -1,34 +1,34 @@
 package com.changyi.chy.commons.getter;
 
 
-import com.changyi.chy.commons.cache.IDanoneChannelCache;
-import com.changyi.chy.commons.platform.auth.entity.DanoneChannel;
+import com.changyi.chy.commons.cache.IUserCache;
+import com.changyi.chy.commons.platform.auth.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Rpc api执行上下文信息获取
+ * 执行上下文信息获取.
  *
- * @Date 16/5/20
- * @User three
+ * @author Henry.yu
+ * @date 2020.6.5
  */
 @Component
 public class ContextInfoGetter implements IContextInfoGetter {
 
     @Autowired
-    IDanoneChannelCache chyChannelCache;
+    IUserCache userCache;
 
     protected final Logger logger = LoggerFactory.getLogger(ContextInfoGetter.class);
 
-    @Override
-    public String getChannelType(String channelId) throws Exception {
-        DanoneChannel chyChannel = chyChannelCache.get(channelId);
+   /* @Override
+    public String getChannelType(String account) throws Exception {
+        User chyChannel = chyChannelCache.get(channelId);
         if (chyChannel != null && chyChannel.getStatus().equals(1)) {
             return chyChannel.getChannelType();
         }
         return null;
-    }
+    }*/
 
 }
