@@ -44,7 +44,7 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/代码生成/src/main/java");
-        gc.setAuthor("wuwh");
+        gc.setAuthor("Henry.Yu");
         gc.setXmlName("%sMapper");
         gc.setOpen(false);
         //实体属性 Swagger2 注解

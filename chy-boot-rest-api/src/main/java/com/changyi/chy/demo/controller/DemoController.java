@@ -9,7 +9,7 @@ import com.changyi.chy.commons.component.validate.Valid;
 import com.changyi.chy.commons.exception.CheckParamException;
 import com.changyi.chy.commons.util.StringUtil;
 import com.changyi.chy.demo.request.ReqDemo;
-import com.changyi.chy.demo.response.RepDemo;
+import com.changyi.chy.demo.response.RespDemo;
 import com.changyi.chy.demo.service.IDemoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,15 +33,15 @@ public class DemoController extends AbstractBaseController {
     public IDemoService demoService;
 
     @ApiOperation("Demo")
-    @RequestMapping(value = "/demo", method = RequestMethod.GET)
+    @RequestMapping(value = "/demo", method = RequestMethod.POST)
     @LogStyle(beforeDesc = "Demo begin:{0}", afterDesc = "Demo end:{}")
     @ResponseBody
-    public R<RepDemo> get(@ModelAttribute ReqDemo params) throws Exception {
+    public R<RespDemo> get(@RequestBody ReqDemo params) throws Exception {
         List<Valid> checkList = checkParams(params);
         if (StringUtil.checkList(checkList)) {
             throw new CheckParamException(ResultCode.PARAM_VALID_ERROR.getMessage(), checkList);
         }
-        RepDemo result = demoService.get(params);
+        RespDemo result = demoService.get(params);
         return R.data(result);
     }
 

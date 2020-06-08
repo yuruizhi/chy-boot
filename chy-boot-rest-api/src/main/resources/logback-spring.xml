@@ -9,17 +9,15 @@
     <property name="log.charset" value="UTF-8"/>
     <property name="log.file" value="${LOG_FILE:-${java.io.tmpdir:-/tmp}}/${contextName}"/>
     <property name="log.pattern" value='{
-        "type": "%type",
 		"app": "%contextName",
 		"ip": "%ip",
-		"reqId": "%request_id",
+		"request_id": "%request_id",
 		"timestamp": "%date{"yyyy-MM-dd HH:mm:ss.SSS"}",
-		"level": "%level",
+		"log_level": "%level",
 		"thread": "%thread",
 		"pos": "%logger",
-		"message": "%message",
-		"category":"chy_java_changyi",
-		"backtrace": "%replace(%exception{10}){"[\r\n]+", "###"}"
+		"stack_trace": "%exception{100}",
+		"message": "%message"
 		}%n'
     />
 

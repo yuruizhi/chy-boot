@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="RepDemo", description="RepDemo")
-public class RepDemo implements Serializable {
+public class RespDemo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

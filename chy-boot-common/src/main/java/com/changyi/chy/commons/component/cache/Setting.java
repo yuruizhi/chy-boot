@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 全局缓存数据结构
  *
- * @author wuwh
+ * @author Henry.Yu
  * @date 2020/1/10
  */
 @Data

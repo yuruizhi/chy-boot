@@ -16,10 +16,13 @@
 package com.changyi.chy.commons.exception;
 
 /**
- * 静态 String 池
+ * 静态 String 池.
+ *
+ * @author Henry.yu
+ * @date 2020.6.5
  */
 public interface ExceptionStringPool {
 
-    String password_error = "渠道id或secret错误";
+    String ACCOUNT_OR_PASSWORD_ERROR = "账号或者密码错误";
 
 }
