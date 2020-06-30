@@ -1,6 +1,7 @@
 package com.changyi.chy.demo.controller;
 
 
+import com.changyi.chy.commons.annotation.ApiVersion;
 import com.changyi.chy.commons.api.AbstractBaseController;
 import com.changyi.chy.commons.api.R;
 import com.changyi.chy.commons.api.ResultCode;
@@ -33,10 +34,11 @@ public class DemoController extends AbstractBaseController {
     public IDemoService demoService;
 
     @ApiOperation("Demo")
-    @RequestMapping(value = "/demo", method = RequestMethod.POST)
+    @ApiVersion(3)
+    @RequestMapping(value = "{version}/demo", method = RequestMethod.POST)
     @LogStyle(beforeDesc = "Demo begin:{0}", afterDesc = "Demo end:{}")
     @ResponseBody
-    public R<RespDemo> get(@RequestBody ReqDemo params) throws Exception {
+    public R<RespDemo> get(@RequestBody ReqDemo params) {
         List<Valid> checkList = checkParams(params);
         if (StringUtil.checkList(checkList)) {
             throw new CheckParamException(ResultCode.PARAM_VALID_ERROR.getMessage(), checkList);
