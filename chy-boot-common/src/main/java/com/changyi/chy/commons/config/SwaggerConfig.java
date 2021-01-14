@@ -11,14 +11,14 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
 @Configuration
-@EnableSwagger2
+@EnableSwagger2WebMvc
 public class SwaggerConfig {
 
     @Value("${swagger.enabled}")
@@ -39,7 +39,7 @@ public class SwaggerConfig {
                 // 加了ApiOperation注解的类，生成接口文档
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 包下的类，生成接口文档
-                //.apis(RequestHandlerSelectors.basePackage("com.changyi.chy.**.controller"))
+//                .apis(RequestHandlerSelectors.basePackage("com.changyi.chy.**.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 // 将Date类型全部转为String类型

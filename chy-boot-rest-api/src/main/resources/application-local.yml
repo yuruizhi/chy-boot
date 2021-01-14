@@ -1,12 +1,14 @@
 spring:
   datasource:
-     #账号配置
-     url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
-     username: root
-     password: ZeueGhtMder83tBO
-     driver-class-name: com.mysql.cj.jdbc.Driver
-
-     druid:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: acyddseieiw24
+      web-stat-filter:
+        enabled: false
+    dynamic:
+      druid:
         #初始化时建立物理连接的个数
         initial-size: 6
         #最小连接池数量
@@ -15,17 +17,29 @@ spring:
         max-active: 10
         #获取连接时最大等待时间
         max-wait: 60000
-        #配置监控页面访问登录名称
-        stat-view-servlet:
-          enabled: false
-          login-username: admin
-        #配置监控页面访问密码
-          login-password: acyddseieiw24
-        #是否开启慢sql查询监控
-        web-stat-filter:
-          enabled: false
-
-  redis:
+      datasource:
+        master:
+          #账号配置
+          url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          username: root
+          password: ZeueGhtMder83tBO
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_1:
+          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver
+        slave_2:
+          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver
+        slave_3:
+          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver
+    redis:
     host: 127.0.0.1
     port: 6379
     database: 0
@@ -68,3 +82,5 @@ qm:
       color: https://chyri-staging-stooltracker-tensorflow-colorv2.app.maiscrm.com/v1/models/color:predict
       stool: https://chyri-staging-stooltracker-tensorflow-stoolv2.app.maiscrm.com/v1/models/stool:predict
 
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml

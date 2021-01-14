@@ -1,12 +1,12 @@
 package com.changyi.chy.commons.exception;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.changyi.chy.commons.api.R;
 import com.changyi.chy.commons.api.ResultCode;
 import com.changyi.chy.commons.context.ContextNotInitException;
 import com.changyi.chy.commons.jackson.JsonUtil;
 import com.changyi.chy.commons.util.ArrayUtil;
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -101,7 +101,7 @@ public class GlobalExceptionHandler {
             fieldMap.put("field", fieldError.getField());
             fieldMap.put("message", fieldError.getDefaultMessage());
             String value = String.valueOf(fieldError.getRejectedValue());
-            if (!Strings.isNullOrEmpty(value)) {
+            if (StrUtil.isNotBlank(value)) {
                 fieldMap.put("value", value);
             }
             resErrorList.add(fieldMap);
