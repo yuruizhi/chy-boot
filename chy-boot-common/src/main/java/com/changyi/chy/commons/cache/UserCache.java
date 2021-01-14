@@ -1,6 +1,6 @@
 package com.changyi.chy.commons.cache;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.changyi.chy.commons.component.cache.CacheKeyGeneratorDefined;
 import com.changyi.chy.commons.platform.auth.entity.User;
 import com.changyi.chy.commons.platform.auth.service.IUserService;
@@ -30,7 +30,7 @@ public class UserCache implements IUserCache {
     )
     public User get(String account) throws Exception {
 
-        if (StringUtils.isBlank(account)) {
+        if (StrUtil.isBlank(account)) {
             log.error("获取用户信息缓存, 账号为空");
             return null;
         }

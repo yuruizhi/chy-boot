@@ -1,6 +1,6 @@
 package com.changyi.chy.commons.component.log;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.changyi.chy.commons.jackson.JsonUtil;
 import com.changyi.chy.commons.util.BeanUtil;
 import com.changyi.chy.commons.util.StringUtil;
@@ -67,7 +67,7 @@ public class LoggingAspectAnnotationDriven {
      * @return
      */
     private String logDescFormat(String desc, JoinPoint joinPoint) {
-        if (StringUtils.isNotBlank(desc)) {
+        if (StrUtil.isNotBlank(desc)) {
             String reg = "\\{[^\\}]*\\}";
 
             Pattern pa = Pattern.compile(reg);
