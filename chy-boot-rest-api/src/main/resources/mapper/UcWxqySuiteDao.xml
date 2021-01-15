@@ -120,11 +120,11 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="qysSuiteid" useGeneratedKeys="true">
-        insert into uc_wxqy_suite(qys_suite_secret, qys_suite_aeskey, qys_token, qys_ticket, qys_ips,
+        insert into uc_wxqy_suite(qys_suiteid, qys_suite_secret, qys_suite_aeskey, qys_token, qys_ticket, qys_ips,
                                   qys_suite_access_token, qys_access_token_expires, qys_pre_auth_code,
                                   qys_auth_code_expires, qys_provider, qys_status, qys_created, qys_updated,
                                   qys_deleted)
-        values (#{qysSuiteSecret}, #{qysSuiteAeskey}, #{qysToken}, #{qysTicket}, #{qysIps}, #{qysSuiteAccessToken},
+        values (#{qysSuiteid}, #{qysSuiteSecret}, #{qysSuiteAeskey}, #{qysToken}, #{qysTicket}, #{qysIps}, #{qysSuiteAccessToken},
                 #{qysAccessTokenExpires}, #{qysPreAuthCode}, #{qysAuthCodeExpires}, #{qysProvider}, #{qysStatus},
                 #{qysCreated}, #{qysUpdated}, #{qysDeleted})
     </insert>

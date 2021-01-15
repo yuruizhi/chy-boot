@@ -1,15 +1,13 @@
 package com.changyi.chy.demo.controller;
 
 import com.changyi.chy.commons.annotation.ApiVersion;
+import com.changyi.chy.commons.api.R;
 import com.changyi.chy.demo.entity.UcWxqySuite;
 import com.changyi.chy.demo.service.UcWxqySuiteService;
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -56,6 +54,12 @@ public class UcWxqySuiteController {
     @GetMapping("/{version}/selectOne")
     public UcWxqySuite selectOne3(String id) {
         return this.ucWxqySuiteService.queryById(id);
+    }
+
+    @PostMapping
+    public R save(@RequestBody UcWxqySuite ucWxqySuite) {
+        this.ucWxqySuiteService.insert(ucWxqySuite);
+        return R.success();
     }
 
 }
