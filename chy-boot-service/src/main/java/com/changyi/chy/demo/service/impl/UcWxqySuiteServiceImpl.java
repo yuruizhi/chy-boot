@@ -1,5 +1,7 @@
 package com.changyi.chy.demo.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.changyi.chy.demo.entity.UcWxqySuite;
 import com.changyi.chy.demo.mapper.UcWxqySuiteDao;
 import com.changyi.chy.demo.service.UcWxqySuiteService;
@@ -50,6 +52,14 @@ public class UcWxqySuiteServiceImpl implements UcWxqySuiteService {
      */
     @Override
     public UcWxqySuite insert(UcWxqySuite ucWxqySuite) {
+        ucWxqySuite.setQysSuiteid(IdUtil.fastUUID());
+        ucWxqySuite.setQysCreated(DateUtil.current(false));
+        ucWxqySuite.setQysUpdated(DateUtil.current(false));
+        ucWxqySuite.setQysDeleted(DateUtil.current(false));
+        ucWxqySuite.setQysStatus(1);
+        ucWxqySuite.setQysProvider("tencent");
+        ucWxqySuite.setQysSuiteSecret("secret");
+        ucWxqySuite.setQysSuiteAeskey("aeskey");
         this.ucWxqySuiteDao.insert(ucWxqySuite);
         return ucWxqySuite;
     }

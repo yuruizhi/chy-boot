@@ -18,27 +18,22 @@ spring:
         #获取连接时最大等待时间
         max-wait: 60000
       datasource:
+#        master:
+#          #账号配置
+#          url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+#          username: root
+#          password: ZeueGhtMder83tBO
+#          driver-class-name: com.mysql.cj.jdbc.Driver
         master:
-          #账号配置
-          url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://192.168.13.107:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
-          password: ZeueGhtMder83tBO
+          password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave_1:
-          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
+          url: jdbc:mysql://192.168.239.128:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
-          driver-class-name: com.mysql.jdbc.Driver
-        slave_2:
-          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.jdbc.Driver
-        slave_3:
-          url: jdbc:mysql://xx.xx.xx.xx:3307/dynamic
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: 127.0.0.1
     port: 6379
@@ -84,3 +79,7 @@ qm:
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+
+logging:
+  level:
+    com.baomidou.dynamic: debug
