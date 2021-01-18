@@ -2,6 +2,7 @@ package com.changyi.chy.demo.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import com.changyi.chy.commons.component.cache.RedisUtil;
 import com.changyi.chy.demo.entity.UcWxqySuite;
 import com.changyi.chy.demo.mapper.UcWxqySuiteDao;
 import com.changyi.chy.demo.service.UcWxqySuiteService;
@@ -21,6 +22,9 @@ public class UcWxqySuiteServiceImpl implements UcWxqySuiteService {
     @Resource
     private UcWxqySuiteDao ucWxqySuiteDao;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     /**
      * 通过ID查询单条数据
      *
@@ -29,7 +33,13 @@ public class UcWxqySuiteServiceImpl implements UcWxqySuiteService {
      */
     @Override
     public UcWxqySuite queryById(String qysSuiteid) {
-        return this.ucWxqySuiteDao.queryById(qysSuiteid);
+        UcWxqySuite ucWxqySuite = (UcWxqySuite) redisUtil.get("suite" + qysSuiteid);
+
+        if (ucWxqySuite == null) {
+            return this.ucWxqySuiteDao.queryById(qysSuiteid);
+        } else {
+            return ucWxqySuite;
+        }
     }
 
     /**
@@ -60,6 +70,7 @@ public class UcWxqySuiteServiceImpl implements UcWxqySuiteService {
         ucWxqySuite.setQysProvider("tencent");
         ucWxqySuite.setQysSuiteSecret("secret");
         ucWxqySuite.setQysSuiteAeskey("aeskey");
+        redisUtil.set("suite" + ucWxqySuite.getQysSuiteid(), ucWxqySuite);
         this.ucWxqySuiteDao.insert(ucWxqySuite);
         return ucWxqySuite;
     }
