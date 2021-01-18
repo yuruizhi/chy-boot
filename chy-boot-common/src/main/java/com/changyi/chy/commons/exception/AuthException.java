@@ -1,11 +1,18 @@
 package com.changyi.chy.commons.exception;
 
 
+import com.changyi.chy.commons.api.AuthResultCode;
+
+/**
+ * 身份验证异常
+ *
+ * @author ZhangHao
+ * @date 2021/01/18
+ */
 public class AuthException extends BaseException {
 
-
-    public AuthException(String code, String msg) {
-        super(code, msg);
+    public AuthException(AuthResultCode errorCode) {
+        super(errorCode);
     }
 
     @Override

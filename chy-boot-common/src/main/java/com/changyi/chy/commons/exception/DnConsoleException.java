@@ -1,7 +1,7 @@
 package com.changyi.chy.commons.exception;
 
 
-import com.changyi.chy.commons.component.constant.IMessageEnum;
+import com.changyi.chy.commons.api.IResultCode;
 
 /**
  * UC自定义异常
@@ -15,12 +15,8 @@ public class DnConsoleException extends BaseException {
         super(cause);
     }
 
-    public DnConsoleException(IMessageEnum msg) {
+    public DnConsoleException(IResultCode msg) {
         super(msg);
-    }
-
-    public DnConsoleException(String code, String msg) {
-        super(code, msg);
     }
 
     public DnConsoleException(String msg) {

@@ -15,10 +15,6 @@
  */
 package com.changyi.chy.commons.util;
 
-import com.changyi.chy.commons.Third.qm.QmConstant;
-import com.changyi.chy.commons.Third.qm.QmError;
-import com.changyi.chy.commons.api.ResultCode;
-import com.changyi.chy.commons.exception.ServiceFusingException;
 import com.changyi.chy.commons.exception.ThirdApiException;
 import com.changyi.chy.commons.jackson.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -135,7 +131,7 @@ public class OkHttpUtil {
 		// 装载请求头参数
 		Iterator<Map.Entry<String, String>> headerIterator = header.entrySet().iterator();
 		headerIterator.forEachRemaining(e -> {
-			headerBuilder.add(e.getKey(), (String) e.getValue());
+			headerBuilder.add(e.getKey(), e.getValue());
 		});
 
 		// 装载请求的参数
@@ -175,7 +171,7 @@ public class OkHttpUtil {
 		// 装载请求头参数
 		Iterator<Map.Entry<String, String>> headerIterator = header.entrySet().iterator();
 		headerIterator.forEachRemaining(e -> {
-			headerBuilder.add(e.getKey(), (String) e.getValue());
+			headerBuilder.add(e.getKey(), e.getValue());
 		});
 
 		MultipartBody.Builder requestBuilder = new MultipartBody.Builder();
@@ -279,9 +275,9 @@ public class OkHttpUtil {
 			if (response.isSuccessful()) {
 				return response.body().string();
 			} else if (response.code() == 503 || response.code() == 504) {
-				throw new ThirdApiException(String.valueOf(response.code()), response.message());
+				throw new ThirdApiException(response.message());
 			} else {
-				throw new ThirdApiException(response.message(),response.body().string());
+				throw new ThirdApiException(response.body().string());
 			}
 		}catch (ThirdApiException e){
 			throw e;

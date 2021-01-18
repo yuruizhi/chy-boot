@@ -1,7 +1,8 @@
 package com.changyi.chy.commons.exception;
 
-import com.changyi.chy.commons.component.constant.IMessageEnum;
+import com.changyi.chy.commons.api.IResultCode;
 import com.changyi.chy.commons.component.validate.Valid;
+
 import java.util.List;
 
 
@@ -13,16 +14,12 @@ public class CheckParamException extends BaseException {
         super(cause);
     }
 
-    public CheckParamException(IMessageEnum msg) {
+    public CheckParamException(IResultCode msg) {
         super(msg);
     }
 
-    public CheckParamException(String code, String msg) {
-        super(code, msg);
-    }
-
-    public CheckParamException(String code, String msg, List<Valid> data) {
-        super(code, msg);
+    public CheckParamException(IResultCode errorCode, List<Valid> data) {
+        super(errorCode);
         this.data = data;
     }
 

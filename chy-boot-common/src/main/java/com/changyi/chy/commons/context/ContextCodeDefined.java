@@ -1,28 +1,31 @@
 package com.changyi.chy.commons.context;
 
 
-import com.changyi.chy.commons.component.constant.IMessageEnum;
+import com.changyi.chy.commons.api.IResultCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public enum ContextCodeDefined implements IMessageEnum {
+@Getter
+@AllArgsConstructor
+public enum ContextCodeDefined implements IResultCode {
 
-	SUCCESS("成功"),
-	ERR_UNKOWEN("未知异常"),
-	CONTEXT_INIT_ERROR("上下文初始化失败"),
-	NOT_FIND_EN("未找到channel信息");
+	/**
+	 * 成功
+	 */
+	SUCCESS(200, "成功"),
+	/**
+	 * 未知异常
+	 */
+	ERR_UNKOWEN(500,"未知异常"),
+	/**
+	 * 上下文初始化错误
+	 */
+	CONTEXT_INIT_ERROR(500,"上下文初始化失败"),
+	/**
+	 * 未找到channel信息
+	 */
+	NOT_FIND_EN(500,"未找到channel信息");
 
-	private String msg;
-
-	ContextCodeDefined(String msg) {
-		this.msg = msg;
-	}
-
-	@Override
-	public String getValue() {
-		return this.name();
-	}
-
-	@Override
-	public String getDesc() {
-		return this.msg;
-	}
+	private final int code;
+	private final String message;
 }

@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.changyi.chy.commons.api.AuthResultCode;
 import com.changyi.chy.commons.context.ExecuteContext;
 import com.changyi.chy.commons.exception.AuthException;
 import com.changyi.chy.commons.platform.auth.service.impl.JwtAuthService;
@@ -48,7 +49,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         //检查有没有需要用户权限的注解
 
         if (token == null) {
-            throw new AuthException("401", "无token");
+            throw new AuthException(AuthResultCode.TOKEN_NOT_FOUND);
         }
         // 获取 token 中的 user id
         String channelId;
@@ -56,7 +57,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             channelId = JWT.decode(token).getAudience().get(0);
             ExecuteContext.getContext().setChannel(channelId);
         } catch (JWTDecodeException j) {
-            throw new AuthException("401", "token解码错误");
+            throw new AuthException(AuthResultCode.JWT_DECODE_ERROR);
         }
 
         // 验证 token
@@ -64,7 +65,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         try {
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
-            throw new AuthException("401", "token验证错误");
+            throw new AuthException(AuthResultCode.JWT_VERIFICATION_ERROR);
         }
         return true;
 

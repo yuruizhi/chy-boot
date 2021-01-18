@@ -60,10 +60,10 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public R fusingExceptionHandler(ServiceFusingException fx) {
         logger.error("服务熔断，不可用:", fx);
-        if (fx.getCode().equals("504")) {
-            return R.fail(ResultCode.GATEWAY_TIMEOUT_ERROR, fx.getData());
+        if (fx.getErrorCode().getCode() == 504) {
+            return R.fail(ResultCode.GATEWAY_TIMEOUT_ERROR, ServiceFusingException.getData());
         } else {
-            return R.fail(ResultCode.SERVICE_UNAVAILABLE_ERROR, fx.getData());
+            return R.fail(ResultCode.SERVICE_UNAVAILABLE_ERROR, ServiceFusingException.getData());
         }
     }
 
