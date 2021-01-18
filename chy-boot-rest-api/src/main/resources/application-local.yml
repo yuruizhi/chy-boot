@@ -25,7 +25,7 @@ spring:
 #          password: ZeueGhtMder83tBO
 #          driver-class-name: com.mysql.cj.jdbc.Driver
         master:
-          url: jdbc:mysql://192.168.13.107:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://192.168.239.129:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,9 +35,7 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
+    password: 1234
     timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
     lettuce:
       pool:
@@ -47,12 +45,13 @@ spring:
         min-idle: 0
     cluster:
       nodes:
-        - 192.168.100.131:6001
-        - 192.168.100.131:6002
-        - 192.168.100.131:6003
-        - 192.168.100.131:6004
-        - 192.168.100.131:6005
-        - 192.168.100.131:6006
+        - 192.168.239.129:6371
+        - 192.168.239.129:6372
+        - 192.168.239.129:6373
+        - 192.168.239.128:6374
+        - 192.168.239.128:6375
+        - 192.168.239.128:6376
+      max-redirects: 5
 
 swagger:
   enabled: true
