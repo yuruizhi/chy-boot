@@ -1,6 +1,7 @@
 package com.changyi.chy.commons.exception;
 
 
+import com.changyi.chy.commons.api.IResultCode;
 import com.changyi.chy.commons.jackson.JsonUtil;
 import com.changyi.chy.commons.util.UUIDGenerator;
 import lombok.Getter;
@@ -19,8 +20,8 @@ public class ServiceFusingException extends BaseException {
 
     private IdentData data;
 
-    public ServiceFusingException(String code, String msg) {
-        super(code, msg);
+    public ServiceFusingException(IResultCode errorCode) {
+        super(errorCode);
     }
 
     public ServiceFusingException(String msg) {
