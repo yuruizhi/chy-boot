@@ -96,3 +96,9 @@ mybatis:
 logging:
   level:
     com.baomidou.dynamic: debug
+
+test:
+  baseUrl: https://v1.hitokoto.cn/
+  accessKeyId: sdfsdfdsf
+  accessKeySecret: sadfsadfsdfsdf
+  authUri: http://localhost:8085/
