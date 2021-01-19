@@ -3,7 +3,6 @@ package com.changyi.chy;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.extern.slf4j.Slf4j;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

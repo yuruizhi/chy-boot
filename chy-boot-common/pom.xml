@@ -105,5 +105,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
+
+        <!--支持通过接口的方式发起HTTP请求-->
+        <dependency>
+            <groupId>com.github.lianjiatech</groupId>
+            <artifactId>retrofit-spring-boot-starter</artifactId>
+            <version>${retrofit-spring-boot-starter.version}</version>
+        </dependency>
     </dependencies>
 </project>
