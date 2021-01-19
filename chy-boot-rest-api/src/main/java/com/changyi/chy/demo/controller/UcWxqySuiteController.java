@@ -3,6 +3,8 @@ package com.changyi.chy.demo.controller;
 import com.changyi.chy.commons.annotation.ApiVersion;
 import com.changyi.chy.commons.api.R;
 import com.changyi.chy.demo.entity.UcWxqySuite;
+import com.changyi.chy.demo.remote.AuthService;
+import com.changyi.chy.demo.remote.HttpApi;
 import com.changyi.chy.demo.service.UcWxqySuiteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,6 +29,12 @@ public class UcWxqySuiteController {
      */
     @Resource
     private UcWxqySuiteService ucWxqySuiteService;
+
+    @Resource
+    private HttpApi httpApi;
+
+    @Resource
+    private AuthService authService;
 
     /**
      * 通过主键查询单条数据
@@ -62,4 +70,13 @@ public class UcWxqySuiteController {
         return R.success();
     }
 
+    @GetMapping("/baidu")
+    public R Baidu() {
+        return R.data(httpApi.getOneHitokoto());
+    }
+
+    @GetMapping("/test")
+    public R<String> test() {
+        return authService.test();
+    }
 }
