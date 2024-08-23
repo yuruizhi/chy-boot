@@ -18,19 +18,13 @@ spring:
         #获取连接时最大等待时间
         max-wait: 60000
       datasource:
-#        master:
-#          #账号配置
-#          url: jdbc:mysql://sh-cdb-5wr4bn64.sql.tencentcdb.com:63285/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
-#          username: root
-#          password: ZeueGhtMder83tBO
-#          driver-class-name: com.mysql.cj.jdbc.Driver
         master:
-          url: jdbc:mysql://192.168.239.129:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave_1:
-          url: jdbc:mysql://192.168.239.128:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          90url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -45,12 +39,12 @@ spring:
         min-idle: 0
     cluster:
       nodes:
-        - 192.168.239.129:6371
-        - 192.168.239.129:6372
-        - 192.168.239.129:6373
-        - 192.168.239.128:6374
-        - 192.168.239.128:6375
-        - 192.168.239.128:6376
+        - 192.168.239.1:6371
+        - 192.168.239.1:6372
+        - 192.168.239.1:6373
+        - 192.168.239.1:6374
+        - 192.168.239.1:6375
+        - 192.168.239.1:6376
       max-redirects: 5
 
 swagger:
@@ -60,35 +54,35 @@ sms:
   message:
     accessToken: xxx
 
-qm:
+tm:
   brands:
-    - name: Aptamil
-      accountId: 5b470acd216aa4005102e5f7
-      channelId: 5c7f69c2441958001f093258
+    - name: xxx
+      accountId: xxx
+      channelId: xxx
       token: xxx
   # 用户相关接口
   member:
-    get: https://staging-business-api.quncrm.com/v2/members
-    updateUrl: https://staging-business-api.quncrm.com/v2/members/upsert
-    registerUrl: https://staging-business-api.quncrm.com/v2/members/upsert
+    get: https://xxx
+    updateUrl: https://xxx
+    registerUrl: https://xxx
   # 短信发送配置
   sms:
-    send: https://staging-business-api.quncrm.com/v2/sendSms
+    send: https://xxx
   # 事件上报配置
   event:
-    report: https://staging-business-api.quncrm.com/v2/memberEventLogs
-  # 群脉TensorFlow服务url配置
+    report: https://xxx
+  # TensorFlow服务url配置
   tensorFlow:
     v1:
-      color: https://chyri-staging-stooltracker-tensorflow-colordetection.app.maiscrm.com/run
+      color: https://xxx
     v2:
-      diaper: https://chyri-staging-stooltracker-tensorflow-diaper.app.maiscrm.com/v1/models/diaper:predict
-      color: https://chyri-staging-stooltracker-tensorflow-color.app.maiscrm.com/v1/models/color_model:predict
-      stool: https://chyri-staging-stooltracker-tensorflow-stool.app.maiscrm.com/v1/models/stool:predict
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
     v3:
-      diaper: https://chyri-staging-stooltracker-tensorflow-diaperv2.app.maiscrm.com/v1/models/diaper:predict
-      color: https://chyri-staging-stooltracker-tensorflow-colorv2.app.maiscrm.com/v1/models/color:predict
-      stool: https://chyri-staging-stooltracker-tensorflow-stoolv2.app.maiscrm.com/v1/models/stool:predict
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml

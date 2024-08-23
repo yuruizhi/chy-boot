@@ -41,32 +41,32 @@ logging:
 sms:
   message:
     accessToken: xxx
-qm:
+tm:
   brands:
-    - name: Aptamil
-      accountId: 5b63c4e54d3f3b7c67746079
-      channelId: 5da16f5464aaec68c5182b05
+    - name: xxx
+      accountId: xxx
+      channelId: xxx
       token: xxx
   # 用户相关接口
   member:
-    get: https://business-api.quncrm.com/v2/members
-    updateUrl: https://business-api.quncrm.com/v2/members/upsert
-    registerUrl: https://business-api.quncrm.com/v2/members/upsert
+    get: https://xxx
+    updateUrl: https://xxx
+    registerUrl: https://xxx
   # 短信发送配置
   sms:
-    send: https://business-api.quncrm.com/v2/sendSms
+    send: https://xxx
   # 事件上报配置
   event:
-    report: https://business-api.quncrm.com/v2/memberEventLogs
-  # 群脉TensorFlow服务url配置
+    report: https://xxx
+  # TensorFlow服务url配置
   tensorFlow:
     v1:
-      color: https://chyri-production-stooltracker-tensorflow-colordetection.app.maiscrm.com/run
+      color: https://xxx
     v2:
-      diaper: https://chyri-production-stooltracker-tensorflow-diaper.app.maiscrm.com/v1/models/diaper:predict
-      color: https://chyri-production-stooltracker-tensorflow-color.app.maiscrm.com/v1/models/color_model:predict
-      stool: https://chyri-production-stooltracker-tensorflow-stool.app.maiscrm.com/v1/models/stool:predict
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
     v3:
-      diaper: http://stooltracker-tensorflow-diaperv2/v1/models/diaper:predict
-      color: http://stooltracker-tensorflow-colorv2/v1/models/color:predict
-      stool: http://stooltracker-tensorflow-stoolv2/v1/models/stool:predict
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
