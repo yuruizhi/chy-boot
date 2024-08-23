@@ -40,14 +40,13 @@ logging:
 
 sms:
   message:
-    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTE2OTEsImV4cCI6NDcxNjE1MTY5MSwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNjNjNGU1NGQzZjNiN2M2Nzc0NjA3OSIsInN1YiI6ImFwcDo1ZDIyYTU4YjdhNGZmMjRmMTQwYjc1Y2MiLCJ1bmlxIjoiMTMzMDcyNjY4MzVkMjJhNThiNTU3MDA3Ljg0MjgwMDYzIn0.Vzog0DoYDkzE7Kc2ru-Qm9urEBO63qst0WB_L6EPtHQ
-
+    accessToken: xxx
 qm:
   brands:
     - name: Aptamil
       accountId: 5b63c4e54d3f3b7c67746079
       channelId: 5da16f5464aaec68c5182b05
-      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTE2OTEsImV4cCI6NDcxNjE1MTY5MSwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNjNjNGU1NGQzZjNiN2M2Nzc0NjA3OSIsInN1YiI6ImFwcDo1ZDIyYTU4YjdhNGZmMjRmMTQwYjc1Y2MiLCJ1bmlxIjoiMTMzMDcyNjY4MzVkMjJhNThiNTU3MDA3Ljg0MjgwMDYzIn0.Vzog0DoYDkzE7Kc2ru-Qm9urEBO63qst0WB_L6EPtHQ
+      token: xxx
   # 用户相关接口
   member:
     get: https://business-api.quncrm.com/v2/members
