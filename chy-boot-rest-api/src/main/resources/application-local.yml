@@ -65,7 +65,7 @@ qm:
     - name: Aptamil
       accountId: 5b470acd216aa4005102e5f7
       channelId: 5c7f69c2441958001f093258
-      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI1NTEzODAsImV4cCI6NDcxNjE1MTM4MCwiaXNzIjoicG9ydGFsIiwiYXVkIjoib3BlbkFQSSIsImFpZCI6IjViNDcwYWNkMjE2YWE0MDA1MTAyZTVmNyIsInN1YiI6ImFwcDo1ZDIyYTQ1NGUzZDMyYTAyYTUyZjY1YjUiLCJ1bmlxIjoiMjEwMzQ1MDc0NDVkMjJhNDU0ZGRhNDU4LjA2MDM2NjE2In0.iXS0a70DvNoPX05RmCzh29SkxN5AMhm0Y9A6iE0b-d0
+      token: xxx
   # 用户相关接口
   member:
     get: https://staging-business-api.quncrm.com/v2/members
