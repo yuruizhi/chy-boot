@@ -1,6 +1,7 @@
 package com.changyi.chy.api.controller;
 
 import com.changyi.chy.commons.api.R;
+import com.changyi.chy.commons.security.JwtBlacklistService;
 import com.changyi.chy.commons.security.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,11 +10,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
@@ -33,10 +36,12 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final JwtBlacklistService blacklistService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, JwtBlacklistService blacklistService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
+        this.blacklistService = blacklistService;
     }
 
     /**
@@ -139,5 +144,39 @@ public class AuthController {
         tokens.put("token_type", "Bearer");
 
         return R.data(tokens);
+    }
+    
+    /**
+     * 登出
+     *
+     * @param request HTTP请求
+     * @return 登出结果
+     */
+    @Operation(summary = "登出")
+    @PostMapping("/logout")
+    public R<Void> logout(HttpServletRequest request) {
+        String jwt = extractTokenFromRequest(request);
+        if (StringUtils.hasText(jwt)) {
+            // 将当前令牌加入黑名单
+            blacklistService.addToBlacklist(jwt);
+            
+            // 清除安全上下文
+            SecurityContextHolder.clearContext();
+        }
+        return R.success("登出成功");
+    }
+    
+    /**
+     * 从请求中提取令牌
+     *
+     * @param request HTTP请求
+     * @return 令牌
+     */
+    private String extractTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 } 

@@ -156,4 +156,27 @@ public class JwtUtils {
             return null;
         }
     }
+
+    /**
+     * 获取令牌的过期时间（毫秒时间戳）
+     *
+     * @param token 令牌
+     * @return 过期时间的毫秒时间戳
+     * @throws ExpiredJwtException 如果令牌已过期
+     */
+    public long getExpirationTimeFromToken(String token) throws ExpiredJwtException {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.getExpiration().getTime();
+        } catch (ExpiredJwtException e) {
+            // 即使令牌过期，我们仍然可以从异常中获取过期时间
+            return e.getClaims().getExpiration().getTime();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("无效的JWT令牌", e);
+        }
+    }
 } 
