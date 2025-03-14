@@ -1,86 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration>
-    <springProperty scope="context" name="contextName" source="spring.application.name"/>
-    <contextName>${contextName}</contextName>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property name="log.async.queue.size" value="20480"/>
-    <property name="log.maxFileSize" value="1024MB"/>
-    <property name="log.charset" value="UTF-8"/>
-    <property name="log.file" value="${LOG_FILE:-${java.io.tmpdir:-/tmp}}/${contextName}"/>
-    <property name="log.pattern" value='{
-		"app": "%contextName",
-		"ip": "%ip",
-		"request_id": "%request_id",
-		"timestamp": "%date{"yyyy-MM-dd HH:mm:ss.SSS"}",
-		"log_level": "%level",
-		"thread": "%thread",
-		"pos": "%logger",
-		"stack_trace": "%exception{100}",
-		"message": "%message"
-		}%n'
-    />
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="chy-boot"/>
+    <springProperty scope="context" name="logLevel" source="logging.level.root" defaultValue="INFO"/>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.file}/log.json</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.file}/log.%d{yyyy-MM-dd}.%i.log.json.zip</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${log.maxFileSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder charset="${log.charset}" class="com.changyi.chy.commons.component.log.MyPatternLayoutEncoder">
-            <pattern>
-                ${log.pattern}
-            </pattern>
-        </encoder>
-    </appender>
+    <!-- 控制台日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" 
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %clr(%X{traceId:-}){yellow} %m%n%wEx"/>
 
-    <!-- Asynchronized log, for FILE only -->
-    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- Don't discard log, logback will discard TRACE, DEBUG, INFO log when queue 80% capacity reached by default. -->
-        <discardingThreshold>0</discardingThreshold>
-        <queueSize>${log.async.queue.size}</queueSize>
-        <includeCallerData>false</includeCallerData>
-        <appender-ref ref="FILE"/>
-    </appender>
+    <!-- 文件日志配置 -->
+    <property name="LOG_HOME" value="${LOG_PATH:-./logs}"/>
+    <property name="MAX_FILE_SIZE" value="100MB"/>
+    <property name="MAX_HISTORY" value="30"/>
 
+    <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder charset="${log.charset}" class="com.changyi.chy.commons.component.log.MyPatternLayoutEncoder">
-            <pattern>
-                ${log.pattern}
-            </pattern>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="error"/>
+    <!-- 普通日志文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${appName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %X{traceId:-} %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
+    <!-- 错误日志文件输出 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${appName}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %X{traceId:-} %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
 
-    <springProfile name="local,test">
-        <logger name="com.changyi" level="debug"/>
-        <logger name="com.alibaba" level="info"/>
-        <logger name="net.bull.javamelody" level="info"/>
-        <logger name="org.redisson" level="info"/>
-        <logger name="org.mybatis.spring" level="info"/>
-        <logger name="org.apache.ibatis" level="info"/>
-    </springProfile>
+    <!-- JSON格式日志，用于Logstash收集 -->
+    <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${appName}-json.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}-json-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>traceId</includeMdcKeyName>
+            <includeMdcKeyName>userId</includeMdcKeyName>
+            <includeMdcKeyName>requestIp</includeMdcKeyName>
+            <includeMdcKeyName>requestPath</includeMdcKeyName>
+            <includeMdcKeyName>requestMethod</includeMdcKeyName>
+            <customFields>{"app":"${appName}"}</customFields>
+        </encoder>
+    </appender>
 
-    <springProfile name="prod">
-        <logger name="com.changyi" level="info"/>
-        <logger name="com.alibaba" level="info"/>
-        <logger name="net.bull.javamelody" level="info"/>
-        <logger name="org.redisson" level="info"/>
-    </springProfile>
+    <!-- 异步处理文件日志，提高性能 -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE" />
+    </appender>
 
+    <appender name="ASYNC_ERROR_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="ERROR_FILE" />
+    </appender>
 
-    <root level="INFO">
-        <springProfile name="local">
-            <appender-ref ref="CONSOLE"/>
-        </springProfile>
+    <appender name="ASYNC_JSON_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="JSON_FILE" />
+    </appender>
 
-        <springProfile name="dev,test,prod">
-            <appender-ref ref="CONSOLE"/>
-        </springProfile>
+    <!-- 框架日志配置 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mybatis" level="INFO"/>
+    <logger name="com.baomidou" level="INFO"/>
+    <logger name="org.apache" level="INFO"/>
+    <logger name="com.zaxxer" level="INFO"/>
+    <logger name="springfox" level="INFO"/>
+
+    <!-- 应用日志配置 -->
+    <logger name="com.changyi.chy" level="${logLevel}"/>
+
+    <!-- 根日志配置 -->
+    <root level="${logLevel}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+        <appender-ref ref="ASYNC_ERROR_FILE" />
+        <appender-ref ref="ASYNC_JSON_FILE" />
     </root>
-
 </configuration>

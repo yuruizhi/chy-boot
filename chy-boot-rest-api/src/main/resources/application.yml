@@ -3,9 +3,9 @@ app:
 
 spring:
   application:
-    name: chy-boot-rest-api
+    name: chy-boot
   profiles:
-    active: local
+    active: ${profile.id:local}
 
 server:
   compression:
@@ -16,6 +16,18 @@ server:
     direct-buffers: true
     io-threads: 8
     worker-threads: 400
+  tomcat:
+    max-connections: 10000
+    max-threads: 200
+    min-spare-threads: 10
+    accesslog:
+      enabled: true
+      directory: logs
+      pattern: '%t %a "%r" %s %b %D %I'
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      rotate: true
 
 # 启动上下文过滤器
 web:
@@ -43,12 +55,33 @@ management:
   endpoint:
     health:
       # always、when-authorized、never，默认值是never
-      show-details: never
+      show-details: when_authorized
+    prometheus:
+      enabled: true
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,prometheus,metrics,caches,loggers
+      base-path: /actuator
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5, 0.75, 0.9, 0.95, 0.99
+      sla:
+        http.server.requests: 100ms, 500ms, 1s, 5s
 
 sms:
   message:
     code: 您的验证码是{0}。如非本人操作，请忽略本短信
+
+# Caffeine缓存统计
+caffeine:
+  stats:
+    enabled: true
