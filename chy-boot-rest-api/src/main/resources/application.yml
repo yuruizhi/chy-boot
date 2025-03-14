@@ -6,6 +6,32 @@ spring:
     name: chy-boot
   profiles:
     active: ${profile.id:local}
+  # 数据库连接池配置
+  datasource:
+    dynamic:
+      primary: master
+      # 使用Hikari作为默认连接池
+      hikari:
+        # 连接池最大连接数
+        maximum-pool-size: 20
+        # 最小空闲连接数
+        minimum-idle: 5
+        # 空闲连接存活最大时间（毫秒）
+        idle-timeout: 600000
+        # 连接最大存活时间（毫秒）
+        max-lifetime: 1800000
+        # 连接超时时间（毫秒）
+        connection-timeout: 30000
+        # 测试连接是否可用的查询语句
+        connection-test-query: SELECT 1
+        # 连接池名称
+        pool-name: HikariCP-Pool
+        # 自动提交
+        auto-commit: true
+        # 验证超时（毫秒）
+        validation-timeout: 5000
+        # 注册MBeans
+        register-mbeans: true
 
 server:
   compression:
@@ -33,7 +59,7 @@ server:
 web:
   execute:
     context:
-      enabled: true
+      enabled: true  # 启用统一的请求上下文处理器
 
 # XSS过滤器配置
 cy:
