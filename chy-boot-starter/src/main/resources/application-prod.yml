@@ -1,0 +1,71 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          url: jdbc:mysql://mysql-service:3306/chy_boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:password}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource
+        slave_1:
+          url: jdbc:mysql://mysql-service-slave:3306/chy_boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          username: ${MYSQL_SLAVE_USERNAME:root}
+          password: ${MYSQL_SLAVE_PASSWORD:password}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    password: ${REDIS_PASSWORD:}
+    timeout: 60s
+    cluster:
+      nodes:
+        - redis-cluster-0.redis-service:6379
+        - redis-cluster-1.redis-service:6379
+        - redis-cluster-2.redis-service:6379
+      max-redirects: 5
+    lettuce:
+      pool:
+        max-active: 16
+        max-wait: -1
+        max-idle: 16
+        min-idle: 8
+
+# MyBatis配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.changyi.chy.**.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # 生产环境不打印SQL日志
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-underline: true
+
+# 日志配置
+logging:
+  level:
+    root: warn
+    com.changyi.chy: info
+  # 生产环境日志文件配置
+  file:
+    name: /var/log/chy-boot/application.log
+    max-size: 10MB
+    max-history: 30
+
+# Swagger配置
+swagger:
+  enabled: false
+
+# 第三方API配置示例
+api:
+  base-url: https://api.example.com/
+  access-key-id: ${API_KEY_ID}
+  access-key-secret: ${API_KEY_SECRET}
+  timeout: 3000 

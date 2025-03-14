@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.changyi</groupId>
+        <artifactId>chy-boot-framework</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>chy-boot-web</artifactId>
+    <packaging>jar</packaging>
+    <description>Web相关功能，包括控制器基类、过滤器、拦截器、统一响应等</description>
+    
+    <dependencies>
+        <!-- 依赖common模块 -->
+        <dependency>
+            <groupId>com.changyi</groupId>
+            <artifactId>chy-boot-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- 依赖security模块 -->
+        <dependency>
+            <groupId>com.changyi</groupId>
+            <artifactId>chy-boot-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Web相关 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- 参数校验 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        <!-- Swagger文档 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+    </dependencies>
+</project> 

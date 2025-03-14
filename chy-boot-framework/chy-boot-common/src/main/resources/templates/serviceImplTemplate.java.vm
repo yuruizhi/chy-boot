@@ -1,0 +1,74 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+
+        @Override
+        public  Response${entity} insert(Req${entity}Add reqAdd){
+            ${entity} add = BeanUtil.copy(reqAdd, ${entity}.class);
+
+            if(add.getCreateTime() == null ){
+                add.setCreateTime(DateUtil.getCurrentTimeMills());
+            }
+            add.setStatus(CommonConstant.DB_STATUS_NORMAL);
+            add.setId(UUIDGenerator.generate());
+            boolean result = save(add);
+            if(result){
+                return BeanUtil.copy(add, Response${entity}.class);
+            }else {
+                throw new DnConsoleException(ResultCode.DB_CREAT_DATA_FAIL.getMessage());
+            }
+        }
+
+        @Override
+        public Response${entity} update(String id, Req${entity}Update reqUpdate){
+            ${entity} data = getById(id);
+            if(data == null ){
+                throw new DnConsoleException(ResultCode.DATA_NOT_EXIST.getMessage());
+            }
+            ${entity} upData = BeanUtil.copy(reqUpdate, ${entity}.class);
+            upData.setId(id);
+            upData.setUpdateTime(DateUtil.getCurrentTimeMills());
+            boolean result = updateById(upData);
+            if(result){
+                return BeanUtil.copy(up, Response${entity}.class);
+            }else {
+                throw new DnConsoleException(ResultCode.DB_UPDATE_DATA_FAIL.getMessage());
+            }
+        }
+
+        @Override
+        public Response${entity} get(String id){
+            QueryWrapper<chyBaby> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id", id)
+            .eq("status", CommonConstant.DB_STATUS_NORMAL);
+            ${entity} data = getOne(queryWrapper);
+            if(data != null){
+                Response${entity} response${entity} = BeanUtil.copy(baby, Response${entity}.class);
+                return response${entity};
+            }else {
+                throw new DnConsoleException(ResultCode.DATA_NOT_EXIST.getMessage());
+            }
+        }
+}
+#end

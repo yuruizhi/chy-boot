@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.changyi</groupId>
+        <artifactId>chy-boot-infrastructure</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>chy-boot-datasource</artifactId>
+    <packaging>jar</packaging>
+    <description>数据源相关功能，包括数据源配置、连接池等</description>
+    
+    <dependencies>
+        <!-- 依赖持久化模块 -->
+        <dependency>
+            <groupId>com.changyi</groupId>
+            <artifactId>chy-boot-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- 数据源连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid-spring-boot-starter.version}</version>
+        </dependency>
+    </dependencies>
+</project> 
