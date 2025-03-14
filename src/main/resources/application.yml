@@ -1,0 +1,4 @@
+app:
+  jwt:
+    secret: ${JWT_SECRET:chy-boot-secure-secret-key-for-jwt-generation}
+    expiration: ${JWT_EXPIRATION:86400000}  # 24小时，单位毫秒 
