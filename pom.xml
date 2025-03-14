@@ -30,7 +30,7 @@
         <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
         <hutool-all.version>5.8.26</hutool-all.version>
         <druid-spring-boot-starter.version>1.2.21</druid-spring-boot-starter.version>
-        <java-jwt.version>4.4.0</java-jwt.version>
+        <jjwt.version>0.11.5</jjwt.version>
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
         <fastjson.version>2.0.47</fastjson.version>
         <knife4j.version>4.4.0</knife4j.version>
