@@ -43,6 +43,12 @@ test:
   accessKeySecret: test_secret
   authUri: http://localhost:8080/mock
 
+# 请求追踪配置
+web:
+  execute:
+    context:
+      enabled: true  # 测试环境使用ExecuteContextFilter
+
 # 日志配置
 logging:
   level:
