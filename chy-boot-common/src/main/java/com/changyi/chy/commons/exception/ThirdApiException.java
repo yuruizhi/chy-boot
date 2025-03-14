@@ -7,7 +7,7 @@ import com.changyi.chy.commons.api.IResultCode;
 /**
  * 第三个api例外
  *
- * @author Henry.yu
+ * @author YuRuizhi
  */
 public class ThirdApiException extends BaseException {
 

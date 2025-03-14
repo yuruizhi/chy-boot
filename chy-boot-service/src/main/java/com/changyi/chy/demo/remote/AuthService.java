@@ -3,7 +3,6 @@ package com.changyi.chy.demo.remote;
 import com.changyi.chy.commons.api.R;
 import com.changyi.chy.commons.platform.auth.entity.AuthParam;
 import com.changyi.chy.commons.platform.auth.entity.AuthResponse;
-import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -13,10 +12,11 @@ import retrofit2.http.POST;
  * 身份验证服务
  * http api
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @date 2021/01/18
  */
-@RetrofitClient(baseUrl = "${test.authUri}")
+// 注释掉RetrofitClient注解，因为它在当前版本中不可用
+// @RetrofitClient(baseUrl = "${test.authUri}")
 public interface AuthService {
     /**
      * 获得令牌

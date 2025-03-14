@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 套件主表(UcWxqySuite)实体类
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @since 2021-01-14 14:34:22
  * @update 2023/03/01 更新为MyBatis-Plus实体
  */

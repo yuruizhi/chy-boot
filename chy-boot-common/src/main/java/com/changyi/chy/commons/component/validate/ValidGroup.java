@@ -3,7 +3,7 @@ package com.changyi.chy.commons.component.validate;
 /**
  * 使用jsr-bean验证规范
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/15
  */
 public interface ValidGroup {

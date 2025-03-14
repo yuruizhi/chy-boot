@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 套件主表(UcWxqySuite)表服务实现类
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @since 2021-01-14 14:34:26
  * @update 2023/03/01 升级到MyBatis-Plus
  */

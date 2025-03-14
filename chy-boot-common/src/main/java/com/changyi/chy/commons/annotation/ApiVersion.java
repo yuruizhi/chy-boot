@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 自定义版本号标记注解.
  *
- * @author Henry.yu
+ * @author YuRuizhi
  * @date 2020.6.30
  */
 @Target({ElementType.METHOD, ElementType.TYPE})

@@ -3,7 +3,7 @@ package com.changyi.chy.commons.component.cache;
 /**
  * 全局配置信息获取接口
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/10
  */
 public interface IGlobalSettingsGetter {

@@ -7,7 +7,7 @@ RUN apk update && apk add --update curl bash htop tzdata \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /data/logs/jvm
 
-ADD danone-boot-api/target/danone-boot-api-1.0-SNAPSHOT.jar /app.jar
+ADD chy-boot-api/target/chy-boot-api-1.0-SNAPSHOT.jar /app.jar
 
 ENV PORT 8084
 HEALTHCHECK --interval=120s --timeout=300s CMD curl http://localhost:$PORT/actuator/health || exit 1

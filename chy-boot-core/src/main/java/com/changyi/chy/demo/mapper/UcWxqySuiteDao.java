@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 套件主表(UcWxqySuite)表数据库访问层
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @since 2021-01-14 14:34:24
  * @update 2023/03/01 升级到MyBatis-Plus
  */

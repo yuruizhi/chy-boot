@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 线城池配置类.
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020.3.23
  */
 @Slf4j

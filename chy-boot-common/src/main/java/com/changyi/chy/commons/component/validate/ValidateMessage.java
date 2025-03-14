@@ -3,7 +3,7 @@ package com.changyi.chy.commons.component.validate;
 /**
  * jsr-349 使用,消息常量定义
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/15
  */
 public interface ValidateMessage {

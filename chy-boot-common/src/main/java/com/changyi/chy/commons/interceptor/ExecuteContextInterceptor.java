@@ -7,10 +7,10 @@ import com.changyi.chy.commons.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * web请求上下文处理
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author three
  * @date 2016/5/18
  */
-public class ExecuteContextInterceptor extends HandlerInterceptorAdapter {
+public class ExecuteContextInterceptor implements HandlerInterceptor {
 
     private static Logger logger = LoggerFactory.getLogger(ExecuteContextInterceptor.class);
 
@@ -71,16 +71,6 @@ public class ExecuteContextInterceptor extends HandlerInterceptorAdapter {
     }
 
     /**
-     * This implementation is empty.
-     */
-    @Override
-    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.debug("情况执行上下文...");
-        slowRequestLog(request);
-        ExecuteContext.removeContext();
-    }
-
-    /**
      * 慢请求记录
      *
      * @param request
@@ -96,6 +86,4 @@ public class ExecuteContextInterceptor extends HandlerInterceptorAdapter {
             logger.info("重要信息|慢REST: {} 接口执行时间太长 <{}> ms", definedPath, executeTime);
         }
     }
-
-
 }

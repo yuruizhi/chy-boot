@@ -4,14 +4,14 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 重写 RequestCondition.
  *
- * @author Henry.yu
+ * @author YuRuizhi
  * @date 2020.6.30
  */
 @Data

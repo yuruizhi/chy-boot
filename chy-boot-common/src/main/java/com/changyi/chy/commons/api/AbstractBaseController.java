@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 接口基类
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020.1.22
  */
 @RequestMapping(AbstractBaseController.REST_URL_PREFIX)

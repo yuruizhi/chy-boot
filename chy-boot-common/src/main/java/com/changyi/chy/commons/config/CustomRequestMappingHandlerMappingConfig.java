@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  *     https://stackoverflow.com/questions/36744678/spring-boot-swagger-2-ui-custom-requestmappinghandlermapping-mapping-issue
  * </link>
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @date 2021/01/14
  */
 @Configuration

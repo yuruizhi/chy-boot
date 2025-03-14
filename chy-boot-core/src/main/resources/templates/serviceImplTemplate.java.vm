@@ -59,7 +59,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
         @Override
         public Response${entity} get(String id){
-            QueryWrapper<DanoneBaby> queryWrapper = new QueryWrapper<>();
+            QueryWrapper<chyBaby> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("id", id)
             .eq("status", CommonConstant.DB_STATUS_NORMAL);
             ${entity} data = getOne(queryWrapper);
