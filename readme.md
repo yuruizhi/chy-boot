@@ -108,6 +108,53 @@ userMapper.updateById(user.setName("李四"));
 userMapper.deleteById(1L);
 ```
 
+## 测试指南
+
+项目使用JUnit 5和Mockito框架进行测试，支持单元测试和集成测试。
+
+### 单元测试
+
+单元测试用于测试各个组件的独立功能，不依赖于外部资源。例如：
+
+```java
+@Test
+@DisplayName("测试通过ID获取单条记录")
+void testSelectOne() throws Exception {
+    // 准备测试数据
+    UcWxqySuite mockSuite = new UcWxqySuite();
+    mockSuite.setQysSuiteid("test-suite-id");
+    
+    // 配置Mock行为
+    when(ucWxqySuiteService.getById(anyString())).thenReturn(mockSuite);
+    
+    // 执行请求并验证
+    mockMvc.perform(get("/ucWxqySuite/selectOne")
+            .param("id", "test-suite-id"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.qysSuiteid").value("test-suite-id"));
+}
+```
+
+### 集成测试
+
+集成测试用于测试多个组件之间的交互，通常涉及数据库操作。项目使用H2内存数据库进行集成测试，避免影响生产环境。
+
+运行集成测试：
+
+```bash
+mvn test -P test
+```
+
+### 测试覆盖率报告
+
+项目使用JaCoCo生成测试覆盖率报告，可通过以下命令生成报告：
+
+```bash
+mvn clean test jacoco:report
+```
+
+生成的报告位于 `target/site/jacoco/index.html`。
+
 ## 后续升级规划
 
 根据Java和Spring Boot开发的最佳实践，项目计划进行以下升级：
