@@ -1,14 +1,18 @@
 package com.changyi.chy.commons.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,13 +77,14 @@ public class JwtUtils {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expiration);
 
-        Algorithm algorithm = Algorithm.HMAC256(secret);
-        return JWT.create()
-                .withSubject(subject)
-                .withIssuedAt(now)
-                .withExpiresAt(expirationDate)
-                .withClaim("type", "access")
-                .sign(algorithm);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(now)
+                .setExpiration(expirationDate)
+                .claim("type", "access")
+                .signWith(getSigningKey())
+                .compact();
     }
 
     /**
@@ -93,13 +98,24 @@ public class JwtUtils {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + refreshExpiration);
 
-        Algorithm algorithm = Algorithm.HMAC256(secret);
-        return JWT.create()
-                .withSubject(subject)
-                .withIssuedAt(now)
-                .withExpiresAt(expirationDate)
-                .withClaim("type", "refresh")
-                .sign(algorithm);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(now)
+                .setExpiration(expirationDate)
+                .claim("type", "refresh")
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    /**
+     * 获取签名密钥
+     *
+     * @return 签名密钥
+     */
+    private Key getSigningKey() {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**
@@ -110,11 +126,13 @@ public class JwtUtils {
      */
     public boolean validateToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            verifier.verify(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
             return true;
-        } catch (JWTVerificationException exception) {
+        } catch (SecurityException | MalformedJwtException | ExpiredJwtException |
+                 UnsupportedJwtException | IllegalArgumentException e) {
             return false;
         }
     }
@@ -127,11 +145,14 @@ public class JwtUtils {
      */
     public String getUsernameFromToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT jwt = verifier.verify(token);
-            return jwt.getSubject();
-        } catch (JWTVerificationException exception) {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.getSubject();
+        } catch (SecurityException | MalformedJwtException | ExpiredJwtException |
+                 UnsupportedJwtException | IllegalArgumentException e) {
             return null;
         }
     }
