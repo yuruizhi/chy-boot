@@ -1,5 +1,6 @@
 package com.changyi.chy.demo.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.changyi.chy.demo.entity.UcWxqySuite;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,16 +11,9 @@ import java.util.List;
  *
  * @author ZhangHao
  * @since 2021-01-14 14:34:24
+ * @update 2023/03/01 升级到MyBatis-Plus
  */
-public interface UcWxqySuiteDao {
-
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param qysSuiteid 主键
-     * @return 实例对象
-     */
-    UcWxqySuite queryById(String qysSuiteid);
+public interface UcWxqySuiteDao extends BaseMapper<UcWxqySuite> {
 
     /**
      * 查询指定行数据
@@ -40,14 +34,6 @@ public interface UcWxqySuiteDao {
     List<UcWxqySuite> queryAll(UcWxqySuite ucWxqySuite);
 
     /**
-     * 新增数据
-     *
-     * @param ucWxqySuite 实例对象
-     * @return 影响行数
-     */
-    int insert(UcWxqySuite ucWxqySuite);
-
-    /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
      * @param entities List<UcWxqySuite> 实例对象列表
@@ -62,21 +48,5 @@ public interface UcWxqySuiteDao {
      * @return 影响行数
      */
     int insertOrUpdateBatch(@Param("entities") List<UcWxqySuite> entities);
-
-    /**
-     * 修改数据
-     *
-     * @param ucWxqySuite 实例对象
-     * @return 影响行数
-     */
-    int update(UcWxqySuite ucWxqySuite);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param qysSuiteid 主键
-     * @return 影响行数
-     */
-    int deleteById(String qysSuiteid);
 
 }

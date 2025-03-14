@@ -1,5 +1,11 @@
 package com.changyi.chy.demo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -7,12 +13,17 @@ import java.io.Serializable;
  *
  * @author ZhangHao
  * @since 2021-01-14 14:34:22
+ * @update 2023/03/01 更新为MyBatis-Plus实体
  */
+@Data
+@Accessors(chain = true)
+@TableName("uc_wxqy_suite")
 public class UcWxqySuite implements Serializable {
     private static final long serialVersionUID = 759760820368851749L;
     /**
      * 套件id
      */
+    @TableId(value = "qys_suiteid", type = IdType.INPUT)
     private String qysSuiteid;
     /**
      * 套件秘钥
@@ -70,126 +81,4 @@ public class UcWxqySuite implements Serializable {
      * 删除时间
      */
     private Object qysDeleted;
-
-
-    public String getQysSuiteid() {
-        return qysSuiteid;
-    }
-
-    public void setQysSuiteid(String qysSuiteid) {
-        this.qysSuiteid = qysSuiteid;
-    }
-
-    public String getQysSuiteSecret() {
-        return qysSuiteSecret;
-    }
-
-    public void setQysSuiteSecret(String qysSuiteSecret) {
-        this.qysSuiteSecret = qysSuiteSecret;
-    }
-
-    public String getQysSuiteAeskey() {
-        return qysSuiteAeskey;
-    }
-
-    public void setQysSuiteAeskey(String qysSuiteAeskey) {
-        this.qysSuiteAeskey = qysSuiteAeskey;
-    }
-
-    public String getQysToken() {
-        return qysToken;
-    }
-
-    public void setQysToken(String qysToken) {
-        this.qysToken = qysToken;
-    }
-
-    public String getQysTicket() {
-        return qysTicket;
-    }
-
-    public void setQysTicket(String qysTicket) {
-        this.qysTicket = qysTicket;
-    }
-
-    public Object getQysIps() {
-        return qysIps;
-    }
-
-    public void setQysIps(Object qysIps) {
-        this.qysIps = qysIps;
-    }
-
-    public String getQysSuiteAccessToken() {
-        return qysSuiteAccessToken;
-    }
-
-    public void setQysSuiteAccessToken(String qysSuiteAccessToken) {
-        this.qysSuiteAccessToken = qysSuiteAccessToken;
-    }
-
-    public Object getQysAccessTokenExpires() {
-        return qysAccessTokenExpires;
-    }
-
-    public void setQysAccessTokenExpires(Object qysAccessTokenExpires) {
-        this.qysAccessTokenExpires = qysAccessTokenExpires;
-    }
-
-    public String getQysPreAuthCode() {
-        return qysPreAuthCode;
-    }
-
-    public void setQysPreAuthCode(String qysPreAuthCode) {
-        this.qysPreAuthCode = qysPreAuthCode;
-    }
-
-    public Object getQysAuthCodeExpires() {
-        return qysAuthCodeExpires;
-    }
-
-    public void setQysAuthCodeExpires(Object qysAuthCodeExpires) {
-        this.qysAuthCodeExpires = qysAuthCodeExpires;
-    }
-
-    public String getQysProvider() {
-        return qysProvider;
-    }
-
-    public void setQysProvider(String qysProvider) {
-        this.qysProvider = qysProvider;
-    }
-
-    public Object getQysStatus() {
-        return qysStatus;
-    }
-
-    public void setQysStatus(Object qysStatus) {
-        this.qysStatus = qysStatus;
-    }
-
-    public Object getQysCreated() {
-        return qysCreated;
-    }
-
-    public void setQysCreated(Object qysCreated) {
-        this.qysCreated = qysCreated;
-    }
-
-    public Object getQysUpdated() {
-        return qysUpdated;
-    }
-
-    public void setQysUpdated(Object qysUpdated) {
-        this.qysUpdated = qysUpdated;
-    }
-
-    public Object getQysDeleted() {
-        return qysDeleted;
-    }
-
-    public void setQysDeleted(Object qysDeleted) {
-        this.qysDeleted = qysDeleted;
-    }
-
 }
