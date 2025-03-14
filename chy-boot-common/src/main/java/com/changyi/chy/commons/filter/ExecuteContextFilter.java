@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -19,6 +19,7 @@ import java.io.IOException;
  *
  * @author three
  * @date 2016/5/18
+ * @update 2023/03/01 升级到Jakarta EE，兼容SpringBoot 3
  */
 @Component
 @ConditionalOnProperty(name = "web.execute.context.enabled")
