@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * jsr自定义校验bean.
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/15
  */
 @Data

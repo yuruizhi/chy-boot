@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 示例实体
  * 
- * @author ZhangHao
+ * @author YuRuizhi
  * @update 2023/03/01 更新为MyBatis-Plus实体
  */
 @Data

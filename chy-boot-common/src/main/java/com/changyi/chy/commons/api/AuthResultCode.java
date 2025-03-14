@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 认证结果代码
  *
- * @author ZhangHao
+ * @author YuRuizhi
  * @date 2021/01/18
  */
 @Getter

@@ -3,7 +3,6 @@ package com.changyi.chy.commons.util;
 import com.changyi.chy.commons.exception.CheckParamException;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
-import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,11 +10,12 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 
 /**
  * 图片工具类
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/17
  */
 @Slf4j
@@ -185,37 +185,29 @@ public class ImageUtil {
     }
 
     /**
-     * 将图片Base64编码转换成img图片文件
+     * 根据图片Base64字符串获取图片文件
      *
-     * @param imgBase64 图片Base64编码
-     * @param imgPath   图片生成路径
+     * @param imgBase64 图片Base64字符串
+     * @param imgPath   待保存的图片路径
      * @return
      */
     public static boolean getImgBase64ToImgFile(String imgBase64, String imgPath) {
-        boolean flag = true;
-        OutputStream outputStream = null;
+        boolean flag = false;
         try {
-            // 解密处理数据
-            byte[] bytes = new BASE64Decoder().decodeBuffer(imgBase64);
+            // Base64解码
+            byte[] bytes = Base64.getDecoder().decode(imgBase64);
             for (int i = 0; i < bytes.length; ++i) {
                 if (bytes[i] < 0) {
                     bytes[i] += 256;
                 }
             }
-            outputStream = new FileOutputStream(imgPath);
-            outputStream.write(bytes);
+            OutputStream out = new FileOutputStream(imgPath);
+            out.write(bytes);
+            out.flush();
+            out.close();
+            flag = true;
         } catch (Exception e) {
-            e.printStackTrace();
-            flag = false;
-        } finally {
-            if (outputStream != null) {
-                try {
-                    // 关闭outputStream流
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            log.error("base64获取图片异常:", e);
         }
         return flag;
     }

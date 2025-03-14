@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 数组相关操作.
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020/1/15
  */
 public class ArrayUtil {

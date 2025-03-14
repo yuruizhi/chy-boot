@@ -6,7 +6,7 @@ import com.changyi.chy.commons.platform.auth.entity.AuthResponse;
 /**
  * 认证接口层.
  *
- * @author Henry.yu
+ * @author YuRuizhi
  * @date 2020.6.5
  */
 public interface AuthService {

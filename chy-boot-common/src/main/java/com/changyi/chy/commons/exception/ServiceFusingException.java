@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 服务熔断异常
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @date 2020.3.4
  */
 public class ServiceFusingException extends BaseException {

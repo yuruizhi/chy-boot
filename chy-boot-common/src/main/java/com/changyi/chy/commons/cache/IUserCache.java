@@ -5,7 +5,7 @@ import com.changyi.chy.commons.platform.auth.entity.User;
 /**
  * 用户缓存.
  *
- * @author Henry.yu
+ * @author YuRuizhi
  * @date 2020.6.5
  */
 public interface IUserCache {

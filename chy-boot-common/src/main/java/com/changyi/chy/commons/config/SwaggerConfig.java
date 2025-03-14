@@ -12,6 +12,13 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 
+/**
+ * API文档配置
+ * 从Swagger 2升级到SpringDoc OpenAPI 3
+ *
+ * @author YuRuizhi
+ * @update 2025/03/14
+ */
 @Configuration
 public class SwaggerConfig {
 
@@ -27,7 +34,7 @@ public class SwaggerConfig {
     public OpenAPI apiInfo() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Chy Boot API")
+                        .title("CHY-Boot API")
                         .description("API文档")
                         .version("3.0"))
                 .schemaRequirement(TOKEN_HEADER, securityScheme())

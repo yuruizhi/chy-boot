@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 用户对象.
  *
- * @author Henry.Yu
+ * @author YuRuizhi
  * @since 2020.6.5
  */
 @Data

@@ -23,6 +23,19 @@ web:
     context:
       enabled: true
 
+# XSS过滤器配置
+cy:
+  xss:
+    enable: true
+    # 跳过的URL路径
+    skip-url:
+      - /api/v1/upload/**
+    # URL排除模式
+    url:
+      exclude-patterns:
+        - /swagger-ui/**
+        - /v3/api-docs/**
+
 management:
   health:
     redis:
