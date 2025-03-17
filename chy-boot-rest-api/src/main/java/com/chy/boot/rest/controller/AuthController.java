@@ -1,8 +1,8 @@
 package com.chy.boot.rest.controller;
 
-import com.chy.boot.commons.api.R;
-import com.chy.boot.commons.security.JwtBlacklistService;
-import com.chy.boot.commons.security.JwtUtils;
+import com.chy.boot.common.commons.api.R;
+import com.chy.boot.common.commons.security.JwtBlacklistService;
+import com.chy.boot.common.commons.security.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.chy.boot.commons.support.xss.XssAutoConfiguration 
+com.chy.boot.common.commons.support.xss.XssAutoConfiguration 

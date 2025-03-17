@@ -18,7 +18,7 @@
 ### 1.2 包结构规范
 
 ```
-com.changyi.chy
+com.chy.boot
   ├── controller        // 控制器
   │   └── vo            // 视图对象
   ├── service           // 服务接口
@@ -44,7 +44,7 @@ com.changyi.chy
 - **方法名**：使用lowerCamelCase，如`getUserById`
 - **变量名**：使用lowerCamelCase，如`userId`
 - **常量**：全部大写，下划线分隔，如`MAX_RETRY_COUNT`
-- **包名**：全部小写，如`com.changyi.chy.service`
+- **包名**：全部小写，如`com.chy.chy.service`
 
 ## 2. 编码最佳实践
 

@@ -94,7 +94,7 @@ public ApiResult<UserVO> createUser(@RequestBody @Valid UserCreateDTO userDTO) {
 建议的包结构调整：
 
 ```
-com.changyi.chy
+com.chy.chy
   ├── application         // 应用服务层
   │   └── service
   ├── domain              // 领域层

@@ -52,7 +52,7 @@ web:
 # 日志配置
 logging:
   level:
-    com.changyi.chy: DEBUG
+    com.chy.chy: DEBUG
     org.springframework: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

@@ -1,5 +1,5 @@
-FROM ccr.ccs.tencentyun.com/changyi_docker/oracle-java:8_server-jre_unlimited
-LABEL maintainer="Henry.Yu <yuruizhi@vchangyi.com>"
+FROM ccr.ccs.tencentyun.com/chi_docker/oracle-java:8_server-jre_unlimited
+LABEL maintainer="YuRuizhi <282373647.com>"
 
 # 安装字体工具及设置时区为京八区
 RUN apk update && apk add --update curl bash htop tzdata \

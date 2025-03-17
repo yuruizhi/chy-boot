@@ -33,7 +33,7 @@ node {
                             """),
                     string(
                             name: 'docker_namespace',
-                            defaultValue: 'uc-changyi',
+                            defaultValue: 'uc-chy',
                             description: """腾讯云镜像命名空间，区分不同的项目团队
                             """),
                     string(

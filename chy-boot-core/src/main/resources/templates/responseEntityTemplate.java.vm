@@ -1,4 +1,4 @@
-package com.changyi.chy.${package.ModuleName}.response;
+package com.chy.chy.${package.ModuleName}.response;
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
