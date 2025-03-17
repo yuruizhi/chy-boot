@@ -1,6 +1,5 @@
 package com.chy.boot;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @Slf4j
 @EnableAsync
-@SpringBootApplication(scanBasePackages = {"com.changyi.chy"}, exclude = DruidDataSourceAutoConfigure.class)
+@SpringBootApplication(scanBasePackages = {"com.changyi.chy"})
 @MapperScan(basePackages = "com.changyi.chy.**.mapper")
 public class RestApplication {
     public static void main(String[] args) {

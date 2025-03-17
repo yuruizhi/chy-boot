@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      druid:
+        # 测试环境连接池配置
+        initial-size: 2
+        min-idle: 2
+        max-active: 5
+        max-wait: 60000
+      datasource:
+        master:
+          url: jdbc:h2:mem:test_db;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+          username: sa
+          password: 
+          driver-class-name: org.h2.Driver
+          schema: classpath:db/schema-h2.sql
+          data: classpath:db/data-h2.sql
+  
+  # 关闭Redis以避免测试依赖真实环境
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+  # H2控制台配置 (可选)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# 测试环境禁用Swagger
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+# 测试环境特殊配置
+test:
+  baseUrl: http://localhost:8080/mock
+  accessKeyId: test_key
+  accessKeySecret: test_secret
+  authUri: http://localhost:8080/mock
+
+# 请求追踪配置
+web:
+  execute:
+    context:
+      enabled: true  # 测试环境使用ExecuteContextFilter
+
+# 日志配置
+logging:
+  level:
+    com.changyi.chy: DEBUG
+    org.springframework: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 
