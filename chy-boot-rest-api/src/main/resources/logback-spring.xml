@@ -29,7 +29,7 @@
                 <maxFileSize>${log.maxFileSize}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
-        <encoder charset="${log.charset}" class="com.changyi.chy.commons.component.log.MyPatternLayoutEncoder">
+        <encoder charset="${log.charset}" class="com.chy.boot.commons.component.log.MyPatternLayoutEncoder">
             <pattern>
                 ${log.pattern}
             </pattern>
@@ -46,7 +46,7 @@
     </appender>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder charset="${log.charset}" class="com.changyi.chy.commons.component.log.MyPatternLayoutEncoder">
+        <encoder charset="${log.charset}" class="com.chy.boot.commons.component.log.MyPatternLayoutEncoder">
             <pattern>
                 ${log.pattern}
             </pattern>

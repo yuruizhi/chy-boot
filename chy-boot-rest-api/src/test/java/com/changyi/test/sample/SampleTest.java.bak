@@ -1,6 +1,6 @@
 package com.changyi.test.sample;
 
-import com.changyi.chy.RestApplication;
+import com.chy.boot.RestApplication;
 import com.changyi.chy.mapper.UserMapper;
 import com.changyi.chy.entity.User;
 import org.junit.Assert;
