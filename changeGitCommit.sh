@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git filter-branch --env-filter '
+git filter-branch -f --env-filter '
 
 # 之前不规范的邮箱
 OLD_EMAIL="yuruizhi@vchangyi.com"
