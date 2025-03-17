@@ -2,8 +2,8 @@ package com.chy.boot.service.service.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chy.boot.common.commons.component.cache.RedisUtil;
-import com.chy.boot.rest.boot.rest.entity.UcWxqySuite;
-import com.chy.boot.rest.boot.rest.mapper.UcWxqySuiteDao;
+import com.chy.boot.rest.core.entity.UcWxqySuite;
+import com.chy.boot.rest.core.mapper.UcWxqySuiteDao;
 import com.chy.boot.service.service.service.UcWxqySuiteService;
 import org.springframework.stereotype.Service;
 

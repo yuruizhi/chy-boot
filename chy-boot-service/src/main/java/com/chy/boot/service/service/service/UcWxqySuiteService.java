@@ -1,7 +1,7 @@
 package com.chy.boot.service.service.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.chy.boot.rest.boot.rest.entity.UcWxqySuite;
+import com.chy.boot.rest.core.entity.UcWxqySuite;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.chy.boot.rest.controller;
 
 import com.chy.boot.common.commons.annotation.ApiVersion;
 import com.chy.boot.common.commons.api.R;
-import com.chy.boot.rest.boot.rest.entity.UcWxqySuite;
+import com.chy.boot.rest.core.entity.UcWxqySuite;
 import com.chy.boot.service.service.remote.AuthService;
 import com.chy.boot.service.service.remote.HttpApi;
 import com.chy.boot.service.service.service.UcWxqySuiteService;
