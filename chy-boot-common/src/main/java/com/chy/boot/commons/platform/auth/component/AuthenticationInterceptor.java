@@ -1,10 +1,11 @@
 package com.chy.boot.commons.platform.auth.component;
 
+
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import com.chy.boot.commons.api.AuthResultCode;
 import com.chy.boot.commons.context.ExecuteContext;
 import com.chy.boot.commons.exception.AuthException;

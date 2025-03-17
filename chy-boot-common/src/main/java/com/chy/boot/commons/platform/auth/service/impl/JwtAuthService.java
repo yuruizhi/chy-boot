@@ -1,5 +1,6 @@
 package com.chy.boot.commons.platform.auth.service.impl;
 
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.chy.boot.commons.exception.DnConsoleException;

@@ -1,8 +1,8 @@
 package com.changyi.chy.api.controller;
 
-import com.changyi.chy.commons.api.R;
-import com.changyi.chy.commons.idempotent.annotation.Idempotent;
-import com.changyi.chy.commons.idempotent.service.IdempotentTokenService;
+import com.chy.boot.commons.api.R;
+import com.chy.boot.commons.idempotent.annotation.Idempotent;
+import com.chy.boot.commons.idempotent.service.IdempotentTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

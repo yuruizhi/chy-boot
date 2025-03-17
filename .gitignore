@@ -25,4 +25,6 @@ Thumbs.db
 *.war
 *.ear
 
+.vscode/
+
 代码生成

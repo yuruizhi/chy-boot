@@ -1,5 +1,6 @@
 package com.changyi.chy.commons.security;
 
+import com.chy.boot.commons.security.JwtUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
