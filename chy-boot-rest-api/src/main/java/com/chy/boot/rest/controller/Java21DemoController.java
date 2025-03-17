@@ -1,6 +1,7 @@
 package com.chy.boot.rest.controller;
 
 import com.chy.boot.common.commons.api.R;
+import com.chy.boot.common.commons.config.VirtualThreadMonitor;
 import com.chy.boot.common.commons.util.ConcurrencyUtil;
 import com.chy.boot.common.commons.util.PatternMatchUtil;
 import com.chy.boot.rest.dto.UserDTO;
@@ -8,13 +9,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 /**
@@ -28,6 +33,13 @@ import java.util.function.Supplier;
 @RestController
 @RequestMapping("api/v1/java21")
 public class Java21DemoController {
+    
+    @Autowired(required = false)
+    private VirtualThreadMonitor virtualThreadMonitor;
+    
+    @Autowired
+    @Qualifier("ioTaskExecutor")
+    private Executor ioTaskExecutor;
     
     /**
      * 演示Record类型
@@ -159,6 +171,81 @@ public class Java21DemoController {
         // 获取最快成功的任务结果
         String result = ConcurrencyUtil.executeAnySuccess(tasks, Duration.ofSeconds(1));
         return R.data(result, "获取最快成功的任务");
+    }
+    
+    /**
+     * 演示使用虚拟线程的服务器发送事件(SSE)
+     */
+    @Operation(summary = "虚拟线程SSE流", description = "展示JDK 21虚拟线程处理服务器发送事件(SSE)流")
+    @GetMapping("/stream")
+    public SseEmitter streamData() {
+        SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
+        
+        // 使用虚拟线程执行
+        Thread.startVirtualThread(() -> {
+            try {
+                for (int count = 0; count < 30; count++) {
+                    final int i = count; // 创建effectively final变量
+                    if (virtualThreadMonitor != null) {
+                        // 使用监控组件跟踪任务
+                        virtualThreadMonitor.trackVirtualThreadExecution(() -> {
+                            try {
+                                emitter.send(SseEmitter.event()
+                                    .name("data")
+                                    .data(Map.of(
+                                        "value", i, 
+                                        "time", LocalDateTime.now(),
+                                        "thread", Thread.currentThread().toString()
+                                    ))
+                                );
+                                sleep(500);
+                            } catch (Exception e) {
+                                log.error("发送SSE事件失败", e);
+                            }
+                            return null;
+                        }, "sse-event-" + i);
+                    } else {
+                        // 如果监控未启用，直接发送
+                        emitter.send(SseEmitter.event()
+                            .name("data")
+                            .data(Map.of(
+                                "value", i, 
+                                "time", LocalDateTime.now(),
+                                "thread", Thread.currentThread().toString()
+                            ))
+                        );
+                        sleep(500);
+                    }
+                }
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+        });
+        
+        return emitter;
+    }
+    
+    /**
+     * 获取虚拟线程统计信息
+     */
+    @Operation(summary = "虚拟线程统计", description = "获取当前虚拟线程的统计信息")
+    @GetMapping("/thread-stats")
+    public R<Map<String, Object>> getThreadStats() {
+        if (virtualThreadMonitor == null) {
+            return R.fail("虚拟线程监控未启用");
+        }
+        
+        Map<String, Object> stats = Map.of(
+            "activeThreads", virtualThreadMonitor.getActiveVirtualThreadCount(),
+            "completedTasks", virtualThreadMonitor.getCompletedVirtualThreadTaskCount(),
+            "failedTasks", virtualThreadMonitor.getFailedVirtualThreadTaskCount(),
+            "totalJvmThreads", Thread.getAllStackTraces().keySet().stream()
+                .filter(Thread::isVirtual)
+                .count()
+        );
+        
+        return R.data(stats, "虚拟线程统计信息");
     }
     
     private void sleep(long millis) {

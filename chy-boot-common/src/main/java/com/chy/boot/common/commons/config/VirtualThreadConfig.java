@@ -6,8 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.support.TaskExecutorAdapter;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
@@ -41,5 +44,24 @@ public class VirtualThreadConfig {
     @Bean
     public AsyncTaskExecutor applicationTaskExecutor() {
         return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+    }
+    
+    /**
+     * 配置IO密集型任务的专用执行器
+     */
+    @Bean(name = "ioTaskExecutor")
+    public Executor ioTaskExecutor() {
+        return Executors.newVirtualThreadPerTaskExecutor();
+    }
+    
+    /**
+     * 配置Spring定时任务使用虚拟线程
+     */
+    @Bean(name = "taskScheduler")
+    public TaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(Runtime.getRuntime().availableProcessors());
+        scheduler.setThreadNamePrefix("scheduled-task-");
+        return scheduler;
     }
 } 
