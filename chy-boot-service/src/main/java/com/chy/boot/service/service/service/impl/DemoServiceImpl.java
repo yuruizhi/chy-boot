@@ -2,23 +2,23 @@ package com.chy.boot.service.service.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chy.boot.common.commons.component.cache.RedisUtil;
-import com.chy.boot.rest.core.entity.UcWxqySuite;
-import com.chy.boot.rest.core.mapper.UcWxqySuiteDao;
-import com.chy.boot.service.service.service.UcWxqySuiteService;
+import com.chy.boot.rest.core.entity.Demo;
+import com.chy.boot.rest.core.mapper.DemoDao;
+import com.chy.boot.service.service.service.DemoService;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
 import java.util.List;
 
 /**
- * 套件主表(UcWxqySuite)表服务实现类
+ * 示例表(Demo)表服务实现类
  *
  * @author YuRuizhi
  * @since 2021-01-14 14:34:26
  * @update 2023/03/01 升级到MyBatis-Plus
  */
-@Service("ucWxqySuiteService")
-public class UcWxqySuiteServiceImpl extends ServiceImpl<UcWxqySuiteDao, UcWxqySuite> implements UcWxqySuiteService {
+@Service("demoService")
+public class DemoServiceImpl extends ServiceImpl<DemoDao, Demo> implements DemoService {
     
     @Resource
     private RedisUtil redisUtil;
@@ -31,7 +31,7 @@ public class UcWxqySuiteServiceImpl extends ServiceImpl<UcWxqySuiteDao, UcWxqySu
      * @return 对象列表
      */
     @Override
-    public List<UcWxqySuite> queryAllByLimit(int offset, int limit) {
+    public List<Demo> queryAllByLimit(int offset, int limit) {
         return baseMapper.queryAllByLimit(offset, limit);
     }
-}
+} 

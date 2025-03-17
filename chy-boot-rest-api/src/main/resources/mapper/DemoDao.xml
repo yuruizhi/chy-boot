@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chy.boot.rest.core.mapper.DemoDao">
+
+    <resultMap type="com.chy.boot.rest.core.entity.Demo" id="DemoMap">
+        <result property="demoId" column="demo_id" jdbcType="VARCHAR"/>
+        <result property="demoName" column="demo_name" jdbcType="VARCHAR"/>
+        <result property="demoDescription" column="demo_description" jdbcType="VARCHAR"/>
+        <result property="demoCode" column="demo_code" jdbcType="VARCHAR"/>
+        <result property="demoContent" column="demo_content" jdbcType="VARCHAR"/>
+        <result property="demoConfig" column="demo_config" jdbcType="OTHER"/>
+        <result property="demoToken" column="demo_token" jdbcType="VARCHAR"/>
+        <result property="demoExpires" column="demo_expires" jdbcType="OTHER"/>
+        <result property="demoAuthCode" column="demo_auth_code" jdbcType="VARCHAR"/>
+        <result property="demoAuthExpires" column="demo_auth_expires" jdbcType="OTHER"/>
+        <result property="demoCategory" column="demo_category" jdbcType="VARCHAR"/>
+        <result property="demoStatus" column="demo_status" jdbcType="OTHER"/>
+        <result property="demoCreated" column="demo_created" jdbcType="OTHER"/>
+        <result property="demoUpdated" column="demo_updated" jdbcType="OTHER"/>
+        <result property="demoDeleted" column="demo_deleted" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DemoMap">
+        select demo_id,
+               demo_name,
+               demo_description,
+               demo_code,
+               demo_content,
+               demo_config,
+               demo_token,
+               demo_expires,
+               demo_auth_code,
+               demo_auth_expires,
+               demo_category,
+               demo_status,
+               demo_created,
+               demo_updated,
+               demo_deleted
+        from demo
+        where demo_id = #{demoId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DemoMap">
+        select demo_id,
+               demo_name,
+               demo_description,
+               demo_code,
+               demo_content,
+               demo_config,
+               demo_token,
+               demo_expires,
+               demo_auth_code,
+               demo_auth_expires,
+               demo_category,
+               demo_status,
+               demo_created,
+               demo_updated,
+               demo_deleted
+        from demo
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DemoMap">
+        select
+        demo_id, demo_name, demo_description, demo_code, demo_content, demo_config, demo_token,
+        demo_expires, demo_auth_code, demo_auth_expires, demo_category, demo_status, demo_created,
+        demo_updated, demo_deleted
+        from demo
+        <where>
+            <if test="demoId != null and demoId != ''">
+                and demo_id = #{demoId}
+            </if>
+            <if test="demoName != null and demoName != ''">
+                and demo_name = #{demoName}
+            </if>
+            <if test="demoDescription != null and demoDescription != ''">
+                and demo_description = #{demoDescription}
+            </if>
+            <if test="demoCode != null and demoCode != ''">
+                and demo_code = #{demoCode}
+            </if>
+            <if test="demoContent != null and demoContent != ''">
+                and demo_content = #{demoContent}
+            </if>
+            <if test="demoConfig != null">
+                and demo_config = #{demoConfig}
+            </if>
+            <if test="demoToken != null and demoToken != ''">
+                and demo_token = #{demoToken}
+            </if>
+            <if test="demoExpires != null">
+                and demo_expires = #{demoExpires}
+            </if>
+            <if test="demoAuthCode != null and demoAuthCode != ''">
+                and demo_auth_code = #{demoAuthCode}
+            </if>
+            <if test="demoAuthExpires != null">
+                and demo_auth_expires = #{demoAuthExpires}
+            </if>
+            <if test="demoCategory != null and demoCategory != ''">
+                and demo_category = #{demoCategory}
+            </if>
+            <if test="demoStatus != null">
+                and demo_status = #{demoStatus}
+            </if>
+            <if test="demoCreated != null">
+                and demo_created = #{demoCreated}
+            </if>
+            <if test="demoUpdated != null">
+                and demo_updated = #{demoUpdated}
+            </if>
+            <if test="demoDeleted != null">
+                and demo_deleted = #{demoDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="demoId" useGeneratedKeys="true">
+        insert into demo(demo_id, demo_name, demo_description, demo_code, demo_content, demo_config,
+                         demo_token, demo_expires, demo_auth_code,
+                         demo_auth_expires, demo_category, demo_status, demo_created, demo_updated,
+                         demo_deleted)
+        values (#{demoId}, #{demoName}, #{demoDescription}, #{demoCode}, #{demoContent}, #{demoConfig}, #{demoToken},
+                #{demoExpires}, #{demoAuthCode}, #{demoAuthExpires}, #{demoCategory}, #{demoStatus},
+                #{demoCreated}, #{demoUpdated}, #{demoDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="demoId" useGeneratedKeys="true">
+        insert into demo(demo_name, demo_description, demo_code, demo_content, demo_config,
+        demo_token, demo_expires, demo_auth_code, demo_auth_expires, demo_category,
+        demo_status, demo_created, demo_updated, demo_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.demoName}, #{entity.demoDescription}, #{entity.demoCode}, #{entity.demoContent},
+            #{entity.demoConfig}, #{entity.demoToken}, #{entity.demoExpires}, #{entity.demoAuthCode},
+            #{entity.demoAuthExpires}, #{entity.demoCategory}, #{entity.demoStatus}, #{entity.demoCreated},
+            #{entity.demoUpdated}, #{entity.demoDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="demoId" useGeneratedKeys="true">
+        insert into demo(demo_name, demo_description, demo_code, demo_content, demo_config,
+        demo_token, demo_expires, demo_auth_code, demo_auth_expires, demo_category,
+        demo_status, demo_created, demo_updated, demo_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.demoName}, #{entity.demoDescription}, #{entity.demoCode}, #{entity.demoContent},
+            #{entity.demoConfig}, #{entity.demoToken}, #{entity.demoExpires}, #{entity.demoAuthCode},
+            #{entity.demoAuthExpires}, #{entity.demoCategory}, #{entity.demoStatus}, #{entity.demoCreated},
+            #{entity.demoUpdated}, #{entity.demoDeleted})
+        </foreach>
+        on duplicate key update
+        demo_name = values(demo_name) , demo_description = values(demo_description) , demo_code =
+        values(demo_code) , demo_content = values(demo_content) , demo_config = values(demo_config) , demo_token =
+        values(demo_token) , demo_expires = values(demo_expires) , demo_auth_code =
+        values(demo_auth_code) , demo_auth_expires = values(demo_auth_expires) , demo_category =
+        values(demo_category) , demo_status = values(demo_status) , demo_created = values(demo_created) , demo_updated =
+        values(demo_updated) , demo_deleted = values(demo_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update demo
+        <set>
+            <if test="demoName != null and demoName != ''">
+                demo_name = #{demoName},
+            </if>
+            <if test="demoDescription != null and demoDescription != ''">
+                demo_description = #{demoDescription},
+            </if>
+            <if test="demoCode != null and demoCode != ''">
+                demo_code = #{demoCode},
+            </if>
+            <if test="demoContent != null and demoContent != ''">
+                demo_content = #{demoContent},
+            </if>
+            <if test="demoConfig != null">
+                demo_config = #{demoConfig},
+            </if>
+            <if test="demoToken != null and demoToken != ''">
+                demo_token = #{demoToken},
+            </if>
+            <if test="demoExpires != null">
+                demo_expires = #{demoExpires},
+            </if>
+            <if test="demoAuthCode != null and demoAuthCode != ''">
+                demo_auth_code = #{demoAuthCode},
+            </if>
+            <if test="demoAuthExpires != null">
+                demo_auth_expires = #{demoAuthExpires},
+            </if>
+            <if test="demoCategory != null and demoCategory != ''">
+                demo_category = #{demoCategory},
+            </if>
+            <if test="demoStatus != null">
+                demo_status = #{demoStatus},
+            </if>
+            <if test="demoCreated != null">
+                demo_created = #{demoCreated},
+            </if>
+            <if test="demoUpdated != null">
+                demo_updated = #{demoUpdated},
+            </if>
+            <if test="demoDeleted != null">
+                demo_deleted = #{demoDeleted},
+            </if>
+        </set>
+        where demo_id = #{demoId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from demo
+        where demo_id = #{demoId}
+    </delete>
+
+</mapper> 

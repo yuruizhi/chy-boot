@@ -2,10 +2,10 @@ package com.chy.boot.rest.controller;
 
 import com.chy.boot.common.commons.annotation.ApiVersion;
 import com.chy.boot.common.commons.api.R;
-import com.chy.boot.rest.core.entity.UcWxqySuite;
+import com.chy.boot.rest.core.entity.Demo;
 import com.chy.boot.service.service.remote.AuthService;
 import com.chy.boot.service.service.remote.HttpApi;
-import com.chy.boot.service.service.service.UcWxqySuiteService;
+import com.chy.boot.service.service.service.DemoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 
 /**
- * 套件主表(UcWxqySuite)表控制层
+ * 示例表(Demo)表控制层
  *
  * @author YuRuizhi
  * @since 2021-01-14 14:34:27
  */
-@Tag(name = "套件")
+@Tag(name = "示例")
 @RestController
-@RequestMapping("ucWxqySuite")
-public class UcWxqySuiteController {
+@RequestMapping("demo")
+public class DemoController {
     /**
      * 服务对象
      */
     @Resource
-    private UcWxqySuiteService ucWxqySuiteService;
+    private DemoService demoService;
 
     @Resource
     private HttpApi httpApi;
@@ -44,8 +44,8 @@ public class UcWxqySuiteController {
     @Operation(summary = "通过主键查询单条数据")
     @ApiVersion(3)
     @GetMapping("selectOne")
-    public UcWxqySuite selectOne(@Parameter(description = "套件id", required = true) String id) {
-        return this.ucWxqySuiteService.getById(id);
+    public Demo selectOne(@Parameter(description = "示例ID", required = true) String id) {
+        return this.demoService.getById(id);
     }
 
     /**
@@ -57,13 +57,13 @@ public class UcWxqySuiteController {
     @Operation(summary = "通过主键查询单条数据")
     @ApiVersion(3)
     @GetMapping("/{version}/selectOne")
-    public UcWxqySuite selectOne3(@Parameter(description = "套件id", required = true) String id) {
-        return this.ucWxqySuiteService.getById(id);
+    public Demo selectOne3(@Parameter(description = "示例ID", required = true) String id) {
+        return this.demoService.getById(id);
     }
 
     @PostMapping
-    public R save(@RequestBody UcWxqySuite ucWxqySuite) {
-        this.ucWxqySuiteService.save(ucWxqySuite);
+    public R save(@RequestBody Demo demo) {
+        this.demoService.save(demo);
         return R.success();
     }
 
@@ -76,4 +76,4 @@ public class UcWxqySuiteController {
     public R<String> test() {
         return authService.test();
     }
-}
+} 
