@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * MyBatis Plus配置类
  * 
  * @author YuRuizhi
- * @since 2024-06-14
+ * @date 2024/3/17
  */
 @Configuration
 public class MybatisPlusConfig {

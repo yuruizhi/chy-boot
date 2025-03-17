@@ -7,7 +7,7 @@ import lombok.Data;
  * Demo查询参数
  *
  * @author YuRuizhi
- * @since 2024-06-14
+ * @date 2024/3/17
  */
 @Data
 @Schema(description = "Demo查询参数")

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * JDK 21新特性单元测试
  *
  * @author YuRuizhi
- * @since 2024-03-17
+ * @date 2024/3/17
  */
 class Java21FeaturesTest {
 

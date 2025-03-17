@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
  * </p>
  *
  * @author YuRuizhi
- * @since 2024-03-17
+ * @date 2024/3/17
  */
 @Configuration
 @Slf4j

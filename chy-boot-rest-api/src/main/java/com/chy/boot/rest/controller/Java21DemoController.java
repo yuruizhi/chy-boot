@@ -26,7 +26,7 @@ import java.util.function.Supplier;
  * Java 21新特性演示控制器
  *
  * @author YuRuizhi
- * @since 2024-03-17
+ * @date 2024/3/17
  */
 @Slf4j
 @Tag(name = "Java 21特性", description = "展示JDK 21的新特性")

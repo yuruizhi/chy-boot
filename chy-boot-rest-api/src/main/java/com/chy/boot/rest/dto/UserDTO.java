@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author YuRuizhi
- * @since 2024-03-17
+ * @date 2024/3/17
  */
 @Schema(description = "用户信息DTO")
 public record UserDTO(

@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
  * </p>
  *
  * @author YuRuizhi
- * @since 2024-03-17
+ * @date 2024/3/17
  */
 @Slf4j
 @Configuration
