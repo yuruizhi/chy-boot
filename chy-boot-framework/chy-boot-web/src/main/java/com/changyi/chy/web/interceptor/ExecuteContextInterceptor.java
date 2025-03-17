@@ -1,9 +1,9 @@
-package com.changyi.chy.commons.interceptor;
+package com.changyi.chy.web.interceptor;
 
-import com.changyi.chy.commons.context.ExecuteContext;
-import com.changyi.chy.commons.context.SpringContextUtil;
-import com.changyi.chy.commons.getter.IContextInfoGetter;
-import com.changyi.chy.commons.util.DateUtil;
+import com.changyi.chy.web.context.ExecuteContext;
+import com.changyi.chy.web.context.SpringContextUtil;
+import com.changyi.chy.web.getter.IContextInfoGetter;
+import com.changyi.chy.common.support.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;

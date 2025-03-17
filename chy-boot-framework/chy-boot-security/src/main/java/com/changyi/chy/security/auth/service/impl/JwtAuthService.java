@@ -1,16 +1,15 @@
-package com.changyi.chy.commons.platform.auth.service.impl;
+package com.changyi.chy.security.auth.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.changyi.chy.commons.exception.DnConsoleException;
-import com.changyi.chy.commons.exception.ExceptionStringPool;
-import com.changyi.chy.commons.jackson.JsonUtil;
-import com.changyi.chy.commons.platform.auth.entity.AuthResponse;
-import com.changyi.chy.commons.platform.auth.entity.User;
-import com.changyi.chy.commons.platform.auth.service.AuthService;
-import com.changyi.chy.commons.platform.auth.service.IUserService;
-import com.changyi.chy.commons.util.DigestUtil;
-import com.changyi.chy.commons.util.Func;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.changyi.chy.common.auth.entity.AuthResponse;
+import com.changyi.chy.common.auth.entity.User;
+import com.changyi.chy.common.auth.service.AuthService;
+import com.changyi.chy.common.auth.service.UserService;
+import com.changyi.chy.common.exception.AuthException;
+import com.changyi.chy.common.util.Func;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,67 +17,115 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-
 /**
- *
+ * JWT认证服务实现
  */
 @Service
 public class JwtAuthService implements AuthService {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
-
-    public static final String key = "@@chang##yi$$zhao&&chu**rui@@";
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    
+    private static final String JWT_SECRET = "@@chang##yi$$zhao&&chu**rui@@";
+    private static final String ISSUER = "chy-boot";
+    private static final String USER_ID = "userId";
+    private static final String USERNAME = "username";
+    private static final String REAL_NAME = "realName";
+    private static final long EXPIRATION_TIME = 2 * 60 * 60 * 1000; // 2小时
+    private static final long REFRESH_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1000; // 7天
 
     @Autowired
-    IUserService userService;
+    private UserService userService;
 
     @Override
-    public AuthResponse getToken(String account, String password) throws DnConsoleException {
-
-        String channelId = checkPwd(account, password);
-
-        Algorithm alg = Algorithm.HMAC256(key);
-
-        Date currentTime = new Date();
-
-        // TODO 考虑动态控制
-        Date expDate = new Date(currentTime.getTime() + 3600 * 1000L * 2);
-
-        // 1 签发Token
-        String token = JWT.create()
-                .withIssuer("chy-boot") // 发行者
-                // .withSubject(id) // 用户身份标识
-                .withAudience(channelId) // 用户单位
-                .withIssuedAt(currentTime) // 签发时间
-                .withExpiresAt(expDate) // 一小时有效期
-                // .withJWTId("001") // 分配JWT的ID
-                // .withClaim("PublicClaimExample", "You should not pass!") // 定义公共域信息
-                .sign(alg);
-
-        logger.debug("生成的Token是:{}", token);
-
-        AuthResponse result = new AuthResponse();
-        result.setAccessToken(token);
-        result.setExpire(expDate.getTime());
-
-        return result;
-
+    public AuthResponse getToken(String username, String password) throws AuthException {
+        User user = userService.validateUser(username, password);
+        if (Func.isNull(user) || !user.getStatus().equals(1)) {
+            throw new AuthException("用户名或密码错误");
+        }
+        return generateToken(user);
     }
 
-    private String checkPwd(String account, String password) {
-
-        User user = userService.getByAccount(account);
-
-        if (Func.notNull(user) && user.getStatus().equals(1)) {
-
-            logger.info("用户不为空: {}", JsonUtil.toJson(user));
-            /*if (!user.getPassword().equals(DigestUtil.md5Hex(password))) {
-                throw new DnConsoleException(ExceptionStringPool.password_error);
-            }*/
-            return user.getUserId();
-        } else {
-            throw new DnConsoleException(ExceptionStringPool.ACCOUNT_OR_PASSWORD_ERROR);
+    @Override
+    public AuthResponse refreshToken(String refreshToken) throws AuthException {
+        try {
+            DecodedJWT jwt = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(refreshToken);
+                    
+            String userId = jwt.getClaim(USER_ID).asString();
+            User user = userService.getUserById(userId);
+            if (Func.isNull(user) || !user.getStatus().equals(1)) {
+                throw new AuthException("用户不存在或已禁用");
+            }
+            return generateToken(user);
+        } catch (JWTVerificationException e) {
+            throw new AuthException("刷新令牌无效或已过期");
         }
+    }
+
+    @Override
+    public boolean validateToken(String token) {
+        try {
+            JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public String getUserId(String token) {
+        try {
+            DecodedJWT jwt = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token);
+            return jwt.getClaim(USER_ID).asString();
+        } catch (JWTVerificationException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 生成JWT token
+     *
+     * @param user 用户
+     * @return 认证响应
+     */
+    private AuthResponse generateToken(User user) {
+        Date now = new Date();
+        Date expireTime = new Date(now.getTime() + EXPIRATION_TIME);
+        Date refreshExpireTime = new Date(now.getTime() + REFRESH_EXPIRATION_TIME);
+        
+        // 生成访问令牌
+        String accessToken = JWT.create()
+                .withIssuer(ISSUER)
+                .withClaim(USER_ID, user.getId())
+                .withClaim(USERNAME, user.getUsername())
+                .withClaim(REAL_NAME, user.getRealName())
+                .withIssuedAt(now)
+                .withExpiresAt(expireTime)
+                .sign(Algorithm.HMAC256(JWT_SECRET));
+                
+        // 生成刷新令牌
+        String refreshToken = JWT.create()
+                .withIssuer(ISSUER)
+                .withClaim(USER_ID, user.getId())
+                .withIssuedAt(now)
+                .withExpiresAt(refreshExpireTime)
+                .sign(Algorithm.HMAC256(JWT_SECRET));
+                
+        return new AuthResponse()
+                .setAccessToken(accessToken)
+                .setRefreshToken(refreshToken)
+                .setTokenType("Bearer")
+                .setExpireTime(expireTime)
+                .setUserId(user.getId())
+                .setUsername(user.getUsername())
+                .setRealName(user.getRealName());
     }
 }

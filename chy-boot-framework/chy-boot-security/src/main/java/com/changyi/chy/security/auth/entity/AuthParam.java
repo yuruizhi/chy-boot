@@ -1,7 +1,7 @@
-package com.changyi.chy.commons.platform.auth.entity;
+package com.changyi.chy.security.auth.entity;
 
 
-import com.changyi.chy.commons.component.validate.ValidateMessage;
+import com.changyi.chy.common.component.validate.ValidateMessage;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

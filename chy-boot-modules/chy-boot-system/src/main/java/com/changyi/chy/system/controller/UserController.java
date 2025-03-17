@@ -1,11 +1,11 @@
-package com.changyi.chy.system.controller;
+package org.chy.boot.system.controller;
 
-import com.changyi.chy.api.system.dto.UserDTO;
-import com.changyi.chy.common.api.R;
-import com.changyi.chy.persistence.request.PageRequest;
-import com.changyi.chy.persistence.result.PageResult;
-import com.changyi.chy.system.entity.User;
-import com.changyi.chy.system.service.UserService;
+import org.chy.boot.api.system.dto.UserDTO;
+import org.chy.boot.common.api.R;
+import org.chy.boot.persistence.request.PageRequest;
+import org.chy.boot.persistence.result.PageResult;
+import org.chy.boot.system.entity.User;
+import org.chy.boot.system.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

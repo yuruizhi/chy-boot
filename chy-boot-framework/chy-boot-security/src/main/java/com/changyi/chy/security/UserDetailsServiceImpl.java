@@ -1,4 +1,4 @@
-package com.changyi.chy.security;
+package com.changyi.chy.commons.security;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

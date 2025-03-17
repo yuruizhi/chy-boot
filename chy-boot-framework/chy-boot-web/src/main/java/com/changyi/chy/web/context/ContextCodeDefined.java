@@ -1,7 +1,7 @@
-package com.changyi.chy.commons.context;
+package com.changyi.chy.web.context;
 
 
-import com.changyi.chy.commons.api.IResultCode;
+import com.changyi.chy.common.api.IResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

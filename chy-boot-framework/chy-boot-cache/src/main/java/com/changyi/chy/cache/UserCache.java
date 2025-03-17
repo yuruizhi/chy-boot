@@ -1,9 +1,6 @@
-package com.changyi.chy.commons.cache;
+package com.changyi.chy.cache;
 
-import cn.hutool.core.util.StrUtil;
-import com.changyi.chy.commons.component.cache.CacheKeyGeneratorDefined;
-import com.changyi.chy.commons.platform.auth.entity.User;
-import com.changyi.chy.commons.platform.auth.service.IUserService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,13 +15,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class UserCache implements IUserCache {
+public class UserCache implements com.changyi.chy.commons.cache.IUserCache {
 
     @Autowired
     IUserService userService;
 
     @Override
-    @Cacheable(value = CacheKeyGeneratorDefined.USER_INFO_CACHE_KG,
+    @Cacheable(value = com.changyi.chy.commons.component.cache.CacheKeyGeneratorDefined.USER_INFO_CACHE_KG,
             keyGenerator = CacheKeyGeneratorDefined.USER_INFO_CACHE_KG,
             unless = "#result == null"
     )

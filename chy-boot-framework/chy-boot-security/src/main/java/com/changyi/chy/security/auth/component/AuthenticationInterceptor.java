@@ -1,11 +1,8 @@
-package com.changyi.chy.commons.platform.auth.component;
+package com.changyi.chy.security.auth.component;
 
 
-import com.changyi.chy.commons.api.AuthResultCode;
-import com.changyi.chy.commons.context.ExecuteContext;
-import com.changyi.chy.commons.exception.AuthException;
-import com.changyi.chy.commons.platform.auth.service.impl.JwtAuthService;
-import com.changyi.chy.commons.util.StringUtil;
+import com.changyi.chy.common.api.AuthResultCode;
+
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

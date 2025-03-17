@@ -1,9 +1,9 @@
-package com.changyi.chy.commons.context;
+package com.changyi.chy.web.context;
 
 
-import com.changyi.chy.commons.getter.IContextInfoGetter;
-import com.changyi.chy.commons.util.DateUtil;
-import com.changyi.chy.commons.util.UUIDGenerator;
+import com.changyi.chy.web.getter.IContextInfoGetter;
+import com.changyi.chy.common.support.DateUtil;
+import com.changyi.chy.common.support.UUIDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
 package com.changyi.chy.security.auth;
 
-import com.changyi.chy.security.util.JwtTokenUtil;
+import com.changyi.chy.common.auth.service.AuthService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,15 +20,13 @@ import java.io.IOException;
 
 /**
  * JWT认证过滤器
- * 
- * @author YuRuizhi
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenUtil jwtTokenUtil;
+    private final AuthService authService;
     private final UserDetailsService userDetailsService;
 
     @Override
@@ -38,23 +36,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwtToken = getJwtFromRequest(request);
         
         // 如果Token存在且有效，设置认证信息
-        if (StringUtils.hasText(jwtToken) && jwtTokenUtil.validateToken(jwtToken)) {
+        if (StringUtils.hasText(jwtToken) && authService.validateToken(jwtToken)) {
             try {
-                // 从Token中获取用户名
-                String username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                // 从Token中获取用户ID
+                String userId = authService.getUserId(jwtToken);
                 
                 // 加载用户详情
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
                 
                 // 创建认证令牌
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 
-                // 设置到SecurityContext中
+                // 设置认证信息到上下文
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
-                log.error("Could not set user authentication in security context", e);
+                log.error("无法设置用户认证: {}", e.getMessage());
             }
         }
         
@@ -63,9 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     /**
      * 从请求中获取JWT Token
-     *
-     * @param request HTTP请求
-     * @return JWT Token或null
      */
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

@@ -1,6 +1,6 @@
-package com.changyi.chy.security;
+package com.changyi.chy.commons.security;
 
-import com.changyi.chy.common.api.R;
+import com.changyi.chy.commons.api.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

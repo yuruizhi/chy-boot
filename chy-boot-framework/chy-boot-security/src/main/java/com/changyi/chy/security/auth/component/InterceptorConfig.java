@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.platform.auth.component;
+package com.changyi.chy.security.auth.component;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

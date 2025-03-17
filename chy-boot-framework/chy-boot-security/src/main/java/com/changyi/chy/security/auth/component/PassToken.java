@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.platform.auth.component;
+package com.changyi.chy.security.auth.component;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

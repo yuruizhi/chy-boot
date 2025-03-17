@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.component.cache;
+package com.changyi.chy.cache.multilevel;
 
 
 import lombok.Data;

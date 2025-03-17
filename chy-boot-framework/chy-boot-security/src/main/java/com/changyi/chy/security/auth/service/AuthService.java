@@ -1,6 +1,6 @@
-package com.changyi.chy.commons.platform.auth.service;
+package com.changyi.chy.security.auth.service;
 
-import com.changyi.chy.commons.exception.DnConsoleException;
+import com.changyi.chy.common.exception.DnConsoleException;
 import com.changyi.chy.commons.platform.auth.entity.AuthResponse;
 
 /**
@@ -17,7 +17,6 @@ public interface AuthService {
      * @param account  账号
      * @param password 密码
      * @return {AuthResponse}
-     * @throws DnConsoleException
      */
     AuthResponse getToken(String account, String password) throws DnConsoleException;
 

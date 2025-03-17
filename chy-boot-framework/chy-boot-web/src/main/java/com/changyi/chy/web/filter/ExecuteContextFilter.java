@@ -1,9 +1,10 @@
-package com.changyi.chy.commons.filter;
+package com.changyi.chy.web.filter;
 
 
 import cn.hutool.core.util.StrUtil;
 import com.changyi.chy.commons.context.ExecuteContext;
-import com.changyi.chy.commons.util.UUIDGenerator;
+import com.changyi.chy.common.support.UUIDGenerator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

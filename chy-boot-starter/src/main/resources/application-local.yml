@@ -4,22 +4,19 @@ spring:
       primary: master
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/chy_boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           type: com.zaxxer.hikari.HikariDataSource
         slave_1:
-          url: jdbc:mysql://127.0.0.1:3306/chy_boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           type: com.zaxxer.hikari.HikariDataSource
   redis:
-    password: 
-    host: 127.0.0.1
-    port: 6379
-    database: 0
+    password: 1234
     timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
     lettuce:
       pool:
@@ -27,38 +24,62 @@ spring:
         max-wait: -1
         max-idle: 8
         min-idle: 0
+    cluster:
+      nodes:
+        - 192.168.239.1:6371
+        - 192.168.239.1:6372
+        - 192.168.239.1:6373
+        - 192.168.239.1:6374
+        - 192.168.239.1:6375
+        - 192.168.239.1:6376
+      max-redirects: 5
 
-# MyBatis配置
-mybatis-plus:
-  mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.changyi.chy.**.entity
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  global-config:
-    db-config:
-      id-type: ASSIGN_ID
-      logic-delete-field: deleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-      table-underline: true
-
-# 日志配置
-logging:
-  level:
-    root: info
-    com.changyi.chy: debug
-    com.baomidou.mybatisplus: debug
-    com.baomidou.dynamic: debug
-
-# Swagger配置
 swagger:
   enabled: true
 
-# 第三方API配置示例
-api:
-  base-url: https://api.example.com/
-  access-key-id: your_access_key_id
-  access-key-secret: your_access_key_secret
-  timeout: 5000 
+sms:
+  message:
+    accessToken: xxx
+
+tm:
+  brands:
+    - name: xxx
+      accountId: xxx
+      channelId: xxx
+      token: xxx
+  # 用户相关接口
+  member:
+    get: https://xxx
+    updateUrl: https://xxx
+    registerUrl: https://xxx
+  # 短信发送配置
+  sms:
+    send: https://xxx
+  # 事件上报配置
+  event:
+    report: https://xxx
+  # TensorFlow服务url配置
+  tensorFlow:
+    v1:
+      color: https://xxx
+    v2:
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
+    v3:
+      diaper: https://xxx
+      color: https://xxx
+      stool: https://xxx
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
+logging:
+  level:
+    com.baomidou.dynamic: debug
+
+test:
+  baseUrl: https://v1.hitokoto.cn/
+  accessKeyId: sdfsdfdsf
+  accessKeySecret: sadfsadfsdfsdf
+  authUri: http://localhost:8085/

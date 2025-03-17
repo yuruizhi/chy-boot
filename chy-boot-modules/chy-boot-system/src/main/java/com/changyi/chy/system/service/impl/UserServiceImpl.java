@@ -1,188 +1,123 @@
-package com.changyi.chy.system.service.impl;
+package com.changyi.chy.demo.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.changyi.chy.common.api.R;
-import com.changyi.chy.common.api.ResultCode;
-import com.changyi.chy.persistence.request.PageRequest;
-import com.changyi.chy.persistence.result.PageResult;
-import com.changyi.chy.persistence.util.PageUtils;
-import com.changyi.chy.persistence.util.QueryBuilder;
-import com.changyi.chy.system.entity.User;
-import com.changyi.chy.system.mapper.UserMapper;
-import com.changyi.chy.system.service.UserService;
+import com.changyi.chy.commons.component.cache.MultilevelCacheService;
+import com.changyi.chy.demo.entity.User;
+import com.changyi.chy.demo.mapper.UserMapper;
+import com.changyi.chy.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
- * 用户服务实现类
+ * 用户表(User)服务实现类
  *
  * @author YuRuizhi
  */
 @Slf4j
-@Service
+@Service("userService")
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
+    
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private MultilevelCacheService cacheService;
 
+    /**
+     * 查询多条数据
+     *
+     * @param offset 查询起始位置
+     * @param limit  查询条数
+     * @return 对象列表
+     */
     @Override
-    public PageResult<User> page(PageRequest request) {
-        // 构建查询条件
-        LambdaQueryWrapper<User> wrapper = QueryBuilder.lambdaQuery();
-        
-        // 设置分页参数
-        Page<User> page = PageUtils.convertToPage(request);
-        
-        // 执行分页查询
-        page = page(page, wrapper);
-        
-        // 转换为分页结果
-        return PageUtils.convertToPageResult(page);
+    @Cacheable(value = "mediumTerm", key = "'userList:' + #offset + ':' + #limit")
+    public List<User> queryAllByLimit(int offset, int limit) {
+        log.debug("查询用户列表，offset={}, limit={}", offset, limit);
+        return baseMapper.queryAllByLimit(offset, limit);
     }
 
+    /**
+     * 通过用户名查询用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
     @Override
-    public User getByUsername(String username) {
-        if (!StringUtils.hasText(username)) {
-            return null;
-        }
+    public User findByUsername(String username) {
+        String cacheKey = "user:username:" + username;
         
-        LambdaQueryWrapper<User> wrapper = QueryBuilder.lambdaQuery();
-        wrapper.eq(User::getUsername, username);
-        return getOne(wrapper);
+        // 使用多级缓存服务获取用户
+        return cacheService.get("userCache", cacheKey, () -> {
+            log.debug("从数据库查询用户, username={}", username);
+            return baseMapper.findByUsername(username);
+        });
     }
-
+    
+    /**
+     * 保存用户
+     *
+     * @param user 用户实体
+     * @return 是否成功
+     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public R<User> createUser(User user) {
-        // 检查用户名是否已存在
-        User existingUser = getByUsername(user.getUsername());
-        if (existingUser != null) {
-            return R.fail(ResultCode.DATA_ALREADY_EXIST, "用户名已存在");
+    @CachePut(value = "userCache", key = "'user:id:' + #result.id", condition = "#result != null")
+    public boolean save(User user) {
+        log.debug("保存用户，username={}", user.getUsername());
+        boolean result = super.save(user);
+        
+        // 手动清除可能存在的用户名缓存
+        if (result) {
+            cacheService.evict("userCache", "user:username:" + user.getUsername());
         }
         
-        // 加密密码
-        if (StringUtils.hasText(user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        
-        // 设置默认状态
-        if (user.getStatus() == null) {
-            user.setStatus(1);
-        }
-        
-        // 保存用户
-        boolean success = save(user);
-        
-        return success ? R.data(user) : R.fail("创建用户失败");
+        return result;
     }
-
+    
+    /**
+     * 更新用户
+     *
+     * @param user 用户实体
+     * @return 是否成功
+     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public R<Boolean> updateUser(User user) {
-        if (user == null || !StringUtils.hasText(user.getId())) {
-            return R.fail(ResultCode.PARAM_MISS, "用户ID不能为空");
+    @CachePut(value = "userCache", key = "'user:id:' + #user.id", condition = "#result == true")
+    public boolean updateById(User user) {
+        log.debug("更新用户，id={}", user.getId());
+        boolean result = super.updateById(user);
+        
+        // 更新成功后，清除用户名相关缓存
+        if (result) {
+            cacheService.evict("userCache", "user:username:" + user.getUsername());
         }
         
-        // 检查用户是否存在
-        User existingUser = getById(user.getId());
-        if (existingUser == null) {
-            return R.fail(ResultCode.DATA_NOT_EXIST, "用户不存在");
-        }
-        
-        // 如果修改了用户名，需要检查是否与其他用户重复
-        if (StringUtils.hasText(user.getUsername()) 
-                && !user.getUsername().equals(existingUser.getUsername())) {
-            User existingByUsername = getByUsername(user.getUsername());
-            if (existingByUsername != null && !existingByUsername.getId().equals(user.getId())) {
-                return R.fail(ResultCode.DATA_ALREADY_EXIST, "用户名已存在");
-            }
-        }
-        
-        // 不更新密码字段
-        user.setPassword(null);
-        
-        // 更新用户
-        boolean success = updateById(user);
-        
-        return R.status(success);
+        return result;
     }
-
+    
+    /**
+     * 删除用户
+     *
+     * @param id 主键
+     * @return 是否成功
+     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public R<Boolean> deleteUser(String id) {
-        if (!StringUtils.hasText(id)) {
-            return R.fail(ResultCode.PARAM_MISS, "用户ID不能为空");
+    @CacheEvict(value = "userCache", key = "'user:id:' + #id")
+    public boolean removeById(java.io.Serializable id) {
+        log.debug("删除用户，id={}", id);
+        
+        // 先查询用户，以便删除后清除用户名缓存
+        User user = getById(id);
+        boolean result = super.removeById(id);
+        
+        // 清除用户名缓存
+        if (result && user != null) {
+            cacheService.evict("userCache", "user:username:" + user.getUsername());
+            log.debug("清除用户缓存，username={}", user.getUsername());
         }
         
-        // 检查用户是否存在
-        User existingUser = getById(id);
-        if (existingUser == null) {
-            return R.fail(ResultCode.DATA_NOT_EXIST, "用户不存在");
-        }
-        
-        // 删除用户
-        boolean success = removeById(id);
-        
-        return R.status(success);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public R<Boolean> changeStatus(String id, Integer status) {
-        if (!StringUtils.hasText(id)) {
-            return R.fail(ResultCode.PARAM_MISS, "用户ID不能为空");
-        }
-        
-        if (status == null) {
-            return R.fail(ResultCode.PARAM_MISS, "状态不能为空");
-        }
-        
-        // 检查用户是否存在
-        User existingUser = getById(id);
-        if (existingUser == null) {
-            return R.fail(ResultCode.DATA_NOT_EXIST, "用户不存在");
-        }
-        
-        // 更新状态
-        User user = new User();
-        user.setId(id);
-        user.setStatus(status);
-        
-        boolean success = updateById(user);
-        
-        return R.status(success);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public R<Boolean> resetPassword(String id, String password) {
-        if (!StringUtils.hasText(id)) {
-            return R.fail(ResultCode.PARAM_MISS, "用户ID不能为空");
-        }
-        
-        if (!StringUtils.hasText(password)) {
-            return R.fail(ResultCode.PARAM_MISS, "密码不能为空");
-        }
-        
-        // 检查用户是否存在
-        User existingUser = getById(id);
-        if (existingUser == null) {
-            return R.fail(ResultCode.DATA_NOT_EXIST, "用户不存在");
-        }
-        
-        // 更新密码
-        User user = new User();
-        user.setId(id);
-        user.setPassword(passwordEncoder.encode(password));
-        
-        boolean success = updateById(user);
-        
-        return R.status(success);
+        return result;
     }
 } 

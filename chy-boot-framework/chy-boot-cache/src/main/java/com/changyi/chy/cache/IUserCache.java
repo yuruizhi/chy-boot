@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.cache;
+package com.changyi.chy.cache;
 
 import com.changyi.chy.commons.platform.auth.entity.User;
 

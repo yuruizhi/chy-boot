@@ -15,7 +15,7 @@
  */
 package com.changyi.chy.web.xss;
 
-import com.changyi.chy.common.util.StringUtil;
+import com.changyi.chy.common.support.StringUtil;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;

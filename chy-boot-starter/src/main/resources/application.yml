@@ -1,5 +1,5 @@
 app:
-  name: chy-boot
+  name: chy-boot-rest-api
 
 spring:
   application:
@@ -36,7 +36,7 @@ spring:
 server:
   compression:
     enabled: true
-  port: 8080
+  port: 8084
   undertow:
     buffer-size: 1024
     direct-buffers: true
@@ -103,33 +103,11 @@ management:
       sla:
         http.server.requests: 100ms, 500ms, 1s, 5s
 
-# OpenAPI配置
-springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
-  group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
-  cache:
-    disabled: false
-
-# Knife4j配置
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
-    enableSwaggerModels: true
-    enableDocumentManage: true
-    enableDynamicParameter: true
-    enableFilterMultipartApis: true
-    enableOpenApi: true
+sms:
+  message:
+    code: 您的验证码是{0}。如非本人操作，请忽略本短信
 
 # Caffeine缓存统计
 caffeine:
   stats:
-    enabled: true 
+    enabled: true

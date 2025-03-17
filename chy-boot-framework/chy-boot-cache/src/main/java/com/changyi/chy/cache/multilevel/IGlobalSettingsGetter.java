@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.component.cache;
+package com.changyi.chy.cache.multilevel;
 
 /**
  * 全局配置信息获取接口

@@ -1,8 +1,9 @@
-package com.changyi.chy.commons.platform.auth.service.impl;
+package com.changyi.chy.security.auth.service.impl;
 
 
-import com.changyi.chy.commons.platform.auth.entity.User;
-import com.changyi.chy.commons.platform.auth.service.IUserService;
+
+import com.changyi.chy.security.auth.entity.User;
+import com.changyi.chy.security.auth.service.IUserService;
 import org.springframework.stereotype.Service;
 
 /**

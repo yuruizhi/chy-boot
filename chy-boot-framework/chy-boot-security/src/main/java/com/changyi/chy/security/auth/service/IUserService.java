@@ -1,4 +1,4 @@
-package com.changyi.chy.commons.platform.auth.service;
+package com.changyi.chy.security.auth.service;
 
 import com.changyi.chy.commons.platform.auth.entity.User;
 
