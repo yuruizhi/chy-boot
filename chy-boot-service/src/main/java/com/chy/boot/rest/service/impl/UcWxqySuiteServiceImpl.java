@@ -1,10 +1,10 @@
-package com.chy.boot.demo.service.impl;
+package com.chy.boot.rest.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chy.boot.commons.component.cache.RedisUtil;
-import com.chy.boot.demo.entity.UcWxqySuite;
-import com.chy.boot.demo.mapper.UcWxqySuiteDao;
-import com.chy.boot.demo.service.UcWxqySuiteService;
+import com.chy.boot.rest.entity.UcWxqySuite;
+import com.chy.boot.rest.mapper.UcWxqySuiteDao;
+import com.chy.boot.rest.service.UcWxqySuiteService;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;

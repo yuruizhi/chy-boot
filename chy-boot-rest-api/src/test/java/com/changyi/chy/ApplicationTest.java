@@ -1,6 +1,6 @@
 package com.changyi.chy;
 
-import com.changyi.chy.api.ChyBootApplication;
+import com.chy.boot.ChyBootApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

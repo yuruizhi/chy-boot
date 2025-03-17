@@ -1,4 +1,4 @@
-package com.changyi.chy.api.controller;
+package com.chy.boot.rest.controller;
 
 import com.chy.boot.commons.api.R;
 import com.chy.boot.commons.idempotent.annotation.Idempotent;

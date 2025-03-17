@@ -1,4 +1,4 @@
-package com.chy.boot.demo.request;
+package com.chy.boot.rest.request;
 
 
 import lombok.Data;

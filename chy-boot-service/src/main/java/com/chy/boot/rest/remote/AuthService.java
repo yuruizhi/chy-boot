@@ -1,4 +1,4 @@
-package com.chy.boot.demo.remote;
+package com.chy.boot.rest.remote;
 
 import com.chy.boot.commons.api.R;
 import com.chy.boot.commons.platform.auth.entity.AuthParam;

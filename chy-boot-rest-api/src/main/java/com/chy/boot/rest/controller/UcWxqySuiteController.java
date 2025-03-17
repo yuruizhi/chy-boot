@@ -1,11 +1,11 @@
-package com.chy.boot.demo.controller;
+package com.chy.boot.rest.controller;
 
 import com.chy.boot.commons.annotation.ApiVersion;
 import com.chy.boot.commons.api.R;
-import com.chy.boot.demo.entity.UcWxqySuite;
-import com.chy.boot.demo.remote.AuthService;
-import com.chy.boot.demo.remote.HttpApi;
-import com.chy.boot.demo.service.UcWxqySuiteService;
+import com.chy.boot.rest.entity.UcWxqySuite;
+import com.chy.boot.rest.remote.AuthService;
+import com.chy.boot.rest.remote.HttpApi;
+import com.chy.boot.rest.service.UcWxqySuiteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

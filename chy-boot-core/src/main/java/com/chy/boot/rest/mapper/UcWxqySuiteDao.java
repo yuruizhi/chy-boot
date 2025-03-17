@@ -1,7 +1,7 @@
-package com.chy.boot.demo.mapper;
+package com.chy.boot.rest.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chy.boot.demo.entity.UcWxqySuite;
+import com.chy.boot.rest.entity.UcWxqySuite;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

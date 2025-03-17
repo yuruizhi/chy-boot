@@ -1,4 +1,4 @@
-package com.chy.boot.demo.entity;
+package com.chy.boot.rest.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

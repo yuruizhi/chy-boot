@@ -5,7 +5,7 @@
  * 
  * 令牌拦截器示例 (TokenInterceptor Example)
  */
-package com.chy.boot.demo.config.retrofit;
+package com.chy.boot.rest.config.retrofit;
 
 /*
 import com.changyi.chy.commons.api.R;

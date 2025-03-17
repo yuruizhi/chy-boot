@@ -1,6 +1,6 @@
-package com.chy.boot.demo.remote;
+package com.chy.boot.rest.remote;
 
-import com.chy.boot.demo.response.RespDemo;
+import com.chy.boot.rest.response.RespDemo;
 import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitClient;
 import retrofit2.http.GET;
 
