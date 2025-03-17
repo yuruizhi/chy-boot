@@ -25,14 +25,14 @@ chy-boot/
 
 ## 技术栈
 
-- **核心框架**：Spring Boot 2.7.x
+- **核心框架**：Spring Boot 3.2.3
 - **安全框架**：Spring Security
-- **持久层框架**：MyBatis-Plus
-- **数据库连接池**：HikariCP、Druid
+- **持久层框架**：MyBatis-Plus 3.5.5
+- **数据库连接池**：HikariCP、Druid 1.2.21
 - **缓存框架**：Redis、Caffeine
 - **任务调度**：Quartz
 - **API文档**：SpringDoc OpenAPI 3
-- **工具库**：Hutool、Guava、Jackson、FastJSON
+- **工具库**：Hutool 5.8.26、Guava 33.0.0-jre、Jackson、FastJSON 2.0.47
 
 ## 功能特性
 
@@ -57,10 +57,10 @@ chy-boot/
 
 ### 环境要求
 
-- JDK 11+
-- Maven 3.5+
-- MySQL 5.7+
-- Redis 5.0+
+- JDK 17+
+- Maven 3.8+
+- MySQL 8.0+
+- Redis 6.0+
 
 ### 项目启动
 
@@ -109,6 +109,28 @@ chy-boot/
 - 变量名使用小驼峰命名法，常量使用全大写，单词间用下划线分隔
 - 表名使用小写字母，单词间用下划线分隔，实体类对应的表使用单数形式
 - 注释规范：类、字段、方法都应该有注释，说明其作用
+
+## 最佳实践
+
+详细的最佳实践指南请参考 [BEST-PRACTICES.md](BEST-PRACTICES.md)，包括：
+
+- 分层架构设计
+- 包结构规范
+- 异常处理
+- 日志记录
+- 安全实践
+- 性能优化
+- 测试策略
+
+## 升级指南
+
+项目的升级历史和计划请参考 [UPGRADE-GUIDE.md](UPGRADE-GUIDE.md)，包括：
+
+- SpringBoot 3.x 升级
+- MyBatis-Plus集成
+- 安全框架升级
+- 缓存策略优化
+- 监控系统集成
 
 ## 贡献指南
 
