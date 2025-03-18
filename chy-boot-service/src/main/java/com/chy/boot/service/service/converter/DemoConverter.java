@@ -1,9 +1,9 @@
 package com.chy.boot.service.service.converter;
 
 import com.chy.boot.rest.core.entity.Demo;
-import com.chy.boot.rest.dto.CreateDemoDTO;
-import com.chy.boot.rest.dto.UpdateDemoDTO;
-import com.chy.boot.rest.vo.DemoVO;
+import com.chy.boot.api.dto.request.CreateDemoDTO;
+import com.chy.boot.api.dto.request.UpdateDemoDTO;
+import com.chy.boot.api.vo.DemoVO;
 
 import org.springframework.stereotype.Component;
 
@@ -67,7 +67,7 @@ public class DemoConverter {
     /**
      * 实体转VO
      */
-    public DemoVO convertToVO(Demo demo) {
+    public DemoVO entityToVO(Demo demo) {
         if (demo == null) {
             return null;
         }
@@ -108,13 +108,13 @@ public class DemoConverter {
     /**
      * 批量转换实体到VO
      */
-    public List<DemoVO> convertToVOList(List<Demo> demoList) {
+    public List<DemoVO> entityToVOList(List<Demo> demoList) {
         if (demoList == null) {
             return new ArrayList<>();
         }
         
         return demoList.stream()
-                .map(this::convertToVO)
+                .map(this::entityToVO)
                 .collect(Collectors.toList());
     }
 } 

@@ -56,6 +56,13 @@ public class GlobalExceptionHandler {
         return R.fail(ResultCode.UN_AUTHORIZED.getCode(), ResultCode.UN_AUTHORIZED.getMessage());
     }
 
+    @ExceptionHandler(value = ClientTypeException.class)
+    @ResponseBody
+    public R clientTypeExceptionHandler(ClientTypeException ex) {
+        logger.warn("客户端类型异常: {}", ex.getMessage());
+        return R.fail(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+    }
+
     @ExceptionHandler(value = ServiceFusingException.class)
     @ResponseBody
     public R fusingExceptionHandler(ServiceFusingException fx) {
