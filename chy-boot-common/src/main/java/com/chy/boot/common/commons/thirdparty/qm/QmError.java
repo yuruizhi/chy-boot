@@ -1,4 +1,4 @@
-package com.chy.boot.common.commons.third.qm;
+package com.chy.boot.common.commons.thirdparty.qm;
 
 import lombok.Data;
 
