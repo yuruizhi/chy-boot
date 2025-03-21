@@ -3,15 +3,14 @@ package com.changyi.chy.commons.api;
 import com.changyi.chy.commons.constant.ChyConstant;
 import com.changyi.chy.commons.context.ExecuteContext;
 import com.changyi.chy.commons.util.ObjectUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.lang.Nullable;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.Optional;
 
@@ -24,22 +23,22 @@ import java.util.Optional;
 @Getter
 @Setter
 @ToString
-@ApiModel(description = "返回信息")
+@Schema(description = "返回信息")
 @NoArgsConstructor
 public class R<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "状态码")
+    @Schema(description = "状态码")
     private int code;
 
-    @ApiModelProperty(value = "返回消息")
+    @Schema(description = "返回消息")
     private String msg;
 
-    @ApiModelProperty(value = "请求ID")
+    @Schema(description = "请求ID")
     private String requestId;
 
-    @ApiModelProperty(value = "承载数据")
+    @Schema(description = "承载数据")
     private T data;
 
     private R(IResultCode resultCode) {

@@ -3,19 +3,83 @@ app:
 
 spring:
   application:
-    name: chy-boot-rest-api
+    name: chy-boot
   profiles:
     active: local
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: 123456
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/chy-boot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 1000
+    password:
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.changyi.chy.demo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.changyi.chy: debug
+    org.springframework: warn
+
+# Knife4j配置
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  group-configs:
+    - group: default
+      paths-to-match: /api/**
+      packages-to-scan: com.changyi.chy
+
+# 示例服务配置
+test:
+  baseUrl: https://www.baidu.com
+  authUri: http://localhost:8080/api
+
+# 自定义线程池配置
+thread-pool:
+  core-pool-size: 10
+  max-pool-size: 20
+  queue-capacity: 1000
+  keep-alive-seconds: 300
+  thread-name-prefix: chy-boot-
 
 server:
   compression:
     enabled: true
-  port: 8084
+  port: 8080
   undertow:
     buffer-size: 1024
     direct-buffers: true
     io-threads: 8
     worker-threads: 400
+  servlet:
+    context-path: /api
 
 # 启动上下文过滤器
 web:

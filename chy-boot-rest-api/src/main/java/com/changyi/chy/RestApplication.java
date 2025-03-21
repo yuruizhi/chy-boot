@@ -1,12 +1,13 @@
 package com.changyi.chy;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 
 
 /**
@@ -19,7 +20,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @SpringBootApplication(scanBasePackages = {"com.changyi.chy"}, exclude = DruidDataSourceAutoConfigure.class)
 @MapperScan(basePackages = "com.changyi.chy.**.mapper")
-@EnableKnife4j
+@OpenAPIDefinition(
+    info = @Info(
+        title = "CHY Boot API",
+        description = "CHY Boot REST API Documentation",
+        version = "1.0.0"
+    )
+)
 public class RestApplication {
     public static void main(String[] args) {
         SpringApplication.run(RestApplication.class, args);
