@@ -10,7 +10,7 @@
         <version>3.2.3</version>
     </parent>
 
-    <groupId>com.changyi</groupId>
+    <groupId>com.chy</groupId>
     <artifactId>chy-boot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -52,17 +52,17 @@
         <dependencies>
             <!-- 内部模块依赖 -->
             <dependency>
-                <groupId>com.changyi</groupId>
+                <groupId>com.chy</groupId>
                 <artifactId>chy-boot-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.changyi</groupId>
+                <groupId>com.chy</groupId>
                 <artifactId>chy-boot-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.changyi</groupId>
+                <groupId>com.chy</groupId>
                 <artifactId>chy-boot-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
