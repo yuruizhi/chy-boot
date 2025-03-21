@@ -33,7 +33,7 @@ node {
                             """),
                     string(
                             name: 'docker_namespace',
-                            defaultValue: 'uc-changyi',
+                            defaultValue: 'uc-chy',
                             description: """腾讯云镜像命名空间，区分不同的项目团队
                             """),
                     string(
@@ -88,7 +88,7 @@ node {
                 doGenerateSubmoduleConfigurations: false,
                 extensions                       : [],
                 submoduleCfg                     : [],
-                userRemoteConfigs                : [[url: 'ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/uc/danone-boot.git']]
+                userRemoteConfigs                : [[url: 'ssh://git@github.com:yuruizhi/chy-boot.git']]
         ])
     }
 

@@ -3,19 +3,87 @@ app:
 
 spring:
   application:
-    name: chy-boot-rest-api
+    name: chy-boot
   profiles:
     active: local
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filters: stat,wall
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 2000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin123
+  redis:
+    timeout: 1000
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.chy.boot.core.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.chy.boot: debug
+    org.springframework: warn
+
+# Knife4j配置
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  group-configs:
+    - group: default
+      paths-to-match: /api/**
+      packages-to-scan: com.chy.boot
+
+# 示例服务配置
+test:
+  baseUrl: https://www.baidu.com
+  authUri: http://localhost:8080/api
+
+# 自定义线程池配置
+thread-pool:
+  core-pool-size: 10
+  max-pool-size: 20
+  queue-capacity: 1000
+  keep-alive-seconds: 300
+  thread-name-prefix: chy-boot-
 
 server:
   compression:
     enabled: true
-  port: 8084
+  port: 8081
   undertow:
     buffer-size: 1024
     direct-buffers: true
     io-threads: 8
     worker-threads: 400
+  servlet:
+    context-path: /
 
 # 启动上下文过滤器
 web:

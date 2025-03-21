@@ -1,35 +1,14 @@
 spring:
   datasource:
-    druid:
-      stat-view-servlet:
-        enabled: true
-        login-username: admin
-        login-password: acyddseieiw24
-      web-stat-filter:
-        enabled: false
-    dynamic:
-      druid:
-        #初始化时建立物理连接的个数
-        initial-size: 6
-        #最小连接池数量
-        min-idle: 5
-        #最大连接池数量
-        max-active: 10
-        #获取连接时最大等待时间
-        max-wait: 60000
-      datasource:
-        master:
-          url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.cj.jdbc.Driver
-        slave_1:
-          90url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3307/chy-boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+    username: root
+    password: admin123
+    driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    password: 1234
+    host: localhost
+    port: 6379
+    database: 0
+    password:
     timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
     lettuce:
       pool:
@@ -39,12 +18,7 @@ spring:
         min-idle: 0
     cluster:
       nodes:
-        - 192.168.239.1:6371
-        - 192.168.239.1:6372
-        - 192.168.239.1:6373
-        - 192.168.239.1:6374
-        - 192.168.239.1:6375
-        - 192.168.239.1:6376
+        - 127.0.0.1:6371
       max-redirects: 5
 
 swagger:

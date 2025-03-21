@@ -1,14 +1,24 @@
-FROM ccr.ccs.tencentyun.com/changyi_docker/oracle-java:8_server-jre_unlimited
-LABEL maintainer="Henry.Yu <yuruizhi@vchangyi.com>"
+FROM eclipse-temurin:17-jre-alpine as builder
+WORKDIR /app
+COPY chy-boot-rest-api/target/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 
-# 安装字体工具及设置时区为京八区
-RUN apk update && apk add --update curl bash htop tzdata \
-    && cp -r -f /usr/share/zoneinfo/Hongkong /etc/localtime \
-    && rm -rf /var/cache/apk/* \
-    && mkdir -p /data/logs/jvm
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
 
-ADD danone-boot-api/target/danone-boot-api-1.0-SNAPSHOT.jar /app.jar
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV PORT 8084
-HEALTHCHECK --interval=120s --timeout=300s CMD curl http://localhost:$PORT/actuator/health || exit 1
-ENTRYPOINT java ${JAVA_OPTS} -Duser.timezone=GMT+08 -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+RUN apk --no-cache add curl
+
+COPY --from=builder /app/dependencies/ ./
+COPY --from=builder /app/spring-boot-loader/ ./
+COPY --from=builder /app/snapshot-dependencies/ ./
+COPY --from=builder /app/application/ ./
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/api/actuator/health || exit 1
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
