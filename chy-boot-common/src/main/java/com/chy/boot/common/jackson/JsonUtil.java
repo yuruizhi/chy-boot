@@ -18,6 +18,7 @@ package com.chy.boot.common.jackson;
 import com.chy.boot.common.util.DateUtil;
 import com.chy.boot.common.util.Exceptions;
 import com.chy.boot.common.util.StringPool;
+import com.chy.boot.common.util.StringUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
@@ -218,7 +219,7 @@ public class JsonUtil {
     public static <T> List<T> parseArray(String content, Class<T> valueTypeRef) {
         try {
 
-            if (content != null && !content.trim().startsWith("[")) {
+            if (!StringUtil.startsWithIgnoreCase(content, StringPool.LEFT_SQ_BRACKET)) {
                 content = StringPool.LEFT_SQ_BRACKET + content + StringPool.RIGHT_SQ_BRACKET;
             }
 
@@ -235,34 +236,20 @@ public class JsonUtil {
         return null;
     }
 
-    /**
-     * 将json转换为Map对象
-     *
-     * @param content json字符串
-     * @return Map对象
-     */
-    @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> toMap(String content) {
+    public static Map<String, Object> toMap(String content) {
         try {
-            return getInstance().readValue(content, Map.class);
+            return getInstance().readValue(content, new TypeReference<Map<String, Object>>() {
+            });
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
         return null;
     }
 
-    /**
-     * 将json转换为特定类型值的Map对象
-     *
-     * @param content 字符串
-     * @param valueTypeRef 值类型
-     * @param <T> 泛型标记
-     * @return Map对象
-     */
     public static <T> Map<String, T> toMap(String content, Class<T> valueTypeRef) {
         try {
-            Map<String, Map<String, Object>> map = getInstance().readValue(content, 
-                new TypeReference<Map<String, Map<String, Object>>>() {});
+            Map<String, Map<String, Object>> map = getInstance().readValue(content, new TypeReference<Map<String, Map<String, Object>>>() {
+            });
             Map<String, T> result = new HashMap<>(16);
             for (Map.Entry<String, Map<String, Object>> entry : map.entrySet()) {
                 result.put(entry.getKey(), toPojo(entry.getValue(), valueTypeRef));
@@ -274,7 +261,7 @@ public class JsonUtil {
         return null;
     }
 
-    public static <T> T toPojo(Map fromValue, Class<T> toValueType) {
+    public static <T> T toPojo(Map<String, Object> fromValue, Class<T> toValueType) {
         return getInstance().convertValue(fromValue, toValueType);
     }
 

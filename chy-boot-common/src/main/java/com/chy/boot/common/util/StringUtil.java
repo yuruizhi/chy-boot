@@ -19,7 +19,6 @@ package com.chy.boot.common.util;
 import com.chy.boot.common.support.StrFormatter;
 import com.chy.boot.common.support.StrSpliter;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.StringReader;
@@ -31,10 +30,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
- * 字符串工具类
+ * 继承自Spring util的工具类，减少jar依赖
  *
  */
-public class StringUtil {
+public class StringUtil extends org.springframework.util.StringUtils {
 
 	public static final int INDEX_NOT_FOUND = -1;
 
@@ -57,7 +56,7 @@ public class StringUtil {
 	 * @see Character#isWhitespace
 	 */
 	public static boolean isBlank(final CharSequence cs) {
-		return !StringUtils.hasText(cs);
+		return !StringUtil.hasText(cs);
 	}
 
 	/**
@@ -76,27 +75,7 @@ public class StringUtil {
 	 * @see Character#isWhitespace
 	 */
 	public static boolean isNotBlank(final CharSequence cs) {
-		return StringUtils.hasText(cs);
-	}
-
-	/**
-	 * 检查字符串是否为空
-	 * <p>More specifically, this method returns {@code true} if the
-	 * {@code String} is not {@code null}, its length is greater than 0.
-	 * <pre class="code">
-	 * StringUtil.isEmpty(null) = true
-	 * StringUtil.isEmpty("") = true
-	 * StringUtil.isEmpty(" ") = false
-	 * StringUtil.isEmpty("12345") = false
-	 * StringUtil.isEmpty(" 12345 ") = false
-	 * </pre>
-	 *
-	 * @param str the {@code String} to check (may be {@code null})
-	 * @return {@code true} if the {@code String} is not {@code null},
-	 * its length is greater than 0.
-	 */
-	public static boolean isEmpty(final CharSequence str) {
-		return !StringUtils.hasLength(str);
+		return StringUtil.hasText(cs);
 	}
 
 	/**
@@ -106,6 +85,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static Boolean checkList(Collection list) {
+
 		if (list != null && list.size() != 0) {
 			return true;
 		} else {
@@ -166,7 +146,7 @@ public class StringUtil {
 	 * @return the delimited {@code String}
 	 */
 	public static String join(Collection<?> coll) {
-		return StringUtils.collectionToCommaDelimitedString(coll);
+		return StringUtil.collectionToCommaDelimitedString(coll);
 	}
 
 	/**
@@ -178,7 +158,7 @@ public class StringUtil {
 	 * @return the delimited {@code String}
 	 */
 	public static String join(Collection<?> coll, String delim) {
-		return StringUtils.collectionToDelimitedString(coll, delim);
+		return StringUtil.collectionToDelimitedString(coll, delim);
 	}
 
 	/**
@@ -190,7 +170,7 @@ public class StringUtil {
 	 * @return the delimited {@code String}
 	 */
 	public static String join(Object[] arr) {
-		return StringUtils.arrayToCommaDelimitedString(arr);
+		return StringUtil.arrayToCommaDelimitedString(arr);
 	}
 
 	/**
@@ -202,7 +182,7 @@ public class StringUtil {
 	 * @return the delimited {@code String}
 	 */
 	public static String join(Object[] arr, String delim) {
-		return StringUtils.arrayToDelimitedString(arr, delim);
+		return StringUtil.arrayToDelimitedString(arr, delim);
 	}
 
 	/**
@@ -290,10 +270,7 @@ public class StringUtil {
 	 * @return 格式化后的文本
 	 */
 	public static String format(CharSequence template, Object... params) {
-		if (null == template) {
-			return null;
-		}
-		if (Func.isEmpty(params) || isBlank(template)) {
+		if (!hasLength(template) || Func.isEmpty(params)) {
 			return template.toString();
 		}
 		return StrFormatter.format(template.toString(), params);
@@ -321,8 +298,8 @@ public class StringUtil {
 	 * @return 格式化后的文本
 	 */
 	public static String format(CharSequence template, Map<?, ?> map) {
-		if (null == template) {
-			return null;
+		if (!hasLength(template)) {
+			return template.toString();
 		}
 		if (null == map || map.isEmpty()) {
 			return template.toString();
@@ -500,7 +477,16 @@ public class StringUtil {
 	 * @since 3.2.0
 	 */
 	public static boolean containsAny(CharSequence str, CharSequence... testStrs) {
-		return null != getContainsStr(str, testStrs);
+		if (!hasLength(str) || Func.isEmpty(testStrs)) {
+			return false;
+		}
+
+		for (CharSequence checkStr : testStrs) {
+			if (str.toString().contains(checkStr)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -512,9 +498,10 @@ public class StringUtil {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStr(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || Func.isEmpty(testStrs)) {
+		if (!hasLength(str) || Func.isEmpty(testStrs)) {
 			return null;
 		}
+
 		for (CharSequence checkStr : testStrs) {
 			if (str.toString().contains(checkStr)) {
 				return checkStr.toString();
@@ -561,7 +548,7 @@ public class StringUtil {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStrIgnoreCase(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || Func.isEmpty(testStrs)) {
+		if (!hasLength(str) || Func.isEmpty(testStrs)) {
 			return null;
 		}
 		for (CharSequence testStr : testStrs) {
@@ -573,21 +560,15 @@ public class StringUtil {
 	}
 
 	/**
-	 * 改进JDK subString<br>
-	 * index从0开始计算，最后一个字符为-1<br>
-	 * 如果from和to位置一样，返回 "" <br>
-	 * 如果from或to为负数，则按照length从后向前数位置，如果绝对值大于字符串长度，则from归到0，to归到length<br>
-	 * 如果经过修正的index中from大于to，则互换from和to example: <br>
-	 * abcdefgh 2 3 =》 c <br>
-	 * abcdefgh 2 -3 =》 cde <br>
+	 * 切取部分字符串，这里一般把String看成可以进行切割的数组
 	 *
-	 * @param str       String
-	 * @param fromIndex 开始的index（包括）
-	 * @param toIndex   结束的index（不包括）
-	 * @return 字串
+	 * @param str       字符串
+	 * @param fromIndex 切割的开始位置（包括）
+	 * @param toIndex   切割的结束位置（不包括）
+	 * @return 切割后的字符串
 	 */
 	public static String sub(CharSequence str, int fromIndex, int toIndex) {
-		if (isEmpty(str)) {
+		if (!hasLength(str)) {
 			return StringPool.EMPTY;
 		}
 		int len = str.length();
@@ -623,13 +604,10 @@ public class StringUtil {
 		return str.toString().substring(fromIndex, toIndex);
 	}
 
-
 	/**
 	 * 截取分隔字符串之前的字符串，不包括分隔字符串<br>
 	 * 如果给定的字符串为空串（null或""）或者分隔字符串为null，返回原字符串<br>
-	 * 如果分隔字符串为空串""，则返回空串，如果分隔字符串未找到，返回原字符串
-	 * <p>
-	 * 栗子：
+	 * 如果分隔字符串为空串""，则返回空串，如果分隔字符串未找到，返回原字符串，举例如下：
 	 *
 	 * <pre>
 	 * StringUtil.subBefore(null, *)      = null
@@ -649,7 +627,7 @@ public class StringUtil {
 	 * @since 3.1.1
 	 */
 	public static String subBefore(CharSequence string, CharSequence separator, boolean isLastSeparator) {
-		if (isEmpty(string) || separator == null) {
+		if (!hasLength(string) || separator == null) {
 			return null == string ? null : string.toString();
 		}
 
@@ -668,9 +646,7 @@ public class StringUtil {
 	/**
 	 * 截取分隔字符串之后的字符串，不包括分隔字符串<br>
 	 * 如果给定的字符串为空串（null或""），返回原字符串<br>
-	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串
-	 * <p>
-	 * 栗子：
+	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串，举例如下：
 	 *
 	 * <pre>
 	 * StringUtil.subAfter(null, *)      = null
@@ -690,7 +666,7 @@ public class StringUtil {
 	 * @since 3.1.1
 	 */
 	public static String subAfter(CharSequence string, CharSequence separator, boolean isLastSeparator) {
-		if (isEmpty(string)) {
+		if (!hasLength(string)) {
 			return null == string ? null : string.toString();
 		}
 		if (separator == null) {
@@ -779,8 +755,8 @@ public class StringUtil {
 	 * @return 切掉后的字符串，若前缀不是 preffix， 返回原字符串
 	 */
 	public static String removePrefix(CharSequence str, CharSequence prefix) {
-		if (isEmpty(str) || isEmpty(prefix)) {
-			return StringPool.EMPTY;
+		if (!hasLength(str) || !hasLength(prefix)) {
+			return str.toString();
 		}
 
 		final String str2 = str.toString();
@@ -798,8 +774,8 @@ public class StringUtil {
 	 * @return 切掉后的字符串，若前缀不是 prefix， 返回原字符串
 	 */
 	public static String removePrefixIgnoreCase(CharSequence str, CharSequence prefix) {
-		if (isEmpty(str) || isEmpty(prefix)) {
-			return StringPool.EMPTY;
+		if (!hasLength(str) || !hasLength(prefix)) {
+			return str.toString();
 		}
 
 		final String str2 = str.toString();
@@ -817,8 +793,8 @@ public class StringUtil {
 	 * @return 切掉后的字符串，若后缀不是 suffix， 返回原字符串
 	 */
 	public static String removeSuffix(CharSequence str, CharSequence suffix) {
-		if (isEmpty(str) || isEmpty(suffix)) {
-			return StringPool.EMPTY;
+		if (!hasLength(str) || !hasLength(suffix)) {
+			return str.toString();
 		}
 
 		final String str2 = str.toString();
@@ -847,8 +823,8 @@ public class StringUtil {
 	 * @return 切掉后的字符串，若后缀不是 suffix， 返回原字符串
 	 */
 	public static String removeSuffixIgnoreCase(CharSequence str, CharSequence suffix) {
-		if (isEmpty(str) || isEmpty(suffix)) {
-			return StringPool.EMPTY;
+		if (!hasLength(str) || !hasLength(suffix)) {
+			return str.toString();
 		}
 
 		final String str2 = str.toString();
@@ -909,7 +885,7 @@ public class StringUtil {
 	 * @return 切割后后剩余的后半部分字符串
 	 */
 	public static String subSuf(CharSequence string, int fromIndex) {
-		if (isEmpty(string)) {
+		if (!hasLength(string)) {
 			return null;
 		}
 		return sub(string, fromIndex, string.length());
@@ -1179,7 +1155,7 @@ public class StringUtil {
 	 * @since 3.2.1
 	 */
 	public static boolean isSubEquals(CharSequence str1, int start1, CharSequence str2, int start2, int length, boolean ignoreCase) {
-		if (null == str1 || null == str2) {
+		if (!hasLength(str1) || !hasLength(str2)) {
 			return false;
 		}
 
@@ -1338,10 +1314,9 @@ public class StringUtil {
 	 * @return 查找到的个数
 	 */
 	public static int count(CharSequence content, CharSequence strForSearch) {
-		if (Func.hasEmpty(content, strForSearch) || strForSearch.length() > content.length()) {
+		if (!hasLength(content) || !hasLength(strForSearch)) {
 			return 0;
 		}
-
 		int count = 0;
 		int idx = 0;
 		final String content2 = content.toString();
@@ -1362,7 +1337,7 @@ public class StringUtil {
 	 */
 	public static int count(CharSequence content, char charForSearch) {
 		int count = 0;
-		if (isEmpty(content)) {
+		if (!hasLength(content)) {
 			return 0;
 		}
 		int contentLength = content.length();
@@ -1483,6 +1458,107 @@ public class StringUtil {
 		return Integer.parseInt(str);
 	}
 
+	/**
+	 * 截取字符串,从指定位置开始,截取指定长度的字符串<br>
+	 * author weibaohui
+	 *
+	 * @param input     原始字符串
+	 * @param fromIndex 开始的index,包括
+	 * @param length    要截取的长度
+	 * @return 截取后的字符串
+	 */
+	public static String str(String input, int fromIndex, int length) {
+		if (!hasLength(input)) {
+			return StringPool.EMPTY;
+		}
+		return input.substring(fromIndex, fromIndex + length);
+	}
+
+	/**
+	 * 获取字符串的长度，如果为null返回0
+	 *
+	 * @param cs a 字符串
+	 * @return 字符串的长度，如果为null返回0
+	 */
+	public static int length(CharSequence cs) {
+		return cs == null ? 0 : cs.length();
+	}
+
+	/**
+	 * 计算32位字符串的hashcode
+	 *
+	 * @param str 字符串
+	 * @return hashcode
+	 */
+	public static int hash32(String str) {
+		if (!hasLength(str)) {
+			return 0;
+		}
+		int h = 0;
+		for (int i = 0; i < str.length(); i++) {
+			h = (h * 31 + str.charAt(i)) ^ h;
+		}
+		return h;
+	}
+
+	/**
+	 * <p>获取指定字符串的子串。</p>
+	 *
+	 * <p>
+	 * 正数表示从左往右数，负数表示从右往左数。
+	 * 如果 start 和 end 都大于 0，则 end 必须大于 start。
+	 * 如果 start 和 end 都小于 0，则 start 必须小于 end。
+	 * </p>
+	 *
+	 * <pre>
+	 * StringUtil.subWithLength("abcdefg", 0, 3)    = "abc"
+	 * StringUtil.subWithLength("abcdefg", 2, 3)    = "cde"
+	 * StringUtil.subWithLength("abcdefg", -3, 3)   = "efg"
+	 * StringUtil.subWithLength("abcdefg", -6, 3)   = "bcd"
+	 * StringUtil.subWithLength("abcdefg", 0, -3)   = "abcd"
+	 * StringUtil.subWithLength("abcdefg", 2, -3)   = "cd"
+	 * StringUtil.subWithLength("abcdefg", -3, -3)  = "a"
+	 * StringUtil.subWithLength("abcdefg", -6, -3)  = "ab"
+	 * </pre>
+	 *
+	 * @param string  字符串
+	 * @param start   起始位置（包括）
+	 * @param length  长度
+	 * @return 子串
+	 * @since 4.5.2
+	 */
+	public static String subWithLength(CharSequence string, int start, int length) {
+		if (!hasLength(string)) {
+			return StringPool.EMPTY;
+		}
+		
+		int len = string.length();
+		if (start < 0) {
+			// 负数，从右往左数
+			start = len + start;
+			if (start < 0) {
+				start = 0;
+			}
+		} else if (start > len) {
+			return StringPool.EMPTY;
+		}
+		
+		if (length < 0) {
+			// 负数表示截取到字符串结尾前n个字符
+			length = len + length - start;
+		}
+		
+		if (length <= 0) {
+			return StringPool.EMPTY;
+		}
+		
+		int end = start + length;
+		if (end > len) {
+			end = len;
+		}
+		
+		return string.toString().substring(start, end);
+	}
 
 }
 

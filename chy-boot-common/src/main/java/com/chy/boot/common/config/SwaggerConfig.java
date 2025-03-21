@@ -31,7 +31,7 @@ public class SwaggerConfig {
                         .version("2.0")
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")))
                 .components(new Components()
-                        .addSecuritySchemes(TOKEN_HEADER,
+                        .addSecuritySchemes(TOKEN_HEADER, 
                                 new SecurityScheme()
                                         .type(SecurityScheme.Type.APIKEY)
                                         .in(SecurityScheme.In.HEADER)
