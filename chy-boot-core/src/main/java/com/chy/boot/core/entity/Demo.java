@@ -1,9 +1,12 @@
 package com.chy.boot.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class Demo implements Serializable {
@@ -13,12 +16,26 @@ public class Demo implements Serializable {
     @Schema(description = "ID")
     private String id;
 
-    @Schema(description = "数据状态: 1-正常, 0-删除")
-    private Integer status;
+    @Schema(description = "名称")
+    private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "创建时间")
-    private Long createTime;
+    private Date createdAt;
 
-    @Schema(description = "修改时间")
-    private Long updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Schema(description = "更新时间")
+    private Date updatedAt;
+
+    @JsonIgnore
+    @Schema(description = "创建人")
+    private String createdBy;
+
+    @JsonIgnore
+    @Schema(description = "更新人")
+    private String updatedBy;
+
+    @JsonIgnore
+    @Schema(description = "删除标识(0: 未删除; 删除存时间戳)")
+    private Long deletedAt;
 }

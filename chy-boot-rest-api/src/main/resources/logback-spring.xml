@@ -57,7 +57,7 @@
 
 
     <springProfile name="local,test">
-        <logger name="com.changyi" level="debug"/>
+        <logger name="com.chy" level="debug"/>
         <logger name="com.alibaba" level="info"/>
         <logger name="net.bull.javamelody" level="info"/>
         <logger name="org.redisson" level="info"/>
@@ -66,7 +66,7 @@
     </springProfile>
 
     <springProfile name="prod">
-        <logger name="com.changyi" level="info"/>
+        <logger name="com.chy" level="info"/>
         <logger name="com.alibaba" level="info"/>
         <logger name="net.bull.javamelody" level="info"/>
         <logger name="org.redisson" level="info"/>
