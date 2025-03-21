@@ -11,58 +11,58 @@ public interface ValidateMessage {
     /**
      * 内容为空时的提示
      */
-    String NotBlank = "{com.changyi.valid.NotBlank.message}";
+    String NotBlank = "{com.chy.valid.NotBlank.message}";
 
     /**
      * Url格式错误
      */
-    String URL = "{com.changyi.valid.URL.message}";
+    String URL = "{com.chy.valid.URL.message}";
     // 邮件地址
-    String Email = "{com.changyi.valid.Email.message}";
+    String Email = "{com.chy.valid.Email.message}";
     // IP地址格式错误
-    String Ip = "{com.changyi.valid.Ip.message}";
+    String Ip = "{com.chy.valid.Ip.message}";
     // 交易类型错误
-    String TradeType = "{com.changyi.valid.TradeType.message}";
+    String TradeType = "{com.chy.valid.TradeType.message}";
     // 不为Empty
-    String NotEmpty = "{com.changyi.valid.NotEmpty.message}";
+    String NotEmpty = "{com.chy.valid.NotEmpty.message}";
     // 不为Null
-    String NotNull = "{com.changyi.valid.NotNull.message}";
+    String NotNull = "{com.chy.valid.NotNull.message}";
     // 为Null
-    String Null = "{com.changyi.valid.Null.message}";
+    String Null = "{com.chy.valid.Null.message}";
 
-    String Past = "{com.changyi.valid.Past.message}";
+    String Past = "{com.chy.valid.Past.message}";
     // 正则错误
-    String Pattern = "{com.changyi.valid.Pattern.message}";
+    String Pattern = "{com.chy.valid.Pattern.message}";
     // 对象长度判断错误
-    String Size = "{com.changyi.valid.Size.message}";
+    String Size = "{com.chy.valid.Size.message}";
 
     // 对象长度判断错误(固定)
-    String fixedSize = "{com.changyi.valid.fixedSize.message}";
+    String fixedSize = "{com.chy.valid.fixedSize.message}";
 
     // 字串长度判断错误
-    String Length = "{com.changyi.valid.Length.message}";
+    String Length = "{com.chy.valid.Length.message}";
 
     // 字串长度判断错误
-    String MaxLength = "{com.changyi.valid.MaxLength.message}";
+    String MaxLength = "{com.chy.valid.MaxLength.message}";
 
     // 字串长度判断错误
-    String MinLength = "{com.changyi.valid.MinLength.message}";
+    String MinLength = "{com.chy.valid.MinLength.message}";
 
     // 最小值错误
-    String Min = "{com.changyi.valid.Min.message}";
+    String Min = "{com.chy.valid.Min.message}";
     // 最大值错误
-    String Max = "{com.changyi.valid.Max.message}";
+    String Max = "{com.chy.valid.Max.message}";
 
-    String Future = "{com.changyi.valid.Future.message}";
+    String Future = "{com.chy.valid.Future.message}";
 
-    String Digits = "{com.changyi.valid.Digits.message}";
+    String Digits = "{com.chy.valid.Digits.message}";
 
-    String AssertFalse = "{com.changyi.valid.AssertFalse.message}";
+    String AssertFalse = "{com.chy.valid.AssertFalse.message}";
 
-    String AssertTrue = "{com.changyi.valid.AssertTrue.message}";
+    String AssertTrue = "{com.chy.valid.AssertTrue.message}";
 
-    String DecimalMax = "{com.changyi.valid.DecimalMax.message}";
+    String DecimalMax = "{com.chy.valid.DecimalMax.message}";
 
-    String DecimalMin = "{com.changyi.valid.DecimalMin.message}";
+    String DecimalMin = "{com.chy.valid.DecimalMin.message}";
 
 }

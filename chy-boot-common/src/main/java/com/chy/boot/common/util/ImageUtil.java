@@ -282,7 +282,7 @@ public class ImageUtil {
         // File outFile = ImageUtil.nounPressImage(inFile, 1024);
         // String base64 = ImageUtil.image2Base64(outFile);
 
-        String imgUrl = "https://resources.vchangyi.com/common/20190125/845C3A9F0A69039F72E7C760BCCE9930/82BB1BC67F0000013D06DA3196FDC20F.jpg?atId=82BB1BC67F0000013D06DA3196FDC20F";
+        String imgUrl = "https://resources.vchy.com/common/20190125/845C3A9F0A69039F72E7C760BCCE9930/82BB1BC67F0000013D06DA3196FDC20F.jpg?atId=82BB1BC67F0000013D06DA3196FDC20F";
         String base64 = image2Base64(imgUrl, false);
         System.out.println(base64);
         Boolean x = getImgBase64ToImgFile(base64, "/Users/yuruizhi/xxx");

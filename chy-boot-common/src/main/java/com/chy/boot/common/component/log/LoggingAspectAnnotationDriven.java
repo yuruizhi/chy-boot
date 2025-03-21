@@ -85,7 +85,7 @@ public class LoggingAspectAnnotationDriven {
                             String className = String.valueOf(joinPoint.getArgs()[i]);
 
                             // 如果是bean对象,需要转换json
-                            if (className.indexOf("com.changyi") != -1) {
+                            if (className.indexOf("com.chy") != -1) {
                                 Object obj = joinPoint.getArgs()[Integer.parseInt(str)];
                                 desc = desc.replace(oldStr, JsonUtil.object2Json(obj));
                                 continue;
