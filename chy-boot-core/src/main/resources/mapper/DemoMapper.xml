@@ -4,20 +4,106 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chy.boot.core.entity.Demo">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="create_at" property="createdAt"/>
-        <result column="update_at" property="updatedAt"/>
-        <result column="create_by" property="createdBy"/>
-        <result column="update_by" property="updatedAt"/>
-        <result column="delete_at" property="deletedAt"/>
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, create_at, update_at, create_by, update_by, delete_at
+        id, name, description, status, create_time, update_time
     </sql>
 
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="name != null and name != ''">
+                name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insert" parameterType="com.chy.boot.core.entity.Demo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_demo (name,
+                            description,
+                            status)
+        VALUES (#{name},
+                #{description},
+                #{status})
+    </insert>
+
+    <update id="update" parameterType="com.chy.boot.core.entity.Demo">
+        UPDATE t_demo
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_demo
+        WHERE id = #{id}
+    </select>
+
+    <update id="deleteById">
+        DELETE
+        FROM t_demo
+        WHERE id = #{id}
+    </update>
+
+    <update id="batchDelete">
+        UPDATE t_demo
+        SET deleted_at = #{deletedAt}
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND deleted_at = 0
+    </update>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_demo
+        <include refid="Base_Where_Clause"/>
+        ORDER BY create_time DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="countList" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM t_demo
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_demo
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByNameLike" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_demo
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_demo
+        WHERE status = #{status}
+        ORDER BY create_time DESC
+    </select>
 </mapper>
 
 

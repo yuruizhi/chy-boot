@@ -1,26 +1,23 @@
 package com.chy.boot.service.remote;
 
-import com.chy.boot.service.response.RespDemo;
-import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitClient;
-import retrofit2.http.GET;
-
+import org.springframework.stereotype.Service;
 
 /**
- * http api
+ * HTTP API服务 - 不再使用Retrofit
  *
- * @author ZhangHao
- * @date 2021/01/18
+ * @auther Henry.Yu
+ * @date 2023/09/06
  */
-// 使用RetrofitClient注解来定义一个HTTP客户端接口，指定基础URL
-@RetrofitClient(baseUrl = "${test.baseUrl}")
-public interface HttpApi {
+@Service
+public class HttpApi {
+
     /**
-     * 百度
+     * 简单的HTTP请求示例方法，返回一个字符串内容
+     * 这里使用模拟数据替代原来的Retrofit实现
      *
-     * @return {@link String}
+     * @return 一个模拟的响应字符串
      */
-    // 使用GET注解来定义一个HTTP GET请求，路径为"/"
-    @GET("/")
-    // 定义一个方法getOneHitokoto，该方法用于发送GET请求并返回一个RespDemo对象
-    RespDemo getOneHitokoto();
+    public String getContent() {
+        return "这是一个模拟的HTTP响应内容";
+    }
 }

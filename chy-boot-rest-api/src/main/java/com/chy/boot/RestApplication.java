@@ -1,35 +1,38 @@
 package com.chy.boot;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-
 /**
- * rest应用程序
+ * 启动类
  *
- * @author ZhangHao
- * @date 2021/01/14
+ * @auther Henry.Yu
+ * @date 2025/03/21
  */
 @Slf4j
 @EnableAsync
-@SpringBootApplication(scanBasePackages = {"com.chy.boot"}, exclude = DruidDataSourceAutoConfigure.class)
+@SpringBootApplication
 @MapperScan(basePackages = "com.chy.boot.**.mapper")
 @OpenAPIDefinition(
-    info = @Info(
-        title = "CHY Boot API",
-        description = "CHY Boot REST API Documentation",
-        version = "1.0.0"
-    )
+        info = @Info(
+                title = "CHY Boot API",
+                version = "1.0.0",
+                description = "CHY Boot REST API Documentation",
+                contact = @Contact(name = "Henry Yu", email = "yuruizhi@foxmail.com"),
+                license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html")
+        )
 )
 public class RestApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RestApplication.class, args);
-        log.info("Rest工程启动成功！");
+        ConfigurableApplicationContext context = SpringApplication.run(RestApplication.class, args);
+        log.info("服务启动成功");
     }
 }
