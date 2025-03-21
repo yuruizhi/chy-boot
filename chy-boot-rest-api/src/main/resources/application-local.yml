@@ -19,12 +19,12 @@ spring:
         max-wait: 60000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          url: jdbc:mysql://127.0.0.1:3307/chy-boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave_1:
-          90url: jdbc:mysql://127.0.0.1:3307/dev-ucenter?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
+          90url: jdbc:mysql://127.0.0.1:3307/chy-boot?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useUnicode=true&useServerPrepStmts=false&rewriteBatchedStatements=true
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver

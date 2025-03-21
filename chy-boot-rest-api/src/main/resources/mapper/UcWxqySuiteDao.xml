@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.changyi.chy.demo.mapper.UcWxqySuiteDao">
+<mapper namespace="com.chy.boot.core.mapper.UcWxqySuiteDao">
 
-    <resultMap type="com.changyi.chy.demo.entity.UcWxqySuite" id="UcWxqySuiteMap">
+    <resultMap type="com.chy.boot.core.entity.UcWxqySuite" id="UcWxqySuiteMap">
         <result property="qysSuiteid" column="qys_suiteid" jdbcType="VARCHAR"/>
         <result property="qysSuiteSecret" column="qys_suite_secret" jdbcType="VARCHAR"/>
         <result property="qysSuiteAeskey" column="qys_suite_aeskey" jdbcType="VARCHAR"/>
